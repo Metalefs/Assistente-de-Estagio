@@ -12,6 +12,7 @@ namespace Assistente_de_Estagio.Controllers
     {
         public IActionResult Index()
         {
+
             return View();
         }
 

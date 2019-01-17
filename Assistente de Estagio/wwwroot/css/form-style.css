@@ -1,0 +1,180 @@
+
+@import url('https://fonts.googleapis.com/css?family=Oswald|Roboto|Titillium+Web');
+/* Text styles */
+::-webkit-scrollbar { 
+    display: none; 
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3bO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
+}
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Open Sans Bold'), local('OpenSans-Bold'), url(https://fonts.gstatic.com/s/opensans/v13/k3k702ZOKiLJc3WVjuplzKRDOzjiPcYnFooOUGCOsRk.woff) format('woff');
+}
+
+
+#interface-preenchimento-popup{
+    margin: 0 auto;
+    box-shadow: 1px 1px 5px black;
+    width: 55%;
+    height: 40%;
+    font-family: 'Open Sans';
+    font-size: 10px;
+    overflow: scroll;
+}
+.pop-up{
+   
+    padding:10px;
+    margin: 0px 18%;
+    max-height: auto;
+}
+.in-preenchimento{
+    margin: 0;
+}
+canvas{
+    width: auto;
+    margin: 0 auto;
+    max-width: 80%;
+    height: auto;
+    font-size: 1px;
+}
+.hint{
+    font-weight: bold;
+    font-size: 17px;
+    position: relative;
+    word-break:normal;
+}
+#hint1{
+    border-bottom: 3px solid lightgreen;
+    
+}
+#hint2{
+    text-indent: 60px;
+    border-bottom: 3px solid yellow;
+    margin: 0;
+    margin-bottom: 10px;
+    
+}
+#campos-requisitos{
+    border-right:1px solid black;
+    padding:10px;
+    max-width: 35%;
+    min-width: 100px;
+    display: inline-block;
+    margin: 0;
+}
+.titulos{
+    margin: 1px;
+}
+.tituloCB{
+    display: inline-flex;
+}
+input [type="checkbox" i]{
+    display: inline-flex;
+}
+.button{
+    padding: 7px;
+    margin: 10px -1px;
+    margin-bottom:-10px;
+    position: relative;
+    display: inline;
+    border:0;
+    font-weight: bolder;
+    color:white;
+    min-width: 90px;
+    font-family: 'Tillium Web';
+    box-shadow: 1px 1px 0px white;
+    border: 0;
+    cursor:pointer;
+    border-radius: 3px;
+}
+.hidden{
+    font-family: monospace;
+    text-align: center;
+    
+}
+.button:hover{
+    box-shadow: 1px 1px 10px gray;
+    
+}
+.button:hover > p{
+    right:1px;
+    position: relative;
+}
+#print{
+    background: black;  
+    border-top-left-radius: 0px !important; 
+    border-bottom-left-radius: 0px !important; 
+    
+}
+#download{
+    background: green;
+    border-top-right-radius: 0px !important; 
+    border-bottom-right-radius: 0px !important; 
+}
+#campo-preview{
+    margin: 0 auto;
+    width:100%;
+    max-width: 56%;
+    padding: 10px;
+    display: inline-block;
+}
+#pdf-image{
+    box-shadow: 5px 1px 3px #444;
+    font-size: 1px;
+    margin: 0 10%;
+}
+.h-requisito{
+    position:relative;
+    display: inline;
+}
+auto-fill{
+    position: relative;
+    display: inline;
+}
+#pageContainer{
+    border:1px solid black;
+    max-width:900px;
+    padding:5px;
+    margin:10px;
+      
+}
+
+
+/* #downloadbtn{
+      color:blue;
+      cursor:pointer;
+}
+span {
+      position: absolute;
+      cursor: text;
+      white-space: pre;
+      transform-origin: left bottom;
+}*/
+
+@media only screen and (max-width: 930px){
+    #hint2{
+        text-indent: 0px;
+    }
+    #campos-requisitos{
+        max-width: 100%;        
+    }
+    #campo-preview{
+        margin: 0 auto;
+        width:100%;
+        max-width: auto;
+        padding: 10px;
+        display: inline-block;
+    }
+    canvas{
+        width: 300px;
+        height: auto;
+        font-size: 1px;
+    }
+}
