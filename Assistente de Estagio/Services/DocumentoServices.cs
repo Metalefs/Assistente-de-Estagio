@@ -11,17 +11,22 @@ namespace Assistente_de_Estagio.Services
 {
     public class DocumentoServices
     {
-        public readonly u911430744_estgContext _u911430744_estgContext;
+        public readonly u2019_estgContext _context;
 
-        public void CreateDocument(string[] args)
+        public DocumentoServices(u2019_estgContext context)
         {
-            List<DocumentoEstagio> dadosAluno = JsonConvert.DeserializeObject<List<DocumentoEstagio>>(args[0]);
+            _context = context;
+        }
+
+        public string CreateDocument(string dadosJson, string[] caminhoDocumento) // "[0]$dadosJson -- [1]$path
+        {
+            List<DocumentoEstagio> dadosAluno = JsonConvert.DeserializeObject<List<DocumentoEstagio>>(dadosJson); 
 
             int size = dadosAluno.Count;
 
             Console.WriteLine(dadosAluno[0].name);
 
-            string filePath = args[1];
+            string filePath = caminhoDocumento[0];
 
             Application app = new word.Application();
             Document doc = app.Documents.Open(filePath + ".doc");
@@ -30,18 +35,34 @@ namespace Assistente_de_Estagio.Services
             {
                 FindAndReplace(app, '"' + dadosAluno[0].name + '"', '"' + dadosAluno[0].value + '"');
             }
-            doc.SaveAs2(filePath + ".pdf", word.WdSaveFormat.wdFormatPDF);
+            doc.SaveAs2($"Downloads/"+ caminhoDocumento[1] + ".pdf", word.WdSaveFormat.wdFormatPDF);
+
+            return filePath+".pdf";
         }
-        // public List<Documento> ListAll()
-        // {
-        //    _context.Documento.ToList();
-        //}
+         public List<Documento> ListAll()
+         {
+           return _context.Documento.ToList();
+         }
+        
+        public List<Requisitos> ObterRequisitos(int id)
+        {
+            int i = 0;
+            List<Requisitos> requisitos = new List<Requisitos>();
+            var LRD = _context.RequisitoDeDocumento.Where(x => x.DocumentoIdDocumento == id).ToList();
+            foreach (Requisitodedocumento RDD in LRD)
+            {
+                requisitos.AddRange(_context.Requisitos.Where(x => x.IdRequisito == LRD.ElementAt(i).RequisitosIdRequisito));
+                i++;
+            }
+            return requisitos;
 
-        //  public List<Documento> ObterRequisitos(int id)
-        //  {
-        //      _context.requisitos.Where(x => x.IdDocumento = id);
-        // }
-
+        }
+        public string[] ObterCaminho(int id)
+        {
+           List<Documento> documento = _context.Documento.Where(x => x.IdDocumento == id).ToList();
+           string[] names = { documento.FirstOrDefault().CaminhoDocumento, documento.FirstOrDefault().TituloDocumento };
+           return names;
+        }
 
         private static void FindAndReplace(Microsoft.Office.Interop.Word.Application doc, object findText, object replaceWithText)
         {
