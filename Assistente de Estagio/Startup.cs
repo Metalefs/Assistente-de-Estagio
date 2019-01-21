@@ -36,7 +36,7 @@ namespace Assistente_de_Estagio
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            
+            //services.AddDbContext<u2019_estgContext>(options => options.UseMySQL(Configuration.GetConnectionString("u2019_estgContext"), builder => builder.MigrationsAssembly("u2019_estg")));
             var connection = @"server = localhost; port = 3306; user = root; password = i4e7l4@1245; database = u2019_estg";
             services.AddDbContext<u2019_estgContext>(options => options.UseMySQL(connection));
             services.AddScoped<DocumentoServices>();

@@ -5,6 +5,11 @@ namespace Assistente_de_Estagio.Models
 {
     public partial class Usuario
     {
+        public Usuario()
+        {
+            Jsonrequisitospreenchidos = new HashSet<Jsonrequisitospreenchidos>();
+        }
+
         public int IdUsuario { get; set; }
         public string NomeUsuario { get; set; }
         public string EmailUsuario { get; set; }
@@ -13,5 +18,6 @@ namespace Assistente_de_Estagio.Models
         public int DocumentoIdDocumento { get; set; }
 
         public virtual Documento DocumentoIdDocumentoNavigation { get; set; }
+        public virtual ICollection<Jsonrequisitospreenchidos> Jsonrequisitospreenchidos { get; set; }
     }
 }

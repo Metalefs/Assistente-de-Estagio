@@ -8,6 +8,7 @@ namespace Assistente_de_Estagio.Models
         public Documento()
         {
             Curso = new HashSet<Curso>();
+            Jsonrequisitospreenchidos = new HashSet<Jsonrequisitospreenchidos>();
             Usuario = new HashSet<Usuario>();
         }
 
@@ -23,6 +24,7 @@ namespace Assistente_de_Estagio.Models
         public string TiposRequisitos { get; set; }
 
         public virtual ICollection<Curso> Curso { get; set; }
+        public virtual ICollection<Jsonrequisitospreenchidos> Jsonrequisitospreenchidos { get; set; }
         public virtual ICollection<Usuario> Usuario { get; set; }
     }
 }

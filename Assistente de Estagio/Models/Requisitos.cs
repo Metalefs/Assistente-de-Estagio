@@ -12,5 +12,7 @@ namespace Assistente_de_Estagio.Models
         public string Opcoes { get; set; }
         public string Tipo { get; set; }
         public string Tag { get; set; }
+        public string IdCampo { get; set; }
+        public string ClassCampo { get; set; }
     }
 }

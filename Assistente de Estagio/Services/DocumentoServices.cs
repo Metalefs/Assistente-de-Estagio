@@ -6,15 +6,21 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting.Internal;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Assistente_de_Estagio.Services
 {
     public class DocumentoServices
     {
         public readonly u2019_estgContext _context;
+        private IHostingEnvironment _env;
 
-        public DocumentoServices(u2019_estgContext context)
+        
+        public DocumentoServices(u2019_estgContext context, IHostingEnvironment env)
         {
+            _env = env;
             _context = context;
         }
 
@@ -26,36 +32,43 @@ namespace Assistente_de_Estagio.Services
 
             Console.WriteLine(dadosAluno[0].name);
 
-            string filePath = caminhoDocumento[0];
+            
+            var filePath = System.IO.Path.Combine(_env.WebRootPath, caminhoDocumento[0]);
+            var DownloadPath = _env.WebRootPath + "\\Downloads\\" + caminhoDocumento[1] + "2.pdf";
 
             Application app = new word.Application();
-            Document doc = app.Documents.Open(filePath + ".doc");
+            Document doc = app.Documents.Open(filePath+"10.doc");
 
             for (int i = 0; i < size; i++)
             {
-                FindAndReplace(app, '"' + dadosAluno[0].name + '"', '"' + dadosAluno[0].value + '"');
+                FindAndReplace(app, dadosAluno[i].name , dadosAluno[i].value);
             }
-            doc.SaveAs2($"Downloads/"+ caminhoDocumento[1] + ".pdf", word.WdSaveFormat.wdFormatPDF);
+            //string docPath = "~/Downloads/" + caminhoDocumento[1] + "2.pdf";
+            doc.SaveAs2(DownloadPath, word.WdSaveFormat.wdFormatPDF);
 
-            return filePath+".pdf";
+
+            doc.Close();
+            app.Quit();
+            
+            return DownloadPath;
         }
          public List<Documento> ListAll()
          {
            return _context.Documento.ToList();
          }
         
-        public List<Requisitos> ObterRequisitos(int id)
+        public string ObterRequisitos(int id)
         {
             int i = 0;
             List<Requisitos> requisitos = new List<Requisitos>();
-            var LRD = _context.RequisitoDeDocumento.Where(x => x.DocumentoIdDocumento == id).ToList();
+            var LRD = _context.Requisitodedocumento.Where(x => x.DocumentoIdDocumento == id).ToList();
             foreach (Requisitodedocumento RDD in LRD)
             {
                 requisitos.AddRange(_context.Requisitos.Where(x => x.IdRequisito == LRD.ElementAt(i).RequisitosIdRequisito));
                 i++;
             }
-            return requisitos;
-
+            string inputJson = JsonConvert.SerializeObject(requisitos, Formatting.Indented);
+            return inputJson;
         }
         public string[] ObterCaminho(int id)
         {
@@ -67,7 +80,7 @@ namespace Assistente_de_Estagio.Services
         private static void FindAndReplace(Microsoft.Office.Interop.Word.Application doc, object findText, object replaceWithText)
         {
             //options
-            object matchCase = false;
+            object matchCase = true;
             object matchWholeWord = true;
             object matchWildCards = false;
             object matchSoundsLike = false;
@@ -95,6 +108,7 @@ namespace Assistente_de_Estagio.Services
 
         public string Name { get => name; set => name = value; }
         public string Value { get => value; set => this.value = value; }
+    
     }
 }
   
