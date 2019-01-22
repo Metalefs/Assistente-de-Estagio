@@ -17,7 +17,7 @@ function addCampos() {
         if (DadosRequisitos[i].Descricao != null)
             campo.setAttribute("placeholder", DadosRequisitos[i].Descricao);
         campo.setAttribute("id", DadosRequisitos[i].IdCampo);
-        campo.setAttribute("class", "input-campos " + DadosRequisitos[i].ClassCampo);
+        campo.setAttribute("class", "form-control input-campos" + DadosRequisitos[i].ClassCampo);
 
 
         campoRequisitos.appendChild(titulo);

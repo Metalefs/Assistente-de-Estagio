@@ -339,6 +339,11 @@ namespace Assistente_de_Estagio.Models
                     .HasMaxLength(45)
                     .IsUnicode(false);
 
+                entity.Property(e => e.Prioridade)
+                    .IsRequired()
+                    .HasColumnType("enum('1','2')")
+                    .HasDefaultValueSql("1");
+
                 entity.Property(e => e.SenhaUsuario)
                     .HasColumnName("senhaUsuario")
                     .HasMaxLength(45)

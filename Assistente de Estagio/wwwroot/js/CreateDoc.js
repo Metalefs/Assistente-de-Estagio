@@ -1,21 +1,4 @@
-﻿<script>
-    var download = document.getElementById("download");
-    var campoRequisitos = document.getElementById("campos-documento");
-    var preview = document.getElementById("campo-preview");
-
-var url = "@ViewBag.Caminho"+".pdf";   // CARREGA O PDF NO SCRIPT 'load-pdf.js'
-    var idDocumento = 1;
-
-    var DadosRequisitos = @Json.Serialize(ViewBag.ListaRequisitos);
-    DadosRequisitos = JSON.parse(DadosRequisitos);
-
-    addCampos();
-
-    var accept = false;
-        download.addEventListener('click',function(){
-        createDocument();
-    });
-
+﻿
 
 
     function createDocument() {
@@ -72,5 +55,3 @@ else if(accept==true || error==false)
 });
 }
 }
-
-</script>

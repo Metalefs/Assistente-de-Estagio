@@ -5,16 +5,17 @@
 
 <h1>Ferramentas Adiministrativas</h1>
 
-
-    <button type="button" id="editDocumento" class="btn btn-secondary" style="margin: 0px 50px 0px 0px;" asp-action="EditDocumento">
+<div class="media-body">
+    <button type="button" id="editDocumento" class="btn btn-secondary" onclick="window.location.href = '/GerenciarDocumento'">
         <div class="card bg-light mb-3" style="max-width: 20rem;">
             <h4 class="card-header">DocCard</h4>
-            <img style="height: 200px; width: 200px; display: block;" src="~/images/chef.png" alt="Card image">
+            <img style="height: 200px; width: 200px; display: block;" src="~/Images/Doc1.png" alt="Card image">
         </div>
     </button>
-    <button type="button" id="editCurso" class="btn btn-secondary" style="margin: 0px 50px 0px 0px;" asp-action="EditCurso">
+    <button type="button" id="editCurso" class="btn btn-secondary" onclick="window.location.href = '/GerenciarCurso'">
         <div class="card bg-light mb-3" style="max-width: 20rem;">
             <h4 class="card-header">Curso</h4>
-            <img style="height: 200px; width: 200px; display: block;" src="~/images/chef.png" alt="Card image">
+            <img style="height: 200px; width: 200px; display: block;" src="~/Images/Curso1.png" alt="Card image">
         </div>
     </button>
+</div>

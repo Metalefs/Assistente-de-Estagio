@@ -40,7 +40,7 @@ namespace Assistente_de_Estagio
             var connection = @"server = localhost; port = 3306; user = root; password = i4e7l4@1245; database = u2019_estg";
             services.AddDbContext<u2019_estgContext>(options => options.UseMySQL(connection));
             services.AddScoped<DocumentoServices>();
-            
+            services.AddScoped<UsuarioService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

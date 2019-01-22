@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Assistente_de_Estagio.Models.Usuario>
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>Login de administrador</h1>
+
+
+<form asp-action="LoginAction">
+    <fieldset>
+        <legend>Login</legend>
+        <div class="form-group">
+            <label for="email-input">Email</label>
+            <input type="text" class="form-control" id="NomeEmail" aria-describedby="emailHelp" placeholder="Email">
+
+        </div>
+        <div class="form-group">
+            <label for="pass=input">Senha</label>
+            <input type="password" class="form-control" id="senha" placeholder="Senha">
+        </div>
+        
+            <small id="loginHelp" class="form-text text-muted">@Html.ValidationMessage("Erro-de-conexão")</small>
+        
+    </fieldset>
+    <button type="submit" id="subbutton" class="button btn-success" onclick="Login()">Login</button>
+</form>
+<script>
+    function Login() {
+
+        var nomeEmail = $('#NomeEmail').val();
+        var campoSenha = $('#campoSenha').val();
+
+        $.ajax({
+            type: 'post',
+            dataType: 'text',
+            url: '/Admin/LoginAction',
+            data: {
+                NomeEmail: nomeEmail,
+                senha: campoSenha
+            },
+            success: function (msg) {
+                alert(msg);
+            }
+        }
+    }</script>

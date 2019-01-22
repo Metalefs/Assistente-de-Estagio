@@ -11,5 +11,6 @@ namespace Assistente_de_Estagio.Models
         public string SenhaUsuario { get; set; }
         public DateTime? DataCriacaoUltimoDocumento { get; set; }
         public int DocumentoIdDocumento { get; set; }
+        public string Prioridade { get; set; }
     }
 }
