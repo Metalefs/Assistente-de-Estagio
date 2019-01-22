@@ -23,7 +23,5 @@ namespace Assistente_de_Estagio.Models
         public string Rg { get; set; }
         public string Dddtel { get; set; }
         public string Dddcel { get; set; }
-
-        public virtual Usuario UsuarioIdUsuarioNavigation { get; set; }
     }
 }

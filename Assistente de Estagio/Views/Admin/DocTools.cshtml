@@ -1,0 +1,70 @@
+﻿@model Assistente_de_Estagio.Models.Documento
+
+@{
+    ViewData["Title"] = "DocTools";
+}
+
+<h1>DocTools</h1>
+
+<h4>Documento</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="DocTools">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="IdDocumento" class="control-label"></label>
+                <input asp-for="IdDocumento" class="form-control" />
+                <span asp-validation-for="IdDocumento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CursoIdCurso" class="control-label"></label>
+                <input asp-for="CursoIdCurso" class="form-control" />
+                <span asp-validation-for="CursoIdCurso" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TituloDocumento" class="control-label"></label>
+                <input asp-for="TituloDocumento" class="form-control" />
+                <span asp-validation-for="TituloDocumento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DescricaoDocumento" class="control-label"></label>
+                <input asp-for="DescricaoDocumento" class="form-control" />
+                <span asp-validation-for="DescricaoDocumento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RequisitoDocumento" class="control-label"></label>
+                <input asp-for="RequisitoDocumento" class="form-control" />
+                <span asp-validation-for="RequisitoDocumento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PreenchimentoDocumento" class="control-label"></label>
+                <input asp-for="PreenchimentoDocumento" class="form-control" />
+                <span asp-validation-for="PreenchimentoDocumento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PosicaoDocumento" class="control-label"></label>
+                <input asp-for="PosicaoDocumento" class="form-control" />
+                <span asp-validation-for="PosicaoDocumento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CaminhoDocumento" class="control-label"></label>
+                <input asp-for="CaminhoDocumento" class="form-control" />
+                <span asp-validation-for="CaminhoDocumento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TiposRequisitos" class="control-label"></label>
+                <input asp-for="TiposRequisitos" class="form-control" />
+                <span asp-validation-for="TiposRequisitos" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

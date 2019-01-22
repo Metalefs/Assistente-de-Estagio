@@ -30,10 +30,10 @@ namespace Assistente_de_Estagio.Controllers
         {
             string webRootPath = _hostingEnvironment.WebRootPath;
             string contentRootPath = _hostingEnvironment.ContentRootPath;
-
+            List<Documento> docList = _context.Documento.ToList();
             ViewBag.ListaRequisitos = _documentoServices.ObterRequisitos(1);
             ViewBag.Caminho = _documentoServices.ObterCaminho(1);
-            return View();
+            return View(docList);
         }
 
         public IActionResult Privacy()

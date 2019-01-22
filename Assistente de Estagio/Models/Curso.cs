@@ -11,7 +11,5 @@ namespace Assistente_de_Estagio.Models
         public string CoordenadorCurso { get; set; }
         public string FaculdadeCurso { get; set; }
         public int DocumentoIdDocumento { get; set; }
-
-        public virtual Documento DocumentoIdDocumentoNavigation { get; set; }
     }
 }

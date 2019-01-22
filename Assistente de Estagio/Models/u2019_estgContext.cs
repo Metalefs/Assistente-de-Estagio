@@ -17,7 +17,7 @@ namespace Assistente_de_Estagio.Models
 
         public virtual DbSet<Curso> Curso { get; set; }
         public virtual DbSet<Documento> Documento { get; set; }
-        public virtual DbSet<Jsonrequisitospreenchidos> Jsonrequisitospreenchidos { get; set; }
+        public virtual DbSet<Requisito> Requisito { get; set; }
         public virtual DbSet<Requisitodedocumento> Requisitodedocumento { get; set; }
         public virtual DbSet<Requisitodeusuario> Requisitodeusuario { get; set; }
         public virtual DbSet<Requisitos> Requisitos { get; set; }
@@ -28,7 +28,7 @@ namespace Assistente_de_Estagio.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySQL("server=localhost;userid=root;password=i4e7l4@1245;database=u2019_estg");
+                optionsBuilder.UseMySQL("server=localhost;user=root;password=i4e7l4@1245;database=u2019_estg");
             }
         }
 
@@ -38,20 +38,17 @@ namespace Assistente_de_Estagio.Models
 
             modelBuilder.Entity<Curso>(entity =>
             {
-                entity.HasKey(e => new { e.IdCurso, e.DocumentoIdDocumento });
+                entity.HasKey(e => e.IdCurso);
 
                 entity.ToTable("curso", "u2019_estg");
 
                 entity.HasIndex(e => e.DocumentoIdDocumento)
-                    .HasName("fk_curso_documento1_idx");
+                    .HasName("fk_Curso_Documento_idx");
 
                 entity.Property(e => e.IdCurso)
                     .HasColumnName("idCurso")
-                    .HasColumnType("int(11)");
-
-                entity.Property(e => e.DocumentoIdDocumento)
-                    .HasColumnName("documento_idDocumento")
-                    .HasColumnType("int(11)");
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.CoordenadorCurso)
                     .HasColumnName("coordenadorCurso")
@@ -61,6 +58,10 @@ namespace Assistente_de_Estagio.Models
                 entity.Property(e => e.DescricaoCurso)
                     .HasColumnName("descricaoCurso")
                     .IsUnicode(false);
+
+                entity.Property(e => e.DocumentoIdDocumento)
+                    .HasColumnName("Documento_idDocumento")
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.FaculdadeCurso)
                     .HasColumnName("faculdadeCurso")
@@ -73,23 +74,22 @@ namespace Assistente_de_Estagio.Models
                     .HasMaxLength(150)
                     .IsUnicode(false)
                     .HasDefaultValueSql("Curso Padrão");
-
-                entity.HasOne(d => d.DocumentoIdDocumentoNavigation)
-                    .WithMany(p => p.Curso)
-                    .HasForeignKey(d => d.DocumentoIdDocumento)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_curso_documento1");
             });
 
             modelBuilder.Entity<Documento>(entity =>
             {
-                entity.HasKey(e => e.IdDocumento);
+                entity.HasKey(e => new { e.IdDocumento, e.DescricaoDocumento });
 
                 entity.ToTable("documento", "u2019_estg");
 
                 entity.Property(e => e.IdDocumento)
-                    .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .HasColumnName("idDocumento")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.DescricaoDocumento)
+                    .HasColumnName("descricaoDocumento")
+                    .HasMaxLength(300)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.AutorDocumento)
                     .IsRequired()
@@ -107,12 +107,6 @@ namespace Assistente_de_Estagio.Models
                 entity.Property(e => e.CursoIdCurso)
                     .HasColumnName("Curso_idCurso")
                     .HasColumnType("int(11)");
-
-                entity.Property(e => e.DescricaoDocumento)
-                    .IsRequired()
-                    .HasColumnName("descricaoDocumento")
-                    .HasMaxLength(300)
-                    .IsUnicode(false);
 
                 entity.Property(e => e.PosicaoDocumento)
                     .HasColumnName("posicaoDocumento")
@@ -140,43 +134,91 @@ namespace Assistente_de_Estagio.Models
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<Jsonrequisitospreenchidos>(entity =>
+            modelBuilder.Entity<Requisito>(entity =>
             {
-                entity.HasKey(e => e.IdJsonRequisitosPreenchidos);
+                entity.HasKey(e => e.IdRequisito);
 
-                entity.ToTable("jsonrequisitospreenchidos", "u2019_estg");
-
-                entity.HasIndex(e => e.DocumentoIdDocumento)
-                    .HasName("documento_IdDocumento_idx");
+                entity.ToTable("requisito", "u2019_estg");
 
                 entity.HasIndex(e => e.UsuarioIdUsuario)
-                    .HasName("usuario_IdUsuario_idx");
+                    .HasName("Usuario_idUsuario");
 
-                entity.Property(e => e.IdJsonRequisitosPreenchidos)
-                    .HasColumnName("idJsonRequisitosPreenchidos")
+                entity.Property(e => e.IdRequisito)
+                    .HasColumnName("idRequisito")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.DadosJson)
-                    .IsRequired()
-                    .HasColumnType("mediumtext");
+                entity.Property(e => e.Celular)
+                    .HasMaxLength(24)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.DocumentoIdDocumento)
-                    .HasColumnName("documento_idDocumento")
-                    .HasColumnType("int(11)");
+                entity.Property(e => e.Cpf)
+                    .HasColumnName("CPF")
+                    .HasMaxLength(24)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.CursoMatriculado)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Dddcel)
+                    .HasColumnName("DDDCel")
+                    .HasMaxLength(16)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Dddtel)
+                    .HasColumnName("DDDTel")
+                    .HasMaxLength(16)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.EscolhaArea)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NomeAluno)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NomeEmpresa)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NomeSupervisor)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Periodo)
+                    .HasMaxLength(24)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Ra)
+                    .HasColumnName("RA")
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Rg)
+                    .HasColumnName("RG")
+                    .HasMaxLength(24)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Telefone)
+                    .HasMaxLength(24)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Turma)
+                    .HasMaxLength(24)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Turno)
+                    .HasMaxLength(24)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.UsuarioIdUsuario)
-                    .HasColumnName("usuario_idUsuario")
+                    .HasColumnName("Usuario_idUsuario")
                     .HasColumnType("int(11)");
-
-                entity.HasOne(d => d.DocumentoIdDocumentoNavigation)
-                    .WithMany(p => p.Jsonrequisitospreenchidos)
-                    .HasForeignKey(d => d.DocumentoIdDocumento)
-                    .HasConstraintName("documento_IdDocumento");
-
-                entity.HasOne(d => d.UsuarioIdUsuarioNavigation)
-                    .WithMany(p => p.Jsonrequisitospreenchidos)
-                    .HasForeignKey(d => d.UsuarioIdUsuario)
-                    .HasConstraintName("usuario_IdUsuario");
             });
 
             modelBuilder.Entity<Requisitodedocumento>(entity =>
@@ -185,12 +227,7 @@ namespace Assistente_de_Estagio.Models
 
                 entity.ToTable("requisitodedocumento", "u2019_estg");
 
-                entity.HasIndex(e => e.RequisitosIdRequisito)
-                    .HasName("fk_requisitodedocumento_requisitos1_idx");
-
-                entity.Property(e => e.IdRequisitoDeDocumento)
-                    .HasColumnName("idRequisitoDeDocumento")
-                    .HasColumnType("int(11)");
+                entity.Property(e => e.IdRequisitoDeDocumento).HasColumnType("int(11)");
 
                 entity.Property(e => e.DocumentoIdDocumento)
                     .HasColumnName("documento_idDocumento")
@@ -207,20 +244,13 @@ namespace Assistente_de_Estagio.Models
 
             modelBuilder.Entity<Requisitodeusuario>(entity =>
             {
-                entity.HasKey(e => e.IdRequisitoDeUsuario);
+                entity.HasKey(e => e.IdRequisistoDeUsuario);
 
                 entity.ToTable("requisitodeusuario", "u2019_estg");
 
-                entity.HasIndex(e => e.RequisitosIdRequisito)
-                    .HasName("fk_requisitodeusuario_requisitos1_idx");
+                entity.Property(e => e.IdRequisistoDeUsuario).HasColumnType("int(11)");
 
-                entity.Property(e => e.IdRequisitoDeUsuario)
-                    .HasColumnName("idRequisitoDeUsuario")
-                    .HasColumnType("int(11)");
-
-                entity.Property(e => e.OrdemRequisito)
-                    .HasColumnName("ordemRequisito")
-                    .HasColumnType("tinyint(4)");
+                entity.Property(e => e.Dados).IsUnicode(false);
 
                 entity.Property(e => e.RequisitosIdRequisito)
                     .HasColumnName("requisitos_idRequisito")
@@ -237,19 +267,11 @@ namespace Assistente_de_Estagio.Models
 
                 entity.ToTable("requisitos", "u2019_estg");
 
-                entity.HasIndex(e => e.IdCampo)
-                    .HasName("IdCampo")
-                    .IsUnique();
-
-                entity.HasIndex(e => e.NomeRequisito)
-                    .HasName("NomeRequisito")
-                    .IsUnique();
-
                 entity.Property(e => e.IdRequisito)
                     .HasColumnName("idRequisito")
                     .HasColumnType("int(11)");
 
-                entity.Property(e => e.ClassCampo)
+                entity.Property(e => e.ClassRequisito)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false)
@@ -264,15 +286,14 @@ namespace Assistente_de_Estagio.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.IdCampo)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasDefaultValueSql("EMPTY");
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.NomeRequisito)
                     .IsRequired()
                     .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("EMPTY");
 
                 entity.Property(e => e.Opcoes).IsUnicode(false);
 
@@ -322,12 +343,6 @@ namespace Assistente_de_Estagio.Models
                     .HasColumnName("senhaUsuario")
                     .HasMaxLength(45)
                     .IsUnicode(false);
-
-                entity.HasOne(d => d.DocumentoIdDocumentoNavigation)
-                    .WithMany(p => p.Usuario)
-                    .HasForeignKey(d => d.DocumentoIdDocumento)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_Usuario_Documento1");
             });
         }
     }

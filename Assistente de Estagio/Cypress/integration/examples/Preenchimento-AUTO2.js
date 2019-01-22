@@ -1,0 +1,36 @@
+describe('Teste-Campos', function() {
+  it('Gets, types and asserts', function() {
+    cy.visit('https://localhost:44359/')
+
+   
+    // Get an input, type into it and verify that the value has been updated
+    cy.get('#_ND1A_')
+      .type('Metalefs')
+      .should('have.value', 'Metalefs')
+	cy.get('#_R1A_')
+      .type('15566')
+      .should('have.value', '15566')
+	cy.get('#_EM1A_')
+      .type('jack-ten@hotmail.com')
+      .should('have.value', 'jack-ten@hotmail.com')
+	  cy.get('#_TE1L_')
+      .type('99239-4685')
+      .should('have.value', '99239-4685')
+	cy.get('#_DD1T_')
+      .type('31')
+	cy.get('#_CE1L_')
+      .type('99239-4685')
+      .should('have.value', '99239-4685')
+	cy.get('#_DD1C_')
+      .type('31')
+      .should('have.value', '31')
+	cy.get('#_ND1E_')
+      .type('Rumo Soluções')
+      .should('have.value', 'Rumo Soluções') 
+	cy.get('#4°')
+	   .select('3º').should('have.value', '3º')
+    cy.get('#download')
+      .click()
+    
+    })
+})
