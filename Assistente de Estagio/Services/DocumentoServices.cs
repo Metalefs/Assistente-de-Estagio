@@ -54,9 +54,12 @@ namespace Assistente_de_Estagio.Services
         }
          public List<Documento> ListAll()
          {
-           return _context.Documento.ToList();
+           return _context.Documento.OrderBy(x => x.PosicaoDocumento).ToList();
          }
-        
+        public List<Curso> ListCursos()
+        {
+            return _context.Curso.ToList();
+        }
         public string ObterRequisitos(int id)
         {
             int i = 0;

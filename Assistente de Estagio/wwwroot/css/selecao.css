@@ -1,0 +1,56 @@
+.mascote{
+    float:left;
+}
+#tituloSelec{
+    background-color: rgba(128, 128, 128,0.5);
+    padding: 2px;
+    font-weight:bold;
+}
+.btnDoc {
+    padding: 0;
+    margin: 0;
+    border-radius: 5px;
+    background-color: white;
+    border: 2px solid rgb(86,46,255);
+}
+.passoDoc{
+    margin:10px;
+    font-size:20px;
+    display:inline;
+    margin-right:40px;
+}
+.tituloDoc {
+    font-size: 15px;
+    display: inline;
+    font-weight:100;
+    text-transform:uppercase;
+}
+.nomeDoc {
+    padding: 0;
+    margin: 0;
+    position: relative;
+    border-bottom: 1px solid rgb(86,42,216);
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#562ad8+50,4d20ca+51&1+29,0+59 */
+    background: -moz-linear-gradient(left, rgba(86,42,216,1) 29%, rgba(86,42,216,0.3) 50%, rgba(77,32,202,0.27) 51%, rgba(77,32,202,0) 59%);
+    background: -webkit-linear-gradient(left, rgba(86,42,216,1) 29%,rgba(86,42,216,0.3) 50%,rgba(77,32,202,0.27) 51%,rgba(77,32,202,0) 59%);
+    background: linear-gradient(to right, rgba(86,42,216,1) 15%,rgba(86,42,216,1.3) 15%,rgba(77,32,202,0.27) 30%,rgba(77,32,202,0) 30%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#562ad8', endColorstr='#004d20ca',GradientType=1 );
+    padding: 2px;
+    border-radius: 5px !important;
+}
+.printInSelec {
+    background: blue;
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+}
+
+.downloadInSelec {
+    background: black;
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+}
+.MainContainer{
+    display:inline;
+    width:90%;
+}
+

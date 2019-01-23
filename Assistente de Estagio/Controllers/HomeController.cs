@@ -26,13 +26,18 @@ namespace Assistente_de_Estagio.Controllers
         
 
         [HttpGet]
-        public IActionResult Index()
+        [RouteAttribute("/Index")]
+        public IActionResult Selecao()
         {
             string webRootPath = _hostingEnvironment.WebRootPath;
             string contentRootPath = _hostingEnvironment.ContentRootPath;
             List<Documento> docList = _context.Documento.ToList();
             ViewBag.ListaRequisitos = _documentoServices.ObterRequisitos(1);
             ViewBag.Caminho = _documentoServices.ObterCaminho(1);
+            var Cursos = _documentoServices.ListCursos();
+            ViewBag.Curso = Cursos;
+            CursoDocViewModel viewModel = new CursoDocViewModel() { Curso = Cursos, Documento = docList };
+
             return View(docList);
         }
 

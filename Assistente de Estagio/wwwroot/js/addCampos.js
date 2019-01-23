@@ -26,7 +26,7 @@ function addCampos() {
             var ListaOpts = DadosRequisitos[i].Opcoes.split(',');
 
             for (var x = 0; x < ListaOpts.length; x++) {
-                var tituloCheckbox = document.createElement("p");
+                var tituloCheckbox = document.createElement("h4");
                 tituloCheckbox.setAttribute("class", "tituloCB");
                 if (DadosRequisitos[i].Descricao != null)
                     tituloCheckbox.setAttribute("title", DadosRequisitos[i].Descricao);
