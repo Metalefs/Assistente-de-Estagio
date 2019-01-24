@@ -3,38 +3,62 @@
 @{
     ViewData["Title"] = "Home Page";
     ViewData["Caminho"] = ViewBag.Caminho[0];
+
+    int IdDoc;
 }
 <script src="~/js/download-pdf.js"></script>
 <script src="~/js/addCampos.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
 @ViewBag.Caminho
+
 <div class="MainContainer" style="max-width:30%">
     <div id="instrucao">
+        <img class="mascote" src="~/Images/student-icon.png" height="150" width="150" alt="Mascote do ADE" />
         <h2 id="tituloSelec">Selecione o documento que deseja preencher:</h2>
         <p class="pSelec">Siga os passos de criação dos documentos para uma melhor experiência, ou gere somente aqueles que precisar.</p>
         <p class="pSelec">Veja ao lado algumas dicas para a realização do seu estágio</p>
-    </div>
-    <img class="mascote" src="~/Images/student-icon.png" height="150" width="150" alt="Mascote do ADE"/>
 
+    </div>
+
+    <hr />
     @foreach (var doc in Model)
     {
-        <div id="@Html.DisplayFor(model => doc.IdDocumento)" class="btn btnDoc" style="margin: 0px 50px 0px 0px;">
+        IdDoc = doc.IdDocumento;
+        <div id="@IdDoc" class="btn btnDoc" style="margin: 0px 50px 0px 0px;">
             <div class="docDiv" id="doc@{Html.DisplayFor(model => doc.IdDocumento);} ">
                 <span class="card-header nomeDoc"><h3 class="passoDoc">@Html.DisplayFor(model => doc.PosicaoDocumento)°Passo</h3><h4 class="tituloDoc" style="overflow=hidden">@Html.DisplayFor(model => doc.TituloDocumento)</h4></span>
-                <img style="height: 200px; width: 200px; display: block;" src="~/Images/Doc2.png" alt="Card image">
+                <p>@Html.DisplayFor(model => doc.DescricaoDocumento)</p>
                 <button type="submit" id="downloadDoc" class="button downloadInSelec"><p>Download</p></button>    <button type=submit id="printDoc" class="button printInSelec"><p>Imprimir</p></button>
             </div>
-        
+
         </div>
     }
-        <label for="selecaoCurso"><p>Selecione o curso matriculado para o Estágio</p></label>
-        @Html.DropDownList("Cursos", new SelectList(ViewBag.Curso,"IdCurso","NomeCurso"), new { @class = "form-control" })
+
+    <hr />
+    <label for="selecaoCurso"><p>Selecione o curso matriculado para o Estágio</p></label>
+    @Html.DropDownList("Cursos", new SelectList(ViewBag.Curso, "IdCurso", "NomeCurso"), new { @class = "form-control" })
 </div>
+
+<hr />
+
 <div class="SideContainer">
 
+    <p>Ao lado estão os documentos do estágio que devem ser levados a faculdade</p>
+    <p>Os documentos requerem ASSINATURA de termo de compromisso do Estágio Supervisionado</p>
+    <p>O Estágio Supervisionado somente poderá ter inicio após a programação ter sido aprovada pela Coordenação de Estãgio Supervisionado</p>
+    <p>Condições para aprovação no Estágio Supervisionado:</p>
+    <ul>
+        <li>Cumprimento das 200 horas de estágio</li>
+        <li>Observação da linguagem cientifica nos relatórsios</li>
+        <li>Entrega da documentação</li>
+    </ul>
+    <div><p>Clique aqui para as regras gerais do Estágio Supervisionado</p></div>
 </div>
+
+<hr />
 
 <div id="interface-preenchimento-popup" class="pop-up" ng-app="">
     <div id="campos-requisitos" class="in-preenchimento">
@@ -48,14 +72,19 @@
     </div>
 </div>
 
+
+
+
 <script>
 
-    document.getElementsByClassName("btnDoc").addEventListener('click', function(evt) {
+
+
+document.getElementsByClassName("btnDoc").addEventListener('click', function(evt) {
         Download(evt.id);
     });
 
 
-    function Download(id) {
+function Download(id) {
 
 
         $.ajax({
@@ -69,7 +98,7 @@
                 alert(msg);
             }
         }
-    }
+}
 
 </script>
 <script>
