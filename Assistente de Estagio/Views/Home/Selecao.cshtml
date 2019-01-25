@@ -14,7 +14,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
 @ViewBag.Caminho
 
-<div class="MainContainer" style="max-width:30%">
+<div class="MainContainer" >
     <div id="instrucao">
         <img class="mascote" src="~/Images/student-icon.png" height="150" width="150" alt="Mascote do ADE" />
         <h2 id="tituloSelec">Selecione o documento que deseja preencher:</h2>
@@ -31,7 +31,7 @@
             <div class="docDiv" id="doc@{Html.DisplayFor(model => doc.IdDocumento);} ">
                 <span class="card-header nomeDoc"><h3 class="passoDoc">@Html.DisplayFor(model => doc.PosicaoDocumento)°Passo</h3><h4 class="tituloDoc" style="overflow=hidden">@Html.DisplayFor(model => doc.TituloDocumento)</h4></span>
                 <p>@Html.DisplayFor(model => doc.DescricaoDocumento)</p>
-                <button type="submit" id="downloadDoc" class="button downloadInSelec"><p>Download</p></button>    <button type=submit id="printDoc" class="button printInSelec"><p>Imprimir</p></button>
+                <button type="submit" id="downloadDoc" class="button downloadInSelec"><a href="~/Downloads/Declaração de Opção pela Área de Estágio2.pdf"><p>Download</p></a></button>    <button type=submit id="printDoc" class="button printInSelec"><p>Imprimir</p></button>
             </div>
 
         </div>
@@ -122,60 +122,53 @@ function Download(id) {
 
 
     function createDocument() {
-
             var serviceURL = '/Home/Download';
-    var errors = document.getElementById("errors");
-    var error = false;
-    var thisInput = document.getElementById("campos-documento").elements;
-    var errorText = document.createElement("p");
-    var dadosAlunoTxt = new Array();
+            var errors = document.getElementById("errors");
+            var error = false;
+            var thisInput = document.getElementById("campos-documento").elements;
+            var errorText = document.createElement("p");
+            var dadosAlunoTxt = new Array();
             for(var i=0;i<thisInput.length; i++){
-        dadosAlunoTxt[i] = thisInput[i].value;
-    }
-
+                dadosAlunoTxt[i] = thisInput[i].value;
+            }
             for(var i=0; i<thisInput.length; i++){
                // if(thisInput[i].type != "checkbox"){
-                    if(thisInput[i].value==undefined || thisInput[i].value=="" || thisInput[i].value==null){
-        error = true;
-    thisInput[i].style.backgroundColor="#ffc1c1";
-                    }else{
-        thisInput[i].style.backgroundColor = "white";
-    }
-//}
-}
-
-
-
+                if (thisInput[i].value == undefined || thisInput[i].value == "" || thisInput[i].value == null)
+                {
+                        error = true;
+                        thisInput[i].style.backgroundColor="#ffc1c1";
+                } else
+                {
+                    thisInput[i].style.backgroundColor = "white";
+                }
+            //}
+            }
 //Test if had any error
             if(error==true && accept==false){
-
-        errorText.innerHTML = "Existem Campos vazios! corrija se quiser, caso contrario continue.";
-    errors.appendChild(errorText);
-    accept = true;
-}
-else if(accept==true || error==false)
+                errorText.innerHTML = "Existem Campos vazios! corrija se quiser, caso contrario continue.";
+                errors.appendChild(errorText);
+                accept = true;
+            }
+            else if(accept==true || error==false)
             {
-                var dadosAluno = JSON.stringify($(campoRequisitos).serializeArray());
+                    var dadosAluno = JSON.stringify($(campoRequisitos).serializeArray());
 
-    if(accept==true)
-        errorText.innerHTML="Gerando documento com campos vazios";
-
-    errorText.innerHTML="Seu download iniciará em alguns instantes";
-                $.ajax({
-        type: 'post',
-    dataType: 'text',
-    url: serviceURL,
-                    data: {
-        dados: dadosAluno,
-      idDocumento: idDocumento},
+                    if(accept==true)
+                        errorText.innerHTML="Gerando documento com campos vazios";
+                    if (accept == false)
+                    errorText.innerHTML="Seu download iniciará em alguns instantes";
+                                $.ajax({
+                        type: 'post',
+                    dataType: 'text',
+                    url: serviceURL,
+                    data: {dados: dadosAluno,
+                           idDocumento: idDocumento},
                     success: function(msg){
-        alert(msg);
-
+                        alert(msg);
+                    }
+                });
+            }
     }
-});
-}
-}
-
 </script>
 <script src="~/js/CreateDoc.js"></script>
 <script src="~/js/load-pdf.js"></script>

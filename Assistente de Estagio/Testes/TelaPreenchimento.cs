@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -51,14 +51,14 @@ namespace Assistente_de_Estagio.Models
                 valor.ToString());
         }
 
-        /*public void ProcessarConversao()
+        public void ProcessarConversao()
         {
             _driver.Submit(By.Id("btnConverter"));
 
             var wait = new WebDriverWait(
                 _driver, TimeSpan.FromSeconds(10));
             wait.Until((d) => d.FindElement(By.Id("DistanciaKm")) != null);
-        }*/
+        }
 
         public string ObterCampo()
         {
@@ -73,4 +73,4 @@ namespace Assistente_de_Estagio.Models
 
     }
 
-}
+}*/

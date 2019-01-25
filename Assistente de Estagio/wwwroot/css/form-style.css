@@ -21,13 +21,16 @@
 
 
 #interface-preenchimento-popup {
-    margin: 0 auto;
+    margin: 0 15%;
     box-shadow: 1px 1px 5px black;
-    width: 70%;
-    height: 40%;
+    width: 54%;
+    height: 87%;
     font-family: 'Open Sans';
     font-size: 10px;
     overflow: scroll;
+    bottom: 3%;
+    position: fixed;
+    background-color:white;
 }
 
 .pop-up {
@@ -73,6 +76,8 @@ canvas {
     min-width: 100px;
     display: inline-block;
     margin: 0;
+    bottom: 5px;
+    position: relative;
 }
 
 .titulos {
@@ -157,6 +162,8 @@ input [type="checkbox" i] {
     margin: 0 10%;
 }
 
+
+
 .h-requisito {
     position: relative;
     display: inline;
@@ -207,5 +214,9 @@ span {
         width: 300px;
         height: auto;
         font-size: 1px;
+    }
+    #campo-preview:active {
+        max-width: 100%;
+        padding: 0px;
     }
 }

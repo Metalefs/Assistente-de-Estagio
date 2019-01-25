@@ -25,7 +25,7 @@ namespace Assistente_de_Estagio.Services
             try
             {
                 Usuario usuario = _context.Usuario.Where(x => x.EmailUsuario == NomeEmail && x.SenhaUsuario == senha || (x.NomeUsuario == NomeEmail && x.SenhaUsuario == senha)).FirstOrDefault();
-                return (Prioridade)Enum.Parse(typeof(Prioridade), usuario.Prioridade, true);
+                return usuario.Prioridade;
             }
             catch
             {

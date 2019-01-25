@@ -24,7 +24,7 @@
 
 
 
-<div id="interface-preenchimento-popup" class="pop-up" ng-app="">
+<div id="interface-preenchimento-popup" class="pop-up " ng-app="">
     <div id="campos-requisitos" class="in-preenchimento">
         <h3 id="hint1" class="hint">Insira os dados a abaixo para preencher o documento:</h3>
         <form id="campos-documento" class="form"></form><div id="errors" class="hidden error"></div>
@@ -59,9 +59,9 @@
     var campoRequisitos = document.getElementById("campos-documento");
     var preview = document.getElementById("campo-preview");
 
-var url = "@ViewBag.Caminho"+".pdf";   // CARREGA O PDF NO SCRIPT 'load-pdf.js'
+    var url = "@ViewBag.Caminho"+".pdf";   // CARREGA O PDF NO SCRIPT 'load-pdf.js'
     var idDocumento = 1;
-
+    
     var DadosRequisitos = @Json.Serialize(ViewBag.ListaRequisitos);
     DadosRequisitos = JSON.parse(DadosRequisitos);
 
