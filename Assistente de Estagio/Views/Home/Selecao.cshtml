@@ -27,7 +27,7 @@
     @foreach (var doc in Model)
     {
         IdDoc = doc.IdDocumento;
-        <div id="@IdDoc" class="btn btnDoc" style="margin: 0px 50px 0px 0px;">
+        <div id="@IdDoc" class="btn btnDoc">
             <div class="docDiv" id="doc@{Html.DisplayFor(model => doc.IdDocumento);} ">
                 <span class="card-header nomeDoc"><h3 class="passoDoc">@Html.DisplayFor(model => doc.PosicaoDocumento)°Passo</h3><h4 class="tituloDoc" style="overflow=hidden">@Html.DisplayFor(model => doc.TituloDocumento)</h4></span>
                 <p>@Html.DisplayFor(model => doc.DescricaoDocumento)</p>
@@ -36,6 +36,55 @@
 
         </div>
     }
+    <div class="docDiv" id="@model.Documento(x=>x.IdDocumento).Where(x=> x.NomeDocumento == "FichaRegistro")"><h4>Ficha de registro de horas de estágio</h4></div>
+    
+    <div id="registro-ficha" class="pop-up hidden" ng-app="">
+        <div id="campo-preview" class="in-preenchimento">
+            <thead class="table table-success ">
+                <tr class="table table-success">
+                    <th>
+                        DATA
+                    </th>
+                    <th>
+                        HORÁRIO
+                    </th>
+                    <th>
+                        INICIO
+                        <th>
+                        TÉRMINO
+                        </th>
+                    </th>
+                    <th>
+                        ATIVIDADES DESENVOLVIDAS
+                    </th>
+                    <th style="text-decoration:italic;font-style:italic">Carga horária cumprida/th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Data)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Inicio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Termino)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Atividade)
+                        </td>
+                        <td>
+                           @Html.DisplayFor(model =>item.CargaHoraria) Horas
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </div>
+    </div>
 
     <hr />
     <label for="selecaoCurso"><p>Selecione o curso matriculado para o Estágio</p></label>
