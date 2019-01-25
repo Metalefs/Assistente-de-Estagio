@@ -55,15 +55,17 @@ namespace Assistente_de_Estagio.Controllers
         public ActionResult Download(string dados, int idDocumento)
         {
             string[] caminhoDoc = _documentoServices.ObterCaminho(idDocumento);
-            string caminhoPDF = _documentoServices.CreateDocument(dados, caminhoDoc);
-
+            
+            var caminhoPDF = new Thread(_documentoServices.CreateDocument(dados, caminhoDoc));
+            var DownloadPath = _env.WebRootPath + "\\Downloads\\" + caminhoDoc[1] + "2.pdf";
+            
             Jsonrequisitospreenchidos dadosJson = new Jsonrequisitospreenchidos(){DocumentoIdDocumento = idDocumento, DadosJson = dados };
             _context.Add(dadosJson);
             
 
             
-            byte[] fileBytes = System.IO.File.ReadAllBytes(caminhoPDF);
-            return File(fileBytes, "application/x-msdownload", caminhoPDF);
+            byte[] fileBytes = System.IO.File.ReadAllBytes(DownloadPath);
+            return File(fileBytes, "application/x-msdownload", DownloadPath);
             
 
 
