@@ -10,9 +10,10 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="DocTools">
+        <form asp-controller="DocTools" asp-action="UploadFile" method="post" enctype="multipart/form-data">
 
-
+            <input type="file" name="file" accept="application/msword" />  
+            <button type="submit">Enviar Documento (arquivo.doc)</button>  
             <div class="form-group">
                 <label asp-for="TituloDocumento" class="control-label">Insira o titulo do documento</label>
                 <input asp-for="TituloDocumento" class="form-control" />
