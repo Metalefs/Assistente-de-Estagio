@@ -32,7 +32,23 @@ namespace Assistente_de_Estagio.Controllers
         
         public ActionResult Index()
         {
-            return View();
+            Prioridade acesso = _usuarioService.CheckUsuario(NomeEmail, senha);
+
+                if(acesso == Prioridade.Usuario)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+
+                else if(acesso == Prioridade.Admin)
+                {
+                    return RedirectToAction(nameof(Tools));
+                }
+                
+            
+            ModelState.AddModelError("Erro-de-conexão", "Erro de conexão");
+            ViewBag.Error = true;
+            return RedirectToAction(nameof(Index));
+            
         }
 
         
@@ -57,22 +73,22 @@ namespace Assistente_de_Estagio.Controllers
         public ActionResult LoginAction ([Bind("NomeEmail,senha")] string NomeEmail, string senha)
         {
             
-                Prioridade acesso = _usuarioService.CheckUsuario(NomeEmail, senha);
-
-                if(acesso == Prioridade.Usuario)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-
-                else if(acesso == Prioridade.Admin)
-                {
-                    return RedirectToAction(nameof(Tools));
-                }
-                
             
-            ModelState.AddModelError("Erro-de-conexão", "Erro de conexão");
-            ViewBag.Error = true;
-            return RedirectToAction(nameof(Index));
+                    /*
+              if (file == null || file.Length == 0)  
+                  return Content("file not selected");  
+
+              var path = Path.Combine(  
+                          Directory.GetCurrentDirectory(), "wwwroot",   
+                          file.GetFilename());  
+
+              using (var stream = new FileStream(path, FileMode.Create))  
+              {  
+                  await file.CopyToAsync(stream);  
+              }  */
+            
+            _documentoServices.AdicionarDocumento(documento);
+                
         }
 
         // GET: Documents/Edit/5
