@@ -59,13 +59,26 @@ namespace Assistente_de_Estagio.Controllers
             var caminhoPDF = new Thread(_documentoServices.CreateDocument(dados, caminhoDoc));
             var DownloadPath = _env.WebRootPath + "\\Downloads\\" + caminhoDoc[1] + "2.pdf";
             
+            if (filename == null)  
+              return Content("filename not present");  
+
+              var memory = new MemoryStream();  
+              using (var stream = new FileStream(path, FileMode.Open))  
+              {  
+                  await stream.CopyToAsync(memory);  
+              }  
+              memory.Position = 0;  
+              
+            
             Jsonrequisitospreenchidos dadosJson = new Jsonrequisitospreenchidos(){DocumentoIdDocumento = idDocumento, DadosJson = dados };
             _context.Add(dadosJson);
             
+              return File(memory, GetContentType(DownloadPath), Path.GetFileName(DownloadPath)); ;
+
 
             
-            byte[] fileBytes = System.IO.File.ReadAllBytes(DownloadPath);
-            return File(fileBytes, "application/x-msdownload", DownloadPath);
+            /*byte[] fileBytes = System.IO.File.ReadAllBytes(DownloadPath);
+            return File(fileBytes, "application/x-msdownload", DownloadPath);*/
             
 
 
