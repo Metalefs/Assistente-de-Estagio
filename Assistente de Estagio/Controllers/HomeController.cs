@@ -57,7 +57,7 @@ namespace Assistente_de_Estagio.Controllers
             string[] caminhoDoc = _documentoServices.ObterCaminho(idDocumento);
             
             var caminhoPDF = new Thread(_documentoServices.CreateDocument(dados, caminhoDoc));
-            var DownloadPath = _env.WebRootPath + "\\Downloads\\" + caminhoDoc[1] + "2.pdf";
+            var DownloadPath = _env.WebRootPath + "\\Downloads\\" + Convert.ToString(System.DateTime.Now.Ticks) +".pdf";
             
             if (filename == null)  
               return Content("filename not present");  
