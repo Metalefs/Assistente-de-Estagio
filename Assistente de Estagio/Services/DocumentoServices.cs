@@ -34,7 +34,7 @@ namespace Assistente_de_Estagio.Services
 
             
             var filePath = System.IO.Path.Combine(_env.WebRootPath, caminhoDocumento[0]);
-            var DownloadPath = _env.WebRootPath + "\\Downloads\\" + caminhoDocumento[1] + "2.pdf";
+            var DownloadPath = _env.WebRootPath + "\\Downloads\\" + Convert.ToString(System.DateTime.Now.Ticks) +".pdf";
 
             Application app = new word.Application();
             Document doc = app.Documents.Open(filePath+"10.doc");
@@ -43,7 +43,7 @@ namespace Assistente_de_Estagio.Services
             {
                 FindAndReplace(app, dadosAluno[i].name , dadosAluno[i].value);
             }
-            //string docPath = "~/Downloads/" + caminhoDocumento[1] + "2.pdf";
+            //string docPath = "~/Downloads/" + caminhoDocumento[1] + Convert.ToString(System.DateTime.Now.Ticks) +".pdf";
             doc.SaveAs2(DownloadPath, word.WdSaveFormat.wdFormatPDF);
 
 
