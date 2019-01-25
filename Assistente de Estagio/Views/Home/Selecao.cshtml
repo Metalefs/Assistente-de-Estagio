@@ -31,7 +31,7 @@
             <div class="docDiv" id="doc@{Html.DisplayFor(model => doc.IdDocumento);} ">
                 <span class="card-header nomeDoc"><h3 class="passoDoc">@Html.DisplayFor(model => doc.PosicaoDocumento)°Passo</h3><h4 class="tituloDoc" style="overflow=hidden">@Html.DisplayFor(model => doc.TituloDocumento)</h4></span>
                 <p>@Html.DisplayFor(model => doc.DescricaoDocumento)</p>
-                <button type="submit" id="downloadDoc" class="button downloadInSelec"><a href="~/Downloads/Declaração de Opção pela Área de Estágio2.pdf"><p>Download</p></a></button>    <button type=submit id="printDoc" class="button printInSelec"><p>Imprimir</p></button>
+                <button type="submit" id="downloadDoc" class="button downloadInSelec" onclick="Download(@IdDoc)><p>Download</p></button> <button type=submit id="printDoc" class="button printInSelec"><p>Imprimir</p></button>
             </div>
 
         </div>
