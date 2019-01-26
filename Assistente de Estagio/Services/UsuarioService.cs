@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Assistente_de_Estagio.Models.Enums;
 
 namespace Assistente_de_Estagio.Services
 {
@@ -25,7 +26,7 @@ namespace Assistente_de_Estagio.Services
             try
             {
                 Usuario usuario = _context.Usuario.Where(x => x.EmailUsuario == NomeEmail && x.SenhaUsuario == senha || (x.NomeUsuario == NomeEmail && x.SenhaUsuario == senha)).FirstOrDefault();
-                return usuario.Prioridade;
+                return (Prioridade)Enum.Parse(typeof(Prioridade), usuario.Prioridade);
             }
             catch
             {

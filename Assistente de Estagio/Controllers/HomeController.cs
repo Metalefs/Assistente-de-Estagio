@@ -8,6 +8,9 @@ using Assistente_de_Estagio.Models;
 using Assistente_de_Estagio.Services;
 using Microsoft.AspNetCore.Hosting;
 using Assistente_de_Estagio.Models;
+using System.Threading;
+using System.IO;
+
 
 namespace Assistente_de_Estagio.Controllers
 {
@@ -16,6 +19,7 @@ namespace Assistente_de_Estagio.Controllers
         public readonly DocumentoServices _documentoServices;
         private readonly IHostingEnvironment _hostingEnvironment;
         public readonly u2019_estgContext _context;
+         
 
         public HomeController(DocumentoServices documentoServices,IHostingEnvironment hostingEnvironment, u2019_estgContext context)
         {
@@ -29,22 +33,25 @@ namespace Assistente_de_Estagio.Controllers
         [RouteAttribute("/Index")]
         public IActionResult Selecao()
         {
-            string webRootPath = _hostingEnvironment.WebRootPath;
-            string contentRootPath = _hostingEnvironment.ContentRootPath;
-            List<Documento> docList = _context.Documento.ToList();
             ViewBag.ListaRequisitos = _documentoServices.ObterRequisitos(1);
             ViewBag.Caminho = _documentoServices.ObterCaminho(1);
+            ViewBag.Curso = _documentoServices.ListCursos();
+
+
+
+            List<Documento> docList = _documentoServices.ListAll();
             var Cursos = _documentoServices.ListCursos();
-            ViewBag.Curso = Cursos;
-            CursoDocViewModel viewModel = new CursoDocViewModel() { Curso = Cursos, Documento = docList };
+            var Registros = _documentoServices.ListRegistros();
+            var Usuarios = _documentoServices.ListUsuarios();
 
-            return View(docList);
+            
+
+            DocumentoCursoRegistroAluno viewModel = new DocumentoCursoRegistroAluno() {Documentos = docList, Cursos = Cursos, Fichas= Registros, Usuarios = Usuarios };
+
+            return View(viewModel);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -52,18 +59,18 @@ namespace Assistente_de_Estagio.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
         [HttpPost]
-        public ActionResult Download(string dados, int idDocumento)
+        public async Task<ActionResult> DownloadAsync(string dados, int idDocumento)
         {
             string[] caminhoDoc = _documentoServices.ObterCaminho(idDocumento);
+          
+            var caminhoPDF = _documentoServices.CreateDocument(dados, caminhoDoc);
+            var DownloadPath = _hostingEnvironment.WebRootPath + "\\Downloads\\" + Convert.ToString(System.DateTime.Now.Ticks) +".pdf";
             
-            var caminhoPDF = new Thread(_documentoServices.CreateDocument(dados, caminhoDoc));
-            var DownloadPath = _env.WebRootPath + "\\Downloads\\" + Convert.ToString(System.DateTime.Now.Ticks) +".pdf";
-            
-            if (filename == null)  
+            if (DownloadPath == null)  
               return Content("filename not present");  
 
               var memory = new MemoryStream();  
-              using (var stream = new FileStream(path, FileMode.Open))  
+              using (var stream = new FileStream(DownloadPath, FileMode.Open))  
               {  
                   await stream.CopyToAsync(memory);  
               }  
@@ -73,7 +80,7 @@ namespace Assistente_de_Estagio.Controllers
             Jsonrequisitospreenchidos dadosJson = new Jsonrequisitospreenchidos(){DocumentoIdDocumento = idDocumento, DadosJson = dados };
             _context.Add(dadosJson);
             
-              return File(memory, GetContentType(DownloadPath), Path.GetFileName(DownloadPath)); ;
+            return File(memory, "application/pdf", Path.GetFileName(DownloadPath)); ;
 
 
             

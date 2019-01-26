@@ -17,6 +17,7 @@ namespace Assistente_de_Estagio.Models
 
         public virtual DbSet<Curso> Curso { get; set; }
         public virtual DbSet<Documento> Documento { get; set; }
+        public virtual DbSet<Ficharegistro> Ficharegistro { get; set; }
         public virtual DbSet<Jsonrequisitospreenchidos> Jsonrequisitospreenchidos { get; set; }
         public virtual DbSet<Requisitodedocumento> Requisitodedocumento { get; set; }
         public virtual DbSet<Requisitodeusuario> Requisitodeusuario { get; set; }
@@ -138,6 +139,49 @@ namespace Assistente_de_Estagio.Models
                     .HasColumnName("tituloDocumento")
                     .HasMaxLength(150)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Ficharegistro>(entity =>
+            {
+                entity.HasKey(e => e.IdFichaRegistro);
+
+                entity.ToTable("ficharegistro", "u2019_estg");
+
+                entity.HasIndex(e => e.Data)
+                    .HasName("Data_UNIQUE")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Identificador)
+                    .HasName("Identificador_UNIQUE")
+                    .IsUnique();
+
+                entity.Property(e => e.IdFichaRegistro)
+                    .HasColumnName("idFichaRegistro")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.Atividades)
+                    .IsRequired()
+                    .HasMaxLength(45)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Classe)
+                    .IsRequired()
+                    .HasMaxLength(45)
+                    .IsUnicode(false)
+                    .HasDefaultValueSql("input-group");
+
+                entity.Property(e => e.HoraInicio)
+                    .IsRequired();
+
+                entity.Property(e => e.HoraFim)
+                    .IsRequired();
+
+                entity.Property(e => e.CargaHoraria)
+                    .IsRequired();
+
+                entity.HasIndex(e => e.IdUsuario)
+                   .HasName("fk_usuario_IdUsuario_idx");
+
             });
 
             modelBuilder.Entity<Jsonrequisitospreenchidos>(entity =>
@@ -317,6 +361,11 @@ namespace Assistente_de_Estagio.Models
                     .HasColumnName("nomeUsuario")
                     .HasMaxLength(45)
                     .IsUnicode(false);
+
+                entity.Property(e => e.Prioridade)
+                    .IsRequired()
+                    .HasColumnType("enum('1','2')")
+                    .HasDefaultValueSql("1");
 
                 entity.Property(e => e.SenhaUsuario)
                     .HasColumnName("senhaUsuario")

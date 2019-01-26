@@ -16,7 +16,7 @@ namespace Assistente_de_Estagio.Models
         public string SenhaUsuario { get; set; }
         public DateTime? DataCriacaoUltimoDocumento { get; set; }
         public int DocumentoIdDocumento { get; set; }
-        public Prioridade Prioridade { get; set; }
+        public string Prioridade { get; set; }
 
         public virtual Documento DocumentoIdDocumentoNavigation { get; set; }
         public virtual ICollection<Jsonrequisitospreenchidos> Jsonrequisitospreenchidos { get; set; }

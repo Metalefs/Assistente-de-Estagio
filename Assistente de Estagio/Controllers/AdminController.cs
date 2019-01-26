@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Assistente_de_Estagio.Services;
 using Microsoft.AspNetCore.Hosting;
 using Assistente_de_Estagio.Models.Enums;
-
+using System.IO;
 
 namespace Assistente_de_Estagio.Controllers
 {
@@ -32,23 +32,8 @@ namespace Assistente_de_Estagio.Controllers
         
         public ActionResult Index()
         {
-            Prioridade acesso = _usuarioService.CheckUsuario(NomeEmail, senha);
 
-                if(acesso == Prioridade.Usuario)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-
-                else if(acesso == Prioridade.Admin)
-                {
-                    return RedirectToAction(nameof(Tools));
-                }
-                
-            
-            ModelState.AddModelError("Erro-de-conexão", "Erro de conexão");
-            ViewBag.Error = true;
-            return RedirectToAction(nameof(Index));
-            
+            return View();
         }
 
         
@@ -60,6 +45,8 @@ namespace Assistente_de_Estagio.Controllers
         // GET: Documents/Create
         public ActionResult CriarDocumento()
         {
+            
+              
             return View();
         }
         public ActionResult GerenciarCurso()
@@ -72,22 +59,26 @@ namespace Assistente_de_Estagio.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LoginAction ([Bind("NomeEmail,senha")] string NomeEmail, string senha)
         {
-            
-            
-                    /*
-              if (file == null || file.Length == 0)  
-                  return Content("file not selected");  
 
-              var path = Path.Combine(  
-                          Directory.GetCurrentDirectory(), "wwwroot",   
-                          file.GetFilename());  
+            Prioridade acesso = _usuarioService.CheckUsuario(NomeEmail, senha);
 
-              using (var stream = new FileStream(path, FileMode.Create))  
-              {  
-                  await file.CopyToAsync(stream);  
-              }  */
+            if (acesso == Prioridade.Usuario)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            else if (acesso == Prioridade.Admin)
+            {
+                return RedirectToAction(nameof(Tools));
+            }
             
-            _documentoServices.AdicionarDocumento(documento);
+
+            ModelState.AddModelError("Erro-de-conexão", "Erro de conexão");
+            ViewBag.Error = true;
+            return RedirectToAction(nameof(Index));
+        
+
+            //_documentoServices.AdicionarDocumento(documento);
                 
         }
 
@@ -114,27 +105,6 @@ namespace Assistente_de_Estagio.Controllers
             }
         }
 
-        // GET: Documents/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Documents/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+      
     }
 }
