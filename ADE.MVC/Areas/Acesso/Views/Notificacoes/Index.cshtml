@@ -1,0 +1,47 @@
+﻿@model Assistente_de_Estagio.Areas.Acesso.Models.AlterarTipoNotificacaoViewmodel;
+@using ADE.Dominio.Models.Enums;
+@using ADE.Utilidades.Extensions;
+@using Assistente_de_Estagio.Areas.Acesso.Models;
+@{
+    ViewData["Title"] = "Trocar tipo de recebimento de notificações";
+}
+@await Html.PartialAsync("_ManageNav", "Notificacoes")
+<form method="post" action="/Acesso/Notificacoes/AlterarTipoNotificacao">
+    <div class="card-body">
+        <label for="TipoNotificacao">Selecione o tipo de recebimento para as suas notificações</label>
+        @Html.DropDownList("TipoRecebimentoNotificacao",
+        Html.GetEnumSelectList<EnumTipoRecebimentoNotificacao>(),
+        "Selecione o tipo", new { @id = "TipoNotificacao", @name = "TipoNotificacao" })
+        <input type="submit" class="btn btn-primary admin-add-btn" value="Salvar" />
+    </div>
+</form>
+
+<p class="float-right">@Model.TipoRecebimentoNotificacao.GetDescription()</p>
+
+<hr />
+<div class="">
+    <div class="col-md-12">
+        <p class="h3-responsive card-header">Notificações Individuais</p>
+        @if (Model.NotificacacoesIndividuais != null)
+        {
+            @foreach (var item in Model.NotificacacoesIndividuais)
+            {
+                @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Acesso.Notificacoes.Components.VisualizacaoNotificacaoViewComponent.VisualizacaoNotificacaoViewComponent), new { TipoNotificacao = EnumTipoNotificacao.Individual, Notificacao = item})
+            }
+        }
+    </div>
+    <div class="col-md-12">
+        <p class="h3-responsive card-header">Notificações Gerais</p>
+        @if (Model.NotificacacoesGerais != null)
+        {
+            @foreach (var item in Model.NotificacacoesGerais)
+            {
+                @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Acesso.Notificacoes.Components.VisualizacaoNotificacaoViewComponent.VisualizacaoNotificacaoViewComponent), new { TipoNotificacao = EnumTipoNotificacao.Geral, Notificacao = item})
+            }
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

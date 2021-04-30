@@ -1,0 +1,55 @@
+﻿@model Assistente_de_Estagio.Views.Shared.Components.UserDetails.UserDetailsViewModel
+@using ADE.Dominio.Models.Individuais
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<UsuarioADE> SignInManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="account-details">
+        <div id="@Model.IDComponente-loading"></div>
+        <ul id='dropdown-@Model.IDComponente' class="dropdown-content notifications-div component" style="box-shadow: 1px 1px 2px #949494;">
+
+        </ul>
+        <ul id="dropdown-@Model.IDComponente-account-info" class="dropdown-content account-info component center">
+            <li>
+                <a data-toggle="collapse" href="#@Model.IDComponente-account-info" class="fa ade-user-icon">
+                    <i class="large material-icons">person</i>
+                </a>
+                <a asp-area="Acesso" asp-page="/Account/Manage/Index" class="small AccountManage NomeUsuario tooltipped" data-tooltip="Perfil" data-placement="left">
+                    <p class="text-dark">@User.Identity.Name</p>
+                </a>
+            </li>
+            @if (Model.Usuario != null && Model.Usuario.IdCursoNavigation != null)
+            {
+                <li class="overflow-auto">
+                    <a href="/Principal/Instituicao/VisualizacaoInstituicao">
+                        <i class="center">Curso: @Model.Usuario.IdCursoNavigation.Nome()</i>
+                    </a>
+                </li>
+            }
+            <a onclick="changeTheme('light')" class="p-0">
+                <li class="center">
+                    <i class="material-icons center">brightness_5</i>
+                </li>
+            </a>
+            <a onclick="changeTheme('dark')" class="p-0">
+                <li>
+                    <i class="material-icons center">brightness_3</i>
+                </li>
+            </a>
+            <a id="AccountLogout" class="p-0 AccountLogout" href="/Account/Logout" title="Sair">
+                <li class="center">
+                        Sair<i class="fas fa-door-open center"></i>
+                </li>
+            </a>
+        </ul>
+    </div>
+    <script type="module">
+
+        import { NotificationDisplay } from "/Scripts/ADE/Notificacoes.js";
+        let notificacao_notifications_div = new NotificationDisplay("dropdown-@Model.IDComponente");
+        notificacao_notifications_div.ObterNotificacoes();
+        notificacao_notifications_div.Update();
+
+    </script>
+}

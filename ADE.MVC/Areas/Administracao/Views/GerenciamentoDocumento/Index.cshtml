@@ -1,0 +1,95 @@
+﻿@using Assistente_de_Estagio.Areas.Administracao.Models;
+@using ADE.Dominio.Models;
+@using ADE.Dominio.Models.Individuais;
+@using ADE.Utilidades.Extensions;
+@using Microsoft.AspNetCore.Html;
+
+@model GerenciamentoDocumentoViewmodel
+@{
+    ViewData["Title"] = "Conteúdo cadastrado";
+    ViewData["Selection"] = "Documento";
+}
+
+<a href="/Administracao/GerenciamentoInstituicao/Criar" class="btn-large waves-effect waves-light blue m-2 center"><i class="material-icons">add</i> Instituicao</a>
+<a href="/Administracao/GerenciamentoRequisito" class="btn-large waves-effect waves-light orange m-2 center">Requisitos</a>
+@foreach (Instituicao instituicao in Model.Instituicoes)
+{
+    <p class="card-header">Instituições</p>
+    <div class="row fix-row">
+        <ul class="collapsible col-md-12 fix-col">
+            <li>
+                <div class="collapsible-header dropdown-toggle">
+                    
+                    @instituicao.ExibirEntidadeColorCoded()
+                    <a data-toggle="modal" data-target="#inst-info-@instituicao.Identificador" href="#inst-info-@instituicao.Identificador">
+                        <i class="fa fa-expand" title="Expandir"></i>
+                    </a>
+                    @{
+                        IHtmlContent Conteudo = await Html.PartialAsync("_ExibicaoInstituicao", instituicao);
+                        Assistente_de_Estagio.Areas.Shared.ModalCardViewModel modal = new Assistente_de_Estagio.Areas.Shared.ModalCardViewModel($"inst-info-{instituicao.Identificador}", instituicao.Nome, Conteudo, ADE.Apresentacao.Models.TipoModal.Normal, "", "");
+                        @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Views.Shared.Components.ModalCardViewComponent.ModalCardViewComponent), new { modal = modal, CanClose = false, DefaultOpen = false })
+                    }
+                    <a href="Administracao/GerenciamentoCurso/Criar/?IdInstituicao=@instituicao.Identificador" class="btn-large waves-effect waves-light blue right tooltipped" data-position="bottom" data-tooltip="Adicionar curso a @instituicao.Nome">
+                        <i class="material-icons">add</i> curso
+                    </a>
+                </div>
+                <div class="collapsible-body">
+                    <p class="card-header">Cursos</p>
+                    @foreach (Curso curso in Model.Cursos)
+                    {
+                        if (curso.Identificador > 0 && curso.IdInstituicao == instituicao.Identificador)
+                        {
+                            <ul class="collapsible col-md-12 fix-col">
+                                <li>
+                                    <div class="collapsible-header dropdown-toggle">
+                                        <p class="card-title">
+                                            @curso.NomeCurso
+                                        </p>
+                                        <a data-toggle="modal" data-target="#curso-info-@curso.Identificador" href="#curso-info-@curso.Identificador">
+                                            <i class="fa fa-expand" title="Expandir"></i>
+                                        </a>
+                                        @{
+                                            IHtmlContent ConteudoCurso = await Html.PartialAsync("_ExibicaoCurso", curso);
+                                            Assistente_de_Estagio.Areas.Shared.ModalCardViewModel modalCurso = new Assistente_de_Estagio.Areas.Shared.ModalCardViewModel($"curso-info-{curso.Identificador}", curso.NomeCurso, ConteudoCurso, ADE.Apresentacao.Models.TipoModal.Normal, "", "");
+                                            @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Views.Shared.Components.ModalCardViewComponent.ModalCardViewComponent), new { modal = modalCurso, CanClose = false, DefaultOpen = false })
+                                        }
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <div class="card-header row">
+                                            <a href="./GerenciamentoDocumento/Criar/?IdInstituicao=@instituicao.Identificador&IdCurso=@curso.Identificador" class="btn-large waves-effect waves-light blue right tooltipped" data-position="bottom" data-tooltip="Adicionar documento ao curso @curso.NomeCurso">
+                                                <i class="material-icons">add</i>
+                                            </a>
+                                        </div>
+                                        <p class="card-header">Documentos</p>
+                                        @foreach (Documento documento in Model.Documentos)
+                                        {
+                                            if (documento.Identificador > 0 && documento.IdCurso == curso.Identificador)
+                                            {
+                                                @await Html.PartialAsync("_ExibicaoDocumento", documento)
+                                            }
+                                        }
+                                    </div>
+                                </li>
+                            </ul>
+                        }
+                        else if (instituicao.Cursos == null)
+                        {
+                            <div class="card-header h5 text-primary">Nenhum curso foi encontrado</div>
+                        }
+                    }
+                </div>
+            </li>
+        </ul>
+    </div>
+    <hr />
+}
+
+@{
+    var prevDisabled = !Model.Documentos.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Documentos.HasNextPage ? "disabled" : "";
+
+    @Html.ActionLink("<", "Index", "GerenciamentoDocumento", new { sortOrder = ViewData["CursoSortParm"], pageNumber = Model.Documentos.PageIndex - 1, currentFilter = ViewData["CurrentFilter"] }, new { @class = "btn btn-info " + prevDisabled })
+
+    @Html.ActionLink(">", "Index", "GerenciamentoDocumento", new { sortOrder = ViewData["CursoSortParm"], pageNumber = Model.Documentos.PageIndex + 1, currentFilter = ViewData["CurrentFilter"] }, new { @class = "btn btn-info " + nextDisabled })
+    <p>Página @Model.Documentos.PageIndex de @Model.Documentos.TotalPages</p>
+}

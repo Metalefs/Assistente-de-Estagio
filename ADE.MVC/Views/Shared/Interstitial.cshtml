@@ -1,0 +1,13 @@
+﻿@model string
+@{
+    ViewData["Title"] = "Entrar";
+}
+<div class="height-100 center">
+    <div class="mascote-min"></div>
+    @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Views.Shared.Components.LoadingCircleViewComponent.LoadingCircleViewComponent), new { id = "int_loading", Closed = false })
+    <p class="h3-responsive">Bem vindo ao ADE!</p>
+</div>
+
+<script>
+    setTimeout(() => { window.location.pathname = "@Model" }, 2300);
+</script>

@@ -1,0 +1,57 @@
+﻿@model Assistente_de_Estagio.Areas.Ajuda.Models.InformacaoFAQ
+@using ADE.Utilidades.Extensions;
+@{string classe = Model.FAQ.Status == ADE.Dominio.Models.Enums.EnumStatusFAQ.Respondido ? "collapse" : "";}
+
+
+    <div id="pergunta-@Model.FAQ.Identificador">
+
+        <ul class="collapsible">
+            <li>
+                <div class="collapsible-header dropdown-toggle">
+                    <i class="material-icons prefix">question_answer</i>
+                    <p class="card-title">@Model.FAQ.Pergunta </p>
+                    <br />
+                    <p class="font-small"> Por: @Model.UsuarioPergunta.UserName</p>
+                </div>
+                <div class="collapsible-body">
+
+
+                    @if (User.IsAdminOrCriadorConteudo())
+                    {
+                        if (Model.FAQ.Status == ADE.Dominio.Models.Enums.EnumStatusFAQ.Aberto)
+                        {
+                            <a onclick="FAQS[@Model.FAQ.Identificador].AdicionarResposta('@Model.FAQ.Pergunta')" class="btn btn-green">Responder</a>
+                        }
+                        <a onclick="FAQS[@Model.FAQ.Identificador].Deletar()" class="btn btn-danger">Deletar</a>
+                    }
+
+
+                    <p class="h5-responsive card-body">@Model.FAQ.Resposta</p>
+                    @if (Model.FAQ.Status == ADE.Dominio.Models.Enums.EnumStatusFAQ.Respondido)
+                    {
+                        <p class="card-footer" style="padding:0 !important">
+                            Respondido por: @Model.UsuarioResposta.UserName
+                            <a onclick="FAQS[@Model.FAQ.Identificador].AdicionarResposta('@Model.FAQ.Pergunta')" class="btn btn-green">Alterar Resposta</a>
+                        </p>
+                    }
+                </div>
+            </li>
+        </ul>       
+
+        <div class="blog-footer">
+            @if (User.IsAdminOrCriadorConteudo())
+            {
+                <p>Status: @Model.FAQ.Status.GetDescription()</p>
+            }
+        <div class="row">
+            <a class="col col-md-1" onclick="FAQS[@Model.FAQ.Identificador].Like()">
+                <i class="material-icons prefix">thumb_up</i>
+            </a>
+            <a class="col col-md-1" onclick="FAQS[@Model.FAQ.Identificador].Dislike()">
+                <i class="material-icons prefix">thumb_down</i>
+            </a>
+            <p class="h5-responsive font-big col col-md-1" id="FAQ-@Model.FAQ.Identificador-Counter">@Model.FAQ.Pontuacao</p>
+        </div>
+        </div>
+
+    </div>

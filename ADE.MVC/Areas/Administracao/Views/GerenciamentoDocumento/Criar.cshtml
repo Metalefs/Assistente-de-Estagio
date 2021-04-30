@@ -1,0 +1,172 @@
+﻿@model Assistente_de_Estagio.Areas.Administracao.Models.CriarDocumentoViewModel
+@using ADE.Dominio.Models.Enums
+
+@{
+    ViewData["Title"] = "Criar Documento";
+}
+
+<div class="admin-nav-tabs">
+    <div class="nav row card-body" id="myTab" role="tablist">
+        @await Html.PartialAsync("CadastrarNav", "Documento")
+        <div class="tab-content" id="myTabContent">
+            <div>
+                <div class="card-header text-info">
+                    Criar Um Novo Documento
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <form enctype="multipart/form-data" action="/Administracao/GerenciamentoDocumento/CriarDocumento" method="post">
+                            <input type="hidden" name="Documento.Visibilidade" value="1" />
+                            <input type="hidden" name="Cursos" value="1" />
+                            <input type="hidden" name="Instituicoes" value="1" />
+                            <div class="">
+                                @if (Model.Cursos != null && Model.Cursos.Count > 0)
+                                {
+                                    @Html.DropDownList("IdInstituicao", new SelectList(Model.Instituicoes, "Identificador", "Nome")
+                                    , new { id = "SelecaoInstituicao", @name = "Documento.IdInstituicao" })
+                                }
+                                else
+                                {
+                                    <p class="text-danger">Nenhuma instituicao foi encontrada</p>
+                                }
+                                <label for="SelecaoInstituicao">Instituicao</label>
+                            </div>
+                            <div class="">
+                                @if (Model.Cursos != null && Model.Cursos.Count > 0)
+                                {
+                                    @Html.DropDownList("IdCurso", new SelectList(Model.Cursos, "Identificador", "NomeCurso")
+                                    , new { id = "SelecaoCurso", @name = "Documento.IdCurso" })
+                                }
+                                else
+                                {
+                                    <p class="text-danger">Nenhum curso foi encontrado</p>
+                                }
+                            </div>
+
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="input-field">
+                                <div id="loading-animation" class="loading loadingIcon collapse"></div>
+                                <div class="file-field input-field">
+                                    <div class="btn">
+                                        <span>Arquivo</span>
+                                        <input id="CampoDocX" onchange="FileUploaded()" type="file" name="Arquivo">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input onchange="FileUploaded()" class="file-path validate" name="Arquivo" type="text" value="@Model.Arquivo" placeholder="Arquivo">
+                                    </div>
+                                    <p>Esse arquivo será avaliado e disponibilizado para download</p>
+                                </div>
+                                <span asp-validation-for="Arquivo" class="text-danger"></span>
+                                <div id="campo-texto-documento" class="row card p-1">
+                                </div>
+                                <div class="row d-none" id="hidden-campos-requisito">
+                                    <div id="campo-requisitos-reconhecidos" class="col-md-6">
+                                        <h6>Requisitos novos encontrados no documento</h6>
+                                        <p>Para cada requisito novo, clique sobre o seu nome para cadastra-lo</p>
+                                    </div>
+                                    <div id="campo-requisitos-compativeis" class="col-md-6">
+                                        <h6>Requisitos encontrados que são compativeis com já registrados</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-field">
+                                <div class="file-field input-field">
+                                    <div class="btn">
+                                        <span>Arquivo PDF</span>
+                                        <input type="file" name="ArquivoPDF">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" name="ArquivoPDF" type="text" placeholder="Arquivo em PDF">
+                                    </div>
+                                    <p>Esse arquivo será avaliado e disponibilizado para download</p>
+                                </div>
+                                <span asp-validation-for="ArquivoPDF" class="text-danger"></span>
+                            </div>
+                            <div class="input-field">
+                                <div class="col s12">
+                                    <label for="TituloDocumento">@Html.DisplayNameFor(model => model.Documento.TituloDocumento)</label>
+                                    <input id="TituloDocumento" required name="Documento.TituloDocumento" type="text" title="Insira o nome do documento" />
+                                    <span asp-validation-for="Documento.TituloDocumento" class="text-danger"></span>
+                                </div>
+                                <div class="col s10">
+                                    <label for="Texto">@Html.DisplayNameFor(model => model.Documento.Texto)</label>
+                                    <textarea id="Texto" class="" required name="Documento.Texto" title="Insira o conteúdo do documento"></textarea>
+                                    <span asp-validation-for="Documento.Texto" class="text-danger"></span>
+                                </div>
+                                <div class="col s2">
+                                    <label for="PosicaoDocumento">@Html.DisplayNameFor(model => model.Documento.PosicaoDocumento)</label>
+                                    <input id="PosicaoDocumento" required name="Documento.PosicaoDocumento" type="number" min="0" title="Insira ordem de exibição do documento" />
+                                    <span asp-validation-for="Documento.PosicaoDocumento" class="text-danger"></span>
+                                </div>
+                                <div class="col s12">
+                                    <label for="DescricaoDocumento">@Html.DisplayNameFor(model => model.Documento.DescricaoDocumento)</label>
+                                    <textarea class="materialize-textarea" id="DescricaoDocumento" name="Documento.DescricaoDocumento" title="Insira uma descrição para o documento"></textarea>
+                                    <span asp-validation-for="Documento.DescricaoDocumento" class="text-danger"></span>
+                                </div>
+                                <div class="col s3">
+                                    @Html.DropDownList("Documento.Assinatura",
+                                    new SelectList(Enum.GetNames(typeof(EnumAssinaturaDocumento))),
+                                    "Selecione a assinatura",
+                                    new { @name = "Documento.Assinatura", @title = "Indique por quem o documento deve ser assinado", @id = "Assinatura" })
+                                    <span asp-validation-for="Documento.Assinatura" class="text-danger"></span>
+                                </div>
+                                <div class="col s3">
+                                    @Html.DropDownList("Documento.Tipo",
+                                        Html.GetEnumSelectList<EnumTipoDocumento>(),
+                                        "Selecione o tipo", new { @id = "TipoDocumento", @name = "Documento.Tipo" })
+                                </div>
+                                <div class="col s3">
+                                    @Html.DropDownList("Documento.Etapa",
+                                        Html.GetEnumSelectList<EnumEtapaDocumento>(),
+                                        "Selecione a etapa", new { @id = "EtapaDocumento", @name = "Documento.Etapa" })
+                                </div>
+                                <div class="col s6 form-control">
+                                    <p>
+                                        <label for="PossuiAssinaturaResposavelEstagio">@Html.DisplayNameFor(model => model.Documento.PossuiAssinaturaResposavelEstagio)</label>
+                                        <input name="Documento.PossuiAssinaturaResposavelEstagio" id="PossuiAssinaturaResposavelEstagio" type="checkbox" />
+                                        <span asp-validation-for="Documento.PossuiAssinaturaResposavelEstagio" class="text-danger"></span>
+                                    </p>
+                                </div>
+                                <div class="col s12  form-control">
+                                    <p>
+                                        <label for="PossuiCarimboCNPJ">@Html.DisplayNameFor(model => model.Documento.PossuiCarimboCNPJ)</label>
+                                        <input name="Documento.PossuiCarimboCNPJ" id="PossuiCarimboCNPJ" type="checkbox" />
+                                        <span asp-validation-for="Documento.PossuiCarimboCNPJ" class="text-danger"></span>
+                                    </p>
+                                </div>
+                                <div class="col s12  form-control">
+                                    <p>
+                                        <label for="PossuiData">@Html.DisplayNameFor(model => model.Documento.PossuiData)</label>
+                                        <input name="Documento.PossuiData" id="PossuiData" type="checkbox" />
+                                        <span asp-validation-for="Documento.PossuiData" class="text-danger"></span>
+                                    </p>
+                                </div>
+                                <div class="col s12 ">
+                                    <label for="Aviso" class="control-label">@Html.DisplayNameFor(model => model.Documento.Aviso)</label>
+                                    <input id="Aviso" name="Documento.Aviso" type="text" title="Insira um alerta opcional para o Documento" />
+                                    <span asp-validation-for="Documento.Aviso" class="text-danger"></span>
+                                    <p>O aviso é fixado no canto superior esquerdo do plano de fundo da interface de preenchimento de documento.</p>
+                                </div>
+                            </div>
+                            <input type="submit" value="Criar" class="btn admin-add-btn admin-submit-btn" />
+                            @Html.ActionLink("Voltar ao Gerenciamento", "Index", "GerenciamentoDocumento", new { }, new { Class = "btn admin-back-btn" })
+                        </form>
+                    </div>
+                    <div class="col-md-4 border-left bg-light">
+                        <p>Os alertas aparecerão para os usuários na listagem dos documentos para esse curso na página @Html.ActionLink("Documentos", "Index", "ListagemDocumentos", new { idCurso = 0, currentFilter = string.Empty, searchString = string.Empty, p = 0 })</p>
+                        <p>As Informações aparecerão como diálogo na mesma página</p>
+                        <div class="form-group md-form floating-button">
+                            @Html.ActionLink("Voltar ao Gerenciamento", "Index", "GerenciamentoDocumento", new { }, new { Class = "btn admin-back-btn" })
+                        </div>
+                    </div>
+                </div>
+                <div id="create_requisito_div"></div>
+            </div>
+            <script src="~/Scripts/ADE/Administracao/Documento/ComparacaoDeRequisitos.js">
+            </script>
+            @section Scripts {
+                @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+            }
+        </div>
+    </div>
+</div>

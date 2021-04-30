@@ -1,0 +1,9 @@
+﻿@model ADE.Dominio.Models.AlteracaoEntidadesSistema
+@using ADE.Utilidades.Extensions
+<div class="card col-md-6" style="min-height:565px">
+    <h4 class="text-info card-header">@Model.Entidade.ToString()</h4>
+    @Model.MensagemDePropriedadesEmHTMLOmitindoAtributos("md-form")
+    <div class="card-footer">
+        @Model.DataHoraInclusao
+    </div>
+</div>

@@ -1,0 +1,15 @@
+﻿@model Assistente_de_Estagio.Areas.Principal.Models.InformacaoInstituicao
+@using ADE.Utilidades.Extensions
+
+    <div>
+        <ul>
+            <li><i class="material-icons prefix">web</i><p class="h4-responsive"><a href="@Model.Instituicao.Website">@Model.Instituicao.Website</a></p></li>
+            <li><i class="material-icons prefix">mail</i><p class="h4-responsive">@Model.Instituicao.Email</p></li>
+            <li><i class="material-icons prefix">phone</i><p class="h4-responsive">@Model.Instituicao.Telefone</p></li>
+            <li><i class="material-icons prefix">location_on</i><p class="h4-responsive">@Model.Instituicao.Endereco</p></li>
+        </ul>
+        <div class="input-field">
+            <p>@Model.Instituicao.Descricao</p>
+        </div>
+    </div>
+    <a href="/Principal/Instituicao/VisualizacaoInstituicao?idInstituicao=@Model.Instituicao.Identificador" class="btn btn-yellow btn-floating tooltipped" data-tooltip="Continuar para @Model.Instituicao.Nome" data-position="bottom"><i class="material-icons">arrow_forwards</i></a>

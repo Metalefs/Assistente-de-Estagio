@@ -1,0 +1,78 @@
+﻿@using Assistente_de_Estagio.Areas.Principal.Models
+@using Assistente_de_Estagio.Areas.Shared;
+@using ADE.Utilidades.Extensions;
+@model UsuarioHomeViewModel
+
+@{string url = "Principal/UserHome/Estatisticas";}
+@await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Acesso.Components.InfoHelperComponentViewComponent.InfoHelperViewComponent), url)
+<div class="row">
+    <div class="col-md-3 mr-0 pr-0" id="carga-horaria">
+        <p class="h5-responsive container pt-3">Sua Carga Horária:</p>
+    </div>
+    <div class="col-md-4">
+        @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Principal.Shared.Components.ContabilizacaoHorasViewComponent.ContabilizacaoHorasViewComponent), new { })
+    </div>
+    <div class="col-md-4">
+        @if (Model.Usuario.Id != "N/A" && Model.Usuario.IdCursoNavigation != null && Model.Usuario.IdInstituicaoNavigation != null)
+        {
+            <input type="text" disabled value="@Model.Usuario.IdCursoNavigation.CargaHorariaMinimaEstagio horas" />
+        }
+        else
+        {
+            <input type="text" disabled value="N/A horas" />
+        }
+    </div>
+    @if (User.IsAdminOrCriadorConteudo())
+    {
+        <span>
+            <a href="/Administracao/Dashboard/" data-tooltip="Dashboard" data-position="bottom" class="tooltipped adm-color btn waves-effect waves-light">Acessar área de administração</a>
+        </span>
+    }
+</div>
+<div class="row">
+    <ul class="collapsible col-md-9">
+        <li>
+            <div class="collapsible-header bg-light">
+                <span class="h5-responsive text-muted">Atividades Por Dia:</span>
+            </div>
+            <div class="collapsible-body" style="display:block">
+                <div id="atividades-dia">
+                    <div id="line-chart-div">
+                        <div id="line-chart-canvas"></div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <ul class="collapsible col-md-3">
+        <li>
+            <div class="collapsible-header bg-light">
+                <span class="h5-responsive text-muted">Conclusão:</span>
+            </div>
+            <div class="collapsible-body" style="display:block">
+                <div id="percentual-conclusao">
+                    <canvas id="pizza-chart-canvas"></canvas>
+                </div>
+
+                <div>
+                    @if (Model.ContagemRequisitoDoUsuario > 0)
+                    {
+                        @Html.ActionLink(Model.ContagemRequisitoDoUsuario + " Requisitos cadastrados", "Index", "MeusDados")
+                    }
+                    else
+                    {
+                        <p class="h5-responsive">Você ainda não possui nenhum requisito cadastrado, comece a gerar documentos e eles aparecerão aqui!</p>
+                    }
+                </div>
+                <div class="card-body">
+                    @{
+                        string download = "download";
+                        download += Model.QuantidadeDocumentosGerados != 1 ? "s" : string.Empty;
+                    }
+                    <p>Realizou <span class="h3-responsive">@Model.QuantidadeDocumentosGerados/@Model.ContagemDocumentosCurso</span> @download de documentos do curso atual</p>
+                    <a class="btn btn-blue waves-effect" href="/Principal/Atividades">Completar atividades</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

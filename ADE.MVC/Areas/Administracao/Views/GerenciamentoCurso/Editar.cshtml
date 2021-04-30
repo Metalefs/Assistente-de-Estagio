@@ -1,0 +1,118 @@
+﻿@using ADE.Dominio.Models.Enums
+@using ADE.Dominio.Models.Individuais
+@using ADE.Dominio.Models
+@using ADE.Utilidades.Extensions
+@model Assistente_de_Estagio.Areas.Administracao.Models.AlterarCursoViewModel
+
+@{
+    ViewData["Title"] = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="">
+    @await Html.PartialAsync("EditarNav", "Curso")
+    <div class="tab-content" id="myTabContent">
+        <div>
+            <div class="modal-header">Editar</div>
+            <div class="card-header text-info">
+                <h4>Curso:</h4> @Html.DisplayFor(model => model.Curso.NomeCurso)
+            </div>
+            <form action="/Administracao/GerenciamentoCurso/Editar" method="post" class="row">
+                <div class="col-md-4">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" name="Curso.Identificador" value="@Html.DisplayFor(model => model.Curso.Identificador)" />
+                    <div class="input-field">
+                        <label for="Curso.NomeCurso">@Html.DisplayNameFor(model => model.Curso.NomeCurso)</label>
+                        <input type="text" id="Curso.NomeCurso" name="Curso.NomeCurso" value="@Html.DisplayFor(model => model.Curso.NomeCurso)" title="Insira o nome do curso o qual o documento pertence" />
+                        <span asp-validation-for="Curso.NomeCurso" class="text-danger"></span>
+                    </div>
+                    <div class="input-field">
+                        <label for="Sigla">@Html.DisplayNameFor(model => model.Curso.Sigla)</label>
+                        <input type="text" name="Curso.Sigla" id="Curso.Sigla" value="@Html.DisplayFor(model => model.Curso.Sigla)" title="Insira uma Sigla para o curso" />
+                        <span asp-validation-for="Curso.Sigla" class="text-danger"></span>
+                    </div>
+                    <div class="input-field">
+                        <select name="Curso.IdInstituicao">
+                            @{
+                                foreach (Instituicao instituicao in Model.Instituicoes)
+                                {
+                                    <option value="@instituicao.Identificador">@instituicao.Nome</option>
+                                    if (instituicao.Identificador == Model.Selection)
+                                    {
+                                        <option value="@instituicao.Identificador" selected>@instituicao.Nome</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="input-field">
+                        <select>
+                            @{
+                                foreach (AreaEstagioCurso area in Model.AreasEstagio)
+                                {
+                                    <option value="@area.Identificador">@area.Nome</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="input-field">
+                        <label for="Curso.CoordenadorCurso" class="control-label">@Html.DisplayNameFor(model => model.Curso.CoordenadorCurso)</label>
+                        <input name="Curso.CoordenadorCurso" id="Curso.CoordenadorCurso" type="text" value="@Html.DisplayFor(model => model.Curso.CoordenadorCurso)" title="Insira o nome do coordenador do curso na instituição" />
+                        <span asp-validation-for="Curso.CoordenadorCurso" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-field">
+                        <label for="Curso.EmailCoordenadorCurso" class="control-label">@Html.DisplayNameFor(model => model.Curso.EmailCoordenadorCurso)</label>
+                        <input name="Curso.EmailCoordenadorCurso" id="Curso.EmailCoordenadorCurso" type="text" value="@Html.DisplayFor(model => model.Curso.EmailCoordenadorCurso)" title="Insira o email do coordenador do curso na instituição" />
+                        <span asp-validation-for="Curso.EmailCoordenadorCurso" class="text-danger"></span>
+                    </div>
+                    <div class="input-field">
+                        <label for="Curso.DescricaoCurso" class="control-label">@Html.DisplayNameFor(model => model.Curso.DescricaoCurso)</label>
+                        <input id="Curso.DescricaoCurso" style="resize: none;" type="text" name="Curso.DescricaoCurso" title="Insira uma descrição para o curso" value="@Html.DisplayFor(model => model.Curso.DescricaoCurso)">
+                        <span asp-validation-for="Curso.DescricaoCurso" class="text-danger"></span>
+                    </div>
+                    <div class="input-field">
+                        <label for="Curso.CargaHorariaMinimaEstagio" class="control-label">@Html.DisplayNameFor(model => model.Curso.CargaHorariaMinimaEstagio)</label>
+                        <input id="Curso.CargaHorariaMinimaEstagio" style="resize: none;" type="text" name="Curso.CargaHorariaMinimaEstagio" title="Insira a CargaHorariaMinimaEstagio" value="@Html.DisplayFor(model => model.Curso.CargaHorariaMinimaEstagio)">
+                        <span asp-validation-for="Curso.CargaHorariaMinimaEstagio" class="text-danger"></span>
+                    </div>
+                    <div class="input-field">
+                        <label for="Curso.TipoCurso" class="control-label">@Html.DisplayNameFor(model => model.Curso.TipoCurso)</label>
+                        @Html.DropDownListFor(Model => Model.Curso.TipoCurso, Html.GetEnumSelectList<EnumTipoCurso>(), new { @class = "form-control", @name = "Curso.TipoCurso", @id = "Curso.TipoCurso" })
+                    </div>
+                    <div class="input-field">
+                        <label for="InformacaoCursos" class="control-label">@Html.DisplayNameFor(model => model.Curso.Informacao)</label>
+                        <div id="alert-box">
+                            <input name="Curso.Informacao" id="InformacaoCursos" type="text" value="@Html.DisplayFor(model => model.Curso.Informacao)">
+                        </div>
+                        <span asp-validation-for="Curso.InformacaoCursos" class="text-danger"></span>
+                    </div>
+                    <div class="input-field">
+                        <label for="Curso.Alerta" class="control-label">@Html.DisplayNameFor(model => model.Curso.Alerta)</label>
+                        <input name="Curso.Alerta" type="text" value="@Html.DisplayFor(model => model.Curso.Alerta)" title="Insira um alerta opcional para o curso" />
+                        <span asp-validation-for="Curso.Alerta" class="text-danger"></span>
+                    </div>
+                    @Model.Curso.CreateCampoMensagemAlteracao("md-form")
+                    <div class="input-field">
+                        <input type="submit" value="Alterar" class="btn btn-primary admin-add-btn" />
+                        @Html.ActionLink("Voltar ao Gerenciamento", "Index", "GerenciamentoCurso", new { }, new { Class = "btn admin-back-btn" })
+                    </div>
+                </div>
+                <div class="col-md-4 bg-light">
+                    <p>Os alertas aparecerão para os usuários na listagem dos documentos para esse curso na página @Html.ActionLink("Documentos", "Index", "ListagemDocumentos", new { idCurso = 0, currentFilter = string.Empty, searchString = string.Empty, p = 0 })</p>
+                    <p>As Informações apareceram como diálogo na mesma página</p>
+                </div>
+            </form>
+        </div>
+        <div class="form-group md-form floating-button">
+            @Html.ActionLink("Voltar ao Gerenciamento", "Index", "GerenciamentoCurso", new { }, new { Class = "btn admin-back-btn" })
+        </div>
+    </div>
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        <script>
+            $('select').formSelect();
+        </script>
+    }
+</div>
+

@@ -1,0 +1,71 @@
+﻿@using ADE.Utilidades.Extensions
+@using ADE.Apresentacao.Models
+
+@model ADE.Apresentacao.Models.Sidenav.Sidebar
+@{
+    string LinkPrincipal = User.ShowDefaultInterface(ViewData["Title"].ToString()) == true ? Model.LinkPrincipal : "/";
+    string View = Model.LoadType == LoadType.Full ? "Mobile" : "Skeleton";
+    string Nome = Model.UsuarioADE == null ? "" : Model.UsuarioADE.UserName;
+    string Email = Model.UsuarioADE == null ? "" : Model.UsuarioADE.Email;
+}
+    <div id="m-sidbar-help"></div>
+    <div class="tap-target" data-target="m-sidbar-help">
+        <div class="tap-target-content">
+            <h5 class="h3-responsive">Sidebar</h5>
+            <p class="text-white">A side bar está aqui! arraste a tela fora do circulo para o lado para acessar</p>
+        </div>
+    </div>
+    <ul id="slide-out" class="sidenav hide-on-large-only">
+        <a href="#" class="fa waves-effect fa-bars text-dark d-block sidebarCollapse ponter-events-none" style="padding:0"></a>
+        <li>
+            <a class="sidenav-close navbar-ADE" href="#!"></a>
+            <div class="user-view">
+                <div class="background mobile-sidebar-cover">
+                </div>
+
+                <a href="@LinkPrincipal">
+                    @{
+                        string src = Model.UsuarioADE == null || Model.UsuarioADE.Logo == null ? "~/Images/Logo/logo-sidenav.png" : $"data:image;base64,{Convert.ToBase64String(Model.UsuarioADE.Logo)}";
+                    }
+                    <img class="circle" src="@src" id="sidebar-logo">
+                </a>
+                <a href="/Acesso/Account/Manage"><span class="white-text name">@Nome</span></a>
+                <a href="/Acesso/Account/Manage"><span class="white-text email">@Email</span></a>
+            </div>
+            <div class="user-area-icon">
+                <div class="user-notification-icon">
+                    <p id="dropdown-notifications_div_mobile-count" class="notifications-div-count"></p>
+                    <a href='#' data-target='dropdown-notifications_div_mobile' class="dropdown-trigger btn waves-effect waves-light input-group-prepend dropdown-toggle">
+                        <span class="fa fa-bell"></span>
+                    </a>
+                </div>
+                <a href='#' data-target='dropdown-notifications_div_mobile-account-info' class="dropdown-trigger btn waves-effect waves-light input-group-prepend dropdown-toggle">
+                    <span class="fa ">
+                        <i class="large material-icons" style="line-height: 46px;">person</i>
+                    </span>
+                </a>
+            </div>
+            @if (Model != null)
+            {
+                <vc:user-details usuario="Model.UsuarioADE" id-componente="notifications_div_mobile"></vc:user-details>
+            }
+        </li>
+
+        <div class="sidebar-elements-container">
+            @foreach (Elemento elemento in Model.Elementos)
+            {
+                if (elemento.AreaComponente == AreaComponente.Admin && !User.IsAdminOrCriadorConteudo())
+                {
+                    continue;
+                }
+                <vc:side-bar-element elemento="elemento" tipo="@View"></vc:side-bar-element>
+
+                <li><div class="divider"></div></li>
+            }
+        </div>
+        <div class="btn btn-danger btn-sair">
+            <a href="/Account/Logout" title="Sair">
+                <i class="material-icons">exit_to_app</i>Sair
+            </a>
+        </div>
+    </ul>

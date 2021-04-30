@@ -1,0 +1,12 @@
+﻿@model ADE.Dominio.Models.RegistroDeHoras
+@using Assistente_de_Estagio.Areas.Shared;
+@using Microsoft.AspNetCore.Html;
+
+@{
+    IHtmlContent ConteudoEdicao = await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Principal.UserHome.Components.FormularioEdicaoRegistroViewComponent.FormularioEdicaoRegistroViewComponent), new {registro = Model });
+
+    ModalCardViewModel modalCard = new ModalCardViewModel($"Editar-{Model.Identificador}", "Alterar registro de hora", ConteudoEdicao, ADE.Apresentacao.Models.TipoModal.Mini);
+
+    @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Views.Shared.Components.ModalCardViewComponent.ModalCardViewComponent), new { Modal = modalCard, CanClose = true });
+}
+

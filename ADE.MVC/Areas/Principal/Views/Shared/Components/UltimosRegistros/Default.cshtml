@@ -1,0 +1,31 @@
+﻿@using ADE.Dominio.Models;
+@model Assistente_de_Estagio.Areas.Principal.Views.RegistroHoras.Components.UltimosRegistros.UltimosRegistrosVM
+
+@{ 
+    string open = "display:block";
+    //if(ViewData["Selection"] != null)
+    //{
+    //    string selection = ViewData["Selection"].ToString() ?? "";
+    //    open = selection == "Registro de Horas" ? "display:block" : "";
+    //}
+}
+<ul class="collapsible">
+    <li style="display: block">
+        <div class="collapsible-header bg-light">
+            <p class="h5-responsive">Últimas Atividades (@Model.Registros.Count/@Model.TotalRegistros)</p>
+        </div>
+        <div class="collapsible-body ultimas-atividades-collapsible-header card" style="@open">
+            <ul class="collection with-header">
+                <li class="collection-header"><h5>Atividades</h5></li>
+                @foreach (RegistroDeHoras registro in Model.Registros)
+                {
+                    @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Principal.Views.RegistroHoras.Components.RegistroItem.RegistroItemViewComponent), new { registro })
+                }
+                @if (Model.Registros.Count == 0)
+                {
+                    <p class="card-header text-md-center">Nenhum registro encontrado</p>
+                }
+            </ul>
+        </div>
+    </li>
+</ul>

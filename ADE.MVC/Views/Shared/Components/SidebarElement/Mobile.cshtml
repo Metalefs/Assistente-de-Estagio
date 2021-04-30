@@ -1,0 +1,38 @@
+﻿@using ADE.Apresentacao.Models
+@model ADE.Apresentacao.Models.Elemento
+@{
+    string Active = "";
+    if (ViewData["Selection"] != null)
+    {
+        string selection = ViewData["Selection"].ToString() ?? "";
+        Active = selection == Model.Nome ? "active" : "";
+    }
+}
+<ul class="collapsible corr_display">
+    <li style="display: block ">
+        <div class="collapsible-header sidebarCollapsibleHeader">
+            <a class="sidebar-link">
+                <i class="@Model.Icone"></i>
+                <span class="sidebar-item-name">@Model.Nome</span>
+            </a>
+        </div>
+        <div class="sidebarcollpsilble collapsible-body">
+            <ul class="sidebar-list">
+
+                <a href="@Model.Link" class="mobile-link">
+                    <li>
+                        <span class="">@Model.Nome</span>
+                    </li>
+                </a>
+                @foreach (NavItem item in Model.NavItems)
+                {
+                    string target = item.Nome == "Legislação" ? "_blank" : "_self";
+                    <li>
+                        <a href="@item.Link" target="@target" class="side-nav-link-nome @Active">@item.Nome</a>
+                    </li>
+                }
+
+            </ul>
+        </div>
+    </li>
+</ul>

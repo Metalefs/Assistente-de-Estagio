@@ -1,0 +1,39 @@
+﻿@using ADE.Apresentacao.Models.NavTab
+@using ADE.Apresentacao.Models;
+@model NavTab
+@{string id = Model.ItemPrincipal.NavItem.Area == "Administracao" ? "admin-tabs" : "user-tabs";}
+@{
+    string controller = Model.LoadType == LoadType.Full ? Model.ItemPrincipal.NavItem.Controller : "";
+    string Active = "";
+    if(ViewData["Selection"] != null)
+    {
+        string selection = ViewData["Selection"].ToString() ?? "";
+        Active = selection == Model.ItemPrincipal.NavItem.Nome ? "active" : "";
+    }
+}
+
+    <ul class="nav nav-tabs hide-on-large-only mobile-nav-tab" id="@id" role="tablist">
+       
+        <div class="row width-100">
+            <div class="nav-item col s2">
+                <a class="nav-link @Active text-info" role="tab" onclick="PageHandler.switchPage('/@Model.ItemPrincipal.NavItem.Area/@Model.ItemPrincipal.NavItem.Controller/@Model.ItemPrincipal.NavItem.Action')">
+                    <i class="material-icons">@Model.ItemPrincipal.NavItem.Icon</i>
+                </a>
+            </div>
+
+            @foreach (NavItem item in Model.NavItems)
+            {
+                <div class="col s2">
+                    @if (Model.LoadType == LoadType.Full)
+                    {
+                        <vc:nav-tab-element elemento="item" tipo="Mobile"></vc:nav-tab-element>
+                    }
+                    else
+                    {
+                        <vc:nav-tab-element elemento="item" tipo="Skeleton"></vc:nav-tab-element>
+                    }
+                </div>
+            }
+       </div>
+
+    </ul>

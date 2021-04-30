@@ -1,0 +1,28 @@
+﻿@model Assistente_de_Estagio.Areas.Shared.ModalCardViewModel
+@{string collapse = Model.DefaultOpen == true ? "collapse show" : "collapse";}
+
+
+<div id="@Model.ModalId" class="modal-backdrop @collapse @Model.Color alert alert-dismissible" role="alert">
+    <div class="modal show">
+        <div class="modal-dialog">
+             <div class="modal-content">
+                 @if (Model.CanClose)
+                 {
+                    <a class="tooltipped close" data-dismiss="alert" aria-label="Close" data-tooltip="Fechar" data-placement="bottom" style="z-index:10">
+                        <i class="material-icons ">close</i>
+                    </a>
+                 }
+                <h5 class="card-title">@Model.Title</h5>
+                 <div class="modal-body">
+                        @Model.Content
+                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="module">
+    document.getElementById("@Model.ModalId").addEventListener('click', rootClick);
+    document.querySelector(".modal.show").addEventListener('click', modalClick);
+    function modalClick(e) { e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation(); return false; };
+    function rootClick() { document.getElementById("@Model.ModalId").classList.remove('show');  }
+</script>

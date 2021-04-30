@@ -1,0 +1,25 @@
+﻿@model ADE.Dominio.Models.Individuais.Instituicao
+@using ADE.Utilidades.Extensions;
+
+<div>
+    @if (Model.Identificador > 0)
+    {
+        <a href="#adminSelection@(Model.Identificador)" id="adminSelection@(Model.Identificador)Button" title="@Model.Nome" data-toggle="collapse" class="input-group btn card bg-white" style="border-bottom:3px solid @Html.DisplayFor(modelModel => Model.Color)">
+            <h5 class="font-weight-bold">@Model.Nome</h5>
+        </a>
+        <div id="adminSelection@(Model.Identificador)" class="adminSelection-inline-block card-body collapse">
+
+            @Model.MensagemDePropriedadesEmHTMLSemLabel("md-form", "bg-white card-header")
+
+            <button class="btn-floating btn btn-warning waves-light" onclick="EscolherInstituicao(@Model.Identificador)">Continuar</button>
+        </div>
+    }
+    else
+    {
+        <a title="Selecione sua Instituição" class="input-group btn card adminSelection" style="background: #9100ff;">
+            <center>
+                <h5 class="font-weight-bold">Instituições</h5>
+            </center>
+        </a>
+    }
+</div>

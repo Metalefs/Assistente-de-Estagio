@@ -1,0 +1,33 @@
+﻿@model Assistente_de_Estagio.Areas.Shared.Chat.Components.CardUsuarioItemComponent.CardUsuarioVM
+@{ 
+    string iconId = $"icon-{Model.Usuario.Id}";
+    string action = $"PerfilComponent.AdicionarOuRemoverRelacionamento('{Model.Usuario.Id}','{iconId}')";
+    string icon = Model.Amigo ? "remove_circle" : "person_add";
+    string tip = Model.Amigo ? "Remover amizade" : "Adicionar como amigo";
+}
+<div class="card usuario-card">
+    <div class="collection-item avatar tooltipped" data-position="top" data-tooltip="Ver perfil de @Model.Usuario.UserName">
+        <a href="/Principal/Perfis/PerfilUsuario?id=@Model.Usuario.Id">
+            <div class="col col-md-11 m2">
+                @if (Model.Usuario.Logo == null)
+                {
+                    <i class="material-icons">person</i>
+                }
+                else
+                {
+                    <img width="110" height="110" class="img-thumbnail figure-img mt-3" src="data:image;base64,@Convert.ToBase64String(Model.Usuario.Logo)" />
+                }
+                <span class="title h4-responsive"> @Model.Usuario.UserName </span>
+                <p>@Model.Usuario.IdInstituicaoNavigation.Nome</p>
+                <p>@Model.Usuario.IdCursoNavigation.NomeCurso</p>
+            </div>
+        </a>
+        
+            <div class="right">
+                <button onclick="@action" class="btn btn-outline-blue pt-0 ">
+                    <i class="hoverable material-icons tooltipped" id="@iconId" data-position="bottom" data-tooltip="@tip">@icon</i>
+                </button>
+            </div>
+        
+    </div>
+</div>

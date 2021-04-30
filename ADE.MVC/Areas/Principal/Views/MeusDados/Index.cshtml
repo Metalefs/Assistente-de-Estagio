@@ -1,0 +1,22 @@
+﻿@model Assistente_de_Estagio.Areas.Principal.Models.MeusDadosViewModel
+
+@{
+    ViewData["Title"] = "Informações contratuais";
+    ViewData["Selection"] = "Meus Dados";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="center mb-0 pb-0 mt-0">
+        @{string url = "Principal/MeusDados/Index";}
+        @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Acesso.Components.InfoHelperComponentViewComponent.InfoHelperViewComponent), url)
+
+        <div class="left">
+            @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Views.Shared.Components.LoadingCircleViewComponent.LoadingCircleViewComponent), new { Id = "dados-aluno-loader", Closed = true })
+        </div>
+
+        <div id="dados-aluno-div" class="mb-2">
+            <a onclick="FormularioDados.Submit()" class="tooltipped btn-floating" data-tooltip="Atualizar" data-position="top"><i class="medium material-icons">update</i></a>
+            @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Views.Shared.Components.FormularioRequisitosBasicosViewComponent.FormularioRequisitosBasicosViewComponent), new { tipo = "Card" })
+        </div>
+
+    </div>

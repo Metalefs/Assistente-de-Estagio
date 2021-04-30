@@ -1,0 +1,35 @@
+﻿@model Assistente_de_Estagio.Areas.Shared.ModalCardViewModel
+@{string collapse = Model.DefaultOpen == true ? " show" : "";}
+@{string collapsejs = Model.DefaultOpen == true ? " .show" : "";}
+
+    <div id="@Model.ModalId" class="modal fade @collapse" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">@Model.Title</h4>
+                </div>
+                <div class="modal-body">
+                    @if (Model.Action != null && Model.Action.Length > 0)
+                    {
+                        <form id="ModalForm" action="">
+                            @Model.Content
+                        </form>
+                    }
+                    else
+                    {
+                        @Model.Content
+                    }
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-dark" data-toggle="modal" data-target="#@Model.ModalId">Fechar</a>
+                </div>
+            </div>
+        </div>
+        <script type="module">
+            document.getElementById("@Model.ModalId").addEventListener('click', rootClick); 
+            function modalClick(e) { e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();  document.querySelector(".modal-backdrop.show"+"@collapsejs").addEventListener('click', modalClick); return false;};
+            function rootClick() { document.getElementById("@Model.ModalId").classList.remove("fade", "show");  }
+        </script>
+    </div>
+            
+            

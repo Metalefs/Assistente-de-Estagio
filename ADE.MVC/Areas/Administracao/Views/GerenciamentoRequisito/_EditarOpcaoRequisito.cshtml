@@ -1,0 +1,26 @@
+﻿@using ADE.Dominio.Models;
+@model ICollection<OpcaoRequisito>;
+
+@foreach (OpcaoRequisito opreq in Model)
+{
+<div class="card bg-light">
+    <div class="card-body">
+        <form asp-action="EditarOpcaoRequisito">
+            <input type="hidden" name="IdRequisito" value="@opreq.IdRequisito">
+            <input type="hidden" name="ValorAntigo" value="@opreq.Valor">
+            <div class="md-form">
+                <label for="ValorNovo">Texto da opção</label>
+                <input id="ValorNovo" name="ValorNovo" value="@opreq.Valor" class="form-control" type="text" placeholder="Texto da Opção" />
+            </div>
+            <input type="submit" value="Salvar opção" class="btn btn-blue" />
+        </form>
+    </div>
+    <div class="card-footer">
+        <form asp-action="DeletarOpcaoRequisito">
+            <input type="hidden" name="IdRequisito" value="@opreq.IdRequisito">
+            <input type="hidden" name="ValorAntigo" value="@opreq.Valor">
+            <input type="submit" value="Deletar" class="btn btn-orange" />
+        </form>
+    </div>
+</div>
+}

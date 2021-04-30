@@ -1,0 +1,31 @@
+﻿@model Assistente_de_Estagio.Areas.Principal.Models.AtividadesViewModel
+@using ADE.Dominio.Models.Individuais
+
+<div class="card-body row">
+    <div class="col col-md-6" >
+        <p class="card-header">Atividades do seu estágio na @Model.Usuario.IdInstituicaoNavigation?.Nome</p>
+        @foreach (AtividadeEstagio atividade in Model.AtividadesEstagio)
+        {
+           @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Shared.Components.CardAtividadeEstagioComponent.CardAtividadeEstagioComponent), atividade)
+        }
+    </div>
+    <div class="col col-md-6">
+        <p class="card-header">Que você cadastrou</p>
+
+        <div>
+            @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Principal.UserHome.Components.FormularioAdicionarAtividadeUsuarioViewComponent.FormularioAdicionarAtividadeUsuarioViewComponent), new { })
+        </div>
+        <hr />
+        <div id="campo-atividades-usuario">
+            @foreach (AtividadeUsuario atividade in Model.AtividadeUsuario)
+            {
+                @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Principal.UserHome.Components.AtividadeUsuarioViewComponent.AtividadeUsuarioViewComponent), new { atividade = atividade })
+            }
+            @if (Model.AtividadeUsuario.Count() < 1)
+            {
+                <p>Nenhuma atividade do úsuario cadastrada</p>
+            }
+        </div>
+    </div>
+    <div id="preenchimento-container"></div>
+</div>

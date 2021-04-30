@@ -1,0 +1,101 @@
+﻿@model ADE.Dominio.Models.Requisito
+@using ADE.Dominio.Models.Enums;
+@{
+    ViewData["Title"] = "Criar Requisito";
+}
+<div class="input-group-prepend admin-nav-tabs">
+    <div class="nav row fix-row-left card-body" id="myTab" role="tablist">
+        @await Html.PartialAsync("CadastrarNav", "Requisito")
+        <div class="tab-content" id="myTabContent">
+            <div>
+                <div class="card-header text-info">
+                    Criar Um Novo Requisito
+                </div>
+                <div class="row fix-row-left border-top">
+                    <div class="col-md-6">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="input-field">
+                            <label for="NomeRequisito">@Html.DisplayNameFor(model => model.NomeRequisito)</label>
+                            <input required name="NomeRequisito" id="NomeRequisito" onchange="requisito.NomeRequisito = this.value" type="text" title="Insira o nome do requisito" class="validate" />
+                            <span asp-validation-for="NomeRequisito" class="text-danger"></span>
+                        </div>
+                        <div class="input-field">
+                            <label for="Bookmark">@Html.DisplayNameFor(model => model.Bookmark)</label>
+                            <input required name="Bookmark" id="Bookmark" onchange="requisito.Bookmark = this.value" type="text" title="Insira o campo de reconhecimento do requisito" class="validate" />
+                            <span asp-validation-for="Bookmark" class="text-danger"></span>
+                        </div>
+                        <div class="input-field">
+                            <label for="Descricao">@Html.DisplayNameFor(model => model.Descricao)</label>
+                            <input name="Descricao" id="Descricao" onchange="requisito.Descricao = this.value" type="text" title="Insira a Descricao do requisito" class="validate" />
+                            <span asp-validation-for="Descricao" class="text-danger"></span>
+                        </div>
+                        <div class="input-field">
+                            <label for="MascaraEntrada">@Html.DisplayNameFor(model => model.MascaraEntrada)</label>
+                            <input name="MascaraEntrada" id="MascaraEntrada" onchange="requisito.MascaraEntrada = this.value" type="text" title="Insira a Mascara de Entrada do requisito" class="validate" />
+                            <span asp-validation-for="MascaraEntrada" class="text-danger"></span>
+                        </div>
+                        <div class="input-field">
+                            <label for="Obrigatorio">@Html.DisplayNameFor(model => model.Obrigatorio)</label>
+                            <input name="Obrigatorio" id="Obrigatorio" onchange="requisito.Obrigatorio = this.value" type="checkbox" class="validate" />
+                            <span asp-validation-for="Obrigatorio" class="text-danger"></span>
+                        </div>
+                        <div class="input-field">
+                            <p>Grupo ao qual o requisito pertence:</p>
+                            <select required id="Grupo" name="Grupo" onload="requisito.Grupo = this.options[this.selectedIndex].value" onchange="requisito.Grupo = this.options[this.selectedIndex].value">
+                                <option value="1">Aluno</option>
+                                <option value="2">Empresa</option>
+                                <option value="3">Faculdade</option>
+                            </select>
+                        </div>
+                        <div class="input-field">
+                            <select required id="ElementoHTMLRequisito" name="ElementoHTMLRequisito" onload="requisito.ElementoHTMLRequisito = this.options[this.selectedIndex].value" onchange="requisito.ElementoHTMLRequisito = this.options[this.selectedIndex].value">
+                                <option value="1">Caixa de texto</option>
+                                <option value="2">Lista de opções</option>
+                            </select>
+                        </div>
+                        <div class="col s6">
+                            @Html.DropDownList("TipoElementoHTMLRequisito",
+                            new SelectList(Enum.GetNames(typeof(EnumTipoRequisito))),
+                            "Selecione o tipo de elemento", new { @name = "Documento.Assinatura", @onload = "requisito.TipoElementoHTMLRequisito = this.options[this.selectedIndex].value", @onchange = "requisito.TipoElementoHTMLRequisito = this.options[this.selectedIndex].value" })
+                            <span asp-validation-for="TipoElementoHTMLRequisito" class="text-danger"></span>
+                        </div>
+                        <div class="md-form">
+                            <input placeholder="Exemplo (Manhã,Tarde,Noite)" type="text" id="input-opcao-requisito" class="validate" />
+                            <div id="select-div"></div>
+                            <a class="btn btn-primary" onclick="requisito.CriarOpcaoRequisito()">Adionar opção ao requisito</a>
+                            <a class="btn btn-danger" onclick="requisito.RemoverOpcoesSelect()">Remover opção</a>
+                        </div>
+                        <hr />
+                        <div class="form-group input-field">
+                            <a class="btn admin-add-btn" onclick="requisito.CriarRequisito()">Criar requisito</a>
+                            @Html.ActionLink("Voltar ao Gerenciamento", "Index", "GerenciamentoRequisito", new { }, new { Class = "btn admin-back-btn" })
+                        </div>
+                    </div>
+                    <div class="col-md-6 border-left bg-light">
+                        <p>Os requisitos são compartilhados.</p>
+                        <p>Ao inserir um novo documento, é realizada uma busca por requisitos compatívies com os ja cadastrados, criados nesta página.</p>
+                        <p>Também é possivel criar novos Requisitos na ação de upload de um novo Documento</p>
+                        <p>*Os requisitos aparecerão como campos de preenchimento de documentos para os usuários</p>
+                    </div>
+                </div>
+            </div>
+            @section Scripts {
+                <script type="module">
+
+                    import { Requisito } from "/Scripts/ADE/Administracao/Requisito/AdicionarRequisitoComOpcoes.js";
+                    window.requisito = new Requisito();
+                    requisito.NomeRequisito = $("#NomeRequisito").val();
+                    requisito.Bookmark = $("#Bookmark").val();
+                    requisito.Descricao = $("#Descricao").val();
+                    requisito.MascaraEntrada = $("#MascaraEntrada").val();
+                    requisito.Obrigatorio = $("#Obrigatorio").val();
+                    requisito.Grupo = 1;
+                    requisito.ElementoHTMLRequisito = 1;
+                    requisito.TipoElementoHTMLRequisito = 1;
+
+                </script>
+                @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+﻿:root {
+    --sidebar-background-color: rgb(255, 255, 255);
+    --sidebar-text-color: black;
+    --sidebar-icon-color: #7e899c;
+    --sidebar-font-family: 'Roboto', sans-serif;
+    --sidebar-list-title-color: #0a3f8c;
+    --sidebarlink-bg-color: whitesmoke;
+    --sidebar-link-bg-color: whitesmoke;
+    --main-bg-color: rgba(255,255,255, 0.96);
+    --nav-bg-color: #0a0a0acf;
+    --mobile-nav-color: #fffffff0;
+    --page-header-color: #fbfbfbf5;
+    --card-header-bg-color: --sidebar-link-bg-color;
+    --footer-bg-color: white;
+    --card-bg-color: #fff;
+    --nav-tab-bg-color: #ffffffd6;
+    --text-color: initial;
+    --p-color: #868080;
+    --body-bg: white;
+}

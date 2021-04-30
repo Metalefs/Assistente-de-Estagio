@@ -1,0 +1,54 @@
+﻿@model Assistente_de_Estagio.Areas.Administracao.Models.RegistroAdmin
+@using ADE.Dominio.Models.Enums;
+@{
+    ViewData["Title"] = "ADE - Cadastro de administrador";
+}
+
+<div class="window-title modal-title card-header">
+    <p class="h3-responsive">Controle de usuários</p>
+    <a class="btn btn-black" href="/Administracao/ControleUsuarios/AcaoDeUsuario">Ação de usuários</a>    
+</div>
+<div id="window-body" class="card-body" style="overflow-y:initial !important; max-height:100% !important">
+    <p class="h4-responsive">Cadastrar um administrador ao ADE</p>
+    <div class="ADE-card-div card">
+        <form method="post" class="form-group" action="/Administracao/ControleUsuarios/RegistrarAdministrador">
+            <div class="ADE-card">
+                <div>
+                    <div class="md-form" style="margin: 35px;">
+                        <i class="fas fa-envelope prefix"></i>
+                        <label for="adm_email" data-error="wrong" data-success="">E-mail do usuário</label>
+                        <input id="adm_email" name="Email" type="email" style="border-radius:4px;text-indent:5px;" class="form-control input-group">
+                        <p>Um e-mail de confirmação será enviado para o endereço inserido, não se esqueça de verifica-lo!</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="md-form" style="margin: 35px;">
+                        <i class="fas fa-lock prefix"></i>
+                        <label for="Nome" data-error="wrong" data-success="">Nome do Usuário</label>
+                        <input name="Nome" id="adm_nome" type="text" style="border-radius:4px; text-indent:5px;" class="form-control input-group">
+                    </div>
+                    <div class="md-form" style="margin: 35px;">
+                        <i class="fas fa-user prefix"></i>
+                        <label for="Funcao" data-error="wrong" data-success="">Função do Usuário</label>
+                        @Html.DropDownList("Funcao",
+                            Html.GetEnumSelectList<EnumTipoUsuario>(),
+                            "Selecione a função", new { @class = "", @id = "Funcao", @name = "Funcao" })
+                    </div>
+                    <div class="md-form" style="margin: 35px;">
+                        <div class="custom-control custom-checkbox">
+                            <hr />
+                            @Html.CheckBoxFor(m => m.Existente, new { @checked = "", @class = "control-input custom-control-input waves-float" })
+                            <label asp-for="Existente" class="text-info custom-control-label" for="Existente" name="Existente">Usuário Existente<i class="fas fa-user prefix"></i></label>
+                        </div>
+                        <hr />
+                        <p>Se já existir um usuário com esse e-mail, torná-lo um administrador.</p>
+                    </div>
+                </div>
+                <div style="display:inline-block">
+                    <button type="submit" class="btn admin-add-btn waves-effect">Concluir</button>
+                </div>
+                <a class="btn btn-raised btn-warning waves-button" onclick="window.history.back()">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>

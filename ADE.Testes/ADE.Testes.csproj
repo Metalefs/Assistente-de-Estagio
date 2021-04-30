@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Cypress\**" />
+    <EmbeddedResource Remove="Cypress\**" />
+    <None Remove="Cypress\**" />
+  </ItemGroup>
+
+</Project>

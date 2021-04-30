@@ -1,0 +1,11 @@
+﻿@model ADE.Dominio.Models.Curso
+@using ADE.Utilidades.Extensions
+
+
+@if (Model.Instituicao != null)
+{
+    <p>Instituição: </p>
+    @Model.Instituicao.ExibirEntidadeColorCoded()
+}
+@Model.MensagemDePropriedadesEmHTMLOmitindoAtributos("card-header")
+<a class="btn btn-warning waves-light floating-button" style="margin:20px" href="/Principal/ListagemCursos/TrocarCurso/?idCurso=@Model.Identificador">Continuar</a>

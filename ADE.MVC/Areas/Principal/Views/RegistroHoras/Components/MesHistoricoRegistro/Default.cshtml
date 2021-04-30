@@ -1,0 +1,29 @@
+﻿@model Assistente_de_Estagio.Areas.Principal.UserHome.Components.MesHistoricoRegistroViewComponent.MesHistoricoRegistroVM
+@using ADE.Utilidades.Extensions
+@using ADE.Dominio.Models
+@{
+    string open = Model.MesReferencia.Month == DateTime.Today.Month ? "display:block;" : "";
+    string atual = Model.MesReferencia.Month == DateTime.Today.Month ? "(Data atual)" : "";
+}
+<ul class="collapsible">
+    <li>
+        <div class="collapsible-header h3-responsive"> @Model.MesReferencia  @atual</div>
+        <div class="collapsible-body" style="@open">
+            @foreach (RegistroDeHoras registro in Model.Registros)
+            {
+                <ul class="collection with-header">
+                    <a data-toggle="collapse" href="#col-@registro.Identificador" class="">
+                        <li class="collection-header captalize"><p class="h3-responsive">@registro.DataHoraUltimaAlteracao.ParseHistoricoDay()</p></li>
+                    </a>
+                    <div class="collapse" id="col-@registro.Identificador">
+                        @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Principal.Views.RegistroHoras.Components.RegistroItem.RegistroItemViewComponent), new { registro })
+                    </div>
+                </ul>
+            }
+            @if (Model.Registros.Count == 0)
+            {
+                <p>Nenhum registro encontrado</p>
+            }
+        </div>
+    </li>
+</ul>

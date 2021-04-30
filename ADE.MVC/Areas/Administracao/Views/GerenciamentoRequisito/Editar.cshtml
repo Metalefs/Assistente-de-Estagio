@@ -1,0 +1,92 @@
+﻿@model ADE.Dominio.Models.Requisito
+@using ADE.Dominio.Models;
+@using ADE.Utilidades.Extensions;
+@{
+    ViewData["Title"] = "Editar - Requisito";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="">
+    @await Html.PartialAsync("EditarNav", "Requisito")
+    <div class="card-body">
+        <div class="modal-header">Editar</div>
+        <div class="card-header text-info">
+            <h4>Requisito:</h4> @Html.DisplayFor(model => model.NomeRequisito)
+        </div>
+        <div class="border-top">
+            <form asp-action="Editar" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Identificador" />
+                <div class="input-field">
+                    <label for="NomeRequisito">@Html.DisplayNameFor(model => model.NomeRequisito)</label>
+                    <input id="NomeRequisito" name="NomeRequisito" value="@Model.NomeRequisito" class="form-control" type="text" placeholder="Nome do Requisito" />
+                    <span asp-validation-for="NomeRequisito" class="text-danger"></span>
+                </div>
+                <div class="input-field">
+                    <label for="ElementoHTMLRequisito">@Html.DisplayNameFor(model => model.ElementoHTMLRequisito)</label>
+                    <input id="ElementoHTMLRequisito" name="ElementoHTMLRequisito" value="@Model.ElementoHTMLRequisito" class="form-control" type="text" placeholder="Elemento do Requisito" />
+                    <span asp-validation-for="ElementoHTMLRequisito" class="text-danger"></span>
+                </div>
+                <div class="input-field">
+                    <label for="TipoElementoHTMLRequisito">@Html.DisplayNameFor(model => model.TipoElementoHTMLRequisito)</label>
+                    <input id="TipoElementoHTMLRequisito" name="TipoElementoHTMLRequisito" value="@Model.TipoElementoHTMLRequisito" class="form-control" type="text" placeholder="Tipo elemento do Requisito" />
+                    <span asp-validation-for="TipoElementoHTMLRequisito" class="text-danger"></span>
+                </div>
+                <div class="input-field">
+                    <label for="Bookmark">@Html.DisplayNameFor(model => model.Bookmark)</label>
+                    <input id="Bookmark" name="Bookmark" value="@Model.Bookmark" class="form-control" type="text" placeholder="Bookmark do Requisito" />
+                    <span asp-validation-for="Bookmark" class="text-danger"></span>
+                </div>
+                <div class="input-field">
+                    <label for="Descricao">@Html.DisplayNameFor(model => model.Descricao)</label>
+                    <input id="Descricao" name="Bookmark" value="@Model.Descricao" class="form-control" type="text" placeholder="Descricao do Requisito" />
+                    <span asp-validation-for="Bookmark" class="text-danger"></span>
+                </div>
+                <div class="input-field">
+                    <label for="MascaraEntrada">@Html.DisplayNameFor(model => model.MascaraEntrada)</label>
+                    <input name="MascaraEntrada" value="@Model.MascaraEntrada" id="MascaraEntrada" type="text" title="Insira a Mascara de Entrada do requisito" class="validate" />
+                    <span asp-validation-for="MascaraEntrada" class="text-danger"></span>
+                </div>
+                <div class="input-field">
+                    <label for="Obrigatorio">@Html.DisplayNameFor(model => model.Obrigatorio)</label>
+                    <input name="Obrigatorio" id="Obrigatorio" type="checkbox" class="validate" checked="@Model.Obrigatorio"/> 
+                    <span asp-validation-for="Obrigatorio" class="text-danger"></span>
+                </div>
+
+                @Model.CreateCampoMensagemAlteracao("input-field")
+
+                <div class="form-group">
+                    <input type="submit" value="Salvar" class="btn btn-blue" />
+                </div>
+            </form>
+            <div class="input-field">
+                <label for="input-opcao-requisito">Insira abaixo as algumas opções para o requisito</label>
+                <input placeholder="Exemplo (Manhã,Tarde,Noite)" type="text" id="input-opcao-requisito" />
+                <div id="select-div"></div>
+                <a class="btn btn-blue" onclick="requisito.CriarOpcaoRequisito()">Adionar opção ao requisito</a>
+                <a class="btn btn-deep-orange" onclick="requisito.RemoverOpcoesSelect()">Remover opção</a>
+                <a class="btn admin-add-btn" onclick="requisito.CadastrarOpcoesRequisitoExisitente()">Salvar</a>
+            </div>
+            @{
+                if (Model.OpcaoRequisito != null)
+                {
+                    <div class="input-field">
+                        <label for="OpcaoRequisito">@Html.DisplayNameFor(model => model.OpcaoRequisito)</label>
+                        @Html.DropDownListFor(Model => Model.OpcaoRequisito, new SelectList(Model.OpcaoRequisito,
+                        "IdRequisito", "Valor"), new { @class = "", id = "OpcaoRequisito", @name = "OpcaoRequisito" })
+                    </div>
+                    @await Html.PartialAsync("_EditarOpcaoRequisito", Model.OpcaoRequisito)
+                }
+            }
+        </div>
+    </div>
+</div>
+<div>
+        @Html.ActionLink("Voltar ao Gerenciamento", "Index", "GerenciamentoRequisito", new { }, new { Class = "btn admin-back-btn floating-button" })
+</div>
+@section Scripts{ 
+    <script src="~/Scripts/ADE/Administracao/Requisito/AdicionarRequisitoComOpcoes.js"></script>
+}
+<script>
+
+</script>

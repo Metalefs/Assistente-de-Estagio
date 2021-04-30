@@ -1,0 +1,47 @@
+﻿@using ADE.Dominio.Models;
+@using Assistente_de_Estagio.Areas.Shared;
+@model PaginatedList<SysLogs>
+
+<table class="table table-striped table-responsive table-dark" id="log-table-syslogs">
+    <thead>
+        <tr>
+            <th>Erros Recentes</th>
+            <th>Tipo</th>
+            <th>Origem</th>
+            <th>
+                Exibindo 5 de @Model.TotalContent
+                <a onclick="Error_table.ToggleSyslog()" id="ToggleSyslog" class="btn"><i id="page-controll-eye-syslog" class="fas fa-eye"></i></a>
+            </th>
+        </tr>
+    </thead>
+    <tbody id="syslog-controll">
+        @{
+            foreach (SysLogs log in Model)
+            {
+                <tr>
+                    <td>@log.Mensagem</td>
+                    <td>@log.AcoesSistema</td>
+                    <td>@log.LocalOrigem</td>
+                    <td>@log.DataHoraInclusao</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<div id="table-page-control-syslogs">
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+        int previousPage = Model.PageIndex - 1;
+        int nextPage = Model.PageIndex + 1;
+        <button id="next-error-page" onclick="Error_table.ChangeLogTablePage(@previousPage,'ErrorLogContainer')" class="btn btn-info @prevDisabled">&lt;</button>
+        <button id="prev-error-page" onclick="Error_table.ChangeLogTablePage(@nextPage,'ErrorLogContainer')" class="btn btn-info @nextDisabled">&gt;</button>
+    }
+    <p>Página @Model.PageIndex de @Model.TotalPages</p>
+</div>
+<script type="module">
+    import { Table } from "/Scripts/ADE/Administracao/Dashboard/LogTablejs.js";
+    let error_table = new Table();
+    if(window.Error_table === undefined)
+        window.Error_table = error_table;
+</script>

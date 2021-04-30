@@ -1,0 +1,27 @@
+﻿@page
+@model AccessDeniedModel
+@{
+    ViewData["Title"] = "Sem permissões";
+}
+
+<header class="container instrucao middle" style="margin: 13% auto;">
+    <span class="text-warning glyphicon glyphicon-warning-sign"></span>
+    <div style="text-align:center;font-family: 'Titillium Web',sans-serif;">
+        <h1 class="text-danger card-body">@ViewData["Title"]</h1>
+        <p class="text-dark">Este usuário não possui acesso ao recurso solicitado.</p>
+    </div>
+</header>
+
+@section Scripts{ 
+    <script>
+        (async function setBackground() {
+            return await $.ajax({
+                type: "get",
+                url: "/Error/GetErrorImage/?statusCode=405",
+                success: function (data) {
+                    document.getElementById("ADE-body").style.background = "url('" + data + "')";
+                }
+            });
+        })();
+    </script>
+}

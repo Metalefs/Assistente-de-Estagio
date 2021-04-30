@@ -1,0 +1,20 @@
+﻿@model List<RequisitoDeDocumento>
+@using ADE.Dominio.Models;
+
+@foreach (RequisitoDeDocumento req in Model)
+{
+    <form action="/Administracao/GerenciamentoDocumento/RemoverRequisitoDocumento/" class="md-form col-md-4" method="post">
+        <div class="instrucao">
+            <div class="card-body">
+                <input type="hidden" value="@req.IdDocumento" name="IdDocumento" />
+                <input type="hidden" value="@req.IdRequisito" name="IdRequisito" />
+                <div class="card-text">Bookmark: <p>@req.IdRequisitoNavigation.Bookmark</p></div>
+                <div class="card-text">Nome: <p>@req.IdRequisitoNavigation.NomeRequisito</p></div>
+                <div class="card-text">Elemento: <p>@req.IdRequisitoNavigation.ElementoHTMLRequisito</p></div>
+                <div class="card-text">Tipo: <p>@req.IdRequisitoNavigation.TipoElementoHTMLRequisito</p></div>
+                <div class="card-text">Descrição: <p>@req.IdRequisitoNavigation.Descricao</p></div>
+            </div>
+            <button class="btn btn-danger" type="submit">Remover Requisito do documento</button><span class="text-danger">Não pode ser desfeito</span>
+        </div>
+    </form>
+}

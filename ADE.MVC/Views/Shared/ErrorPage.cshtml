@@ -1,0 +1,51 @@
+﻿@using Assistente_de_Estagio.Areas.Acesso.Models
+@model ErrorPageViewModel
+@{
+    ViewData["Title"] = "Erro "+ Model.StatusCode;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="instrucao card-body" style="text-align:center;margin-top:5%">
+    <p class="card-header h3-responsive text-danger">@Model.ErrorMessage</p>
+    <a class="btn btn-primary" onclick="countdown.redirect()">Acessar a página principal</a>
+    Redirecionando para <span id="window-host"></span> em <span id="countdown"></span> segundos
+</div>
+
+<script>
+    (function addImage() {
+        var ImageUrl = "@Model.Imagem.Caminho";
+        if (ImageUrl !== "" && ImageUrl.length > 1)
+            document.getElementById("ADE-body").style.background = "url('"+ImageUrl+"')";
+    })()
+    class CountDownStopWatch{
+        constructor(time,redirect) {
+            this.Time = time;
+            this.Display = document.getElementById("countdown");
+            this.WindowHost = document.getElementById("window-host");
+            this.Redirect = redirect;
+            this.Me = this;
+        }
+        start(){
+            this.updateRedirectMessage();
+        }
+        updateRedirectMessage() {
+            this.WindowHost.innerText = window.location.host + "" + this.Redirect;
+            setInterval(() => {
+                this.Display.innerText = this.Time;
+                this.Time -= 1;
+                this.checkTime();
+            }, 1000);
+        }
+
+        checkTime() {
+            if (this.Time <= 0)
+                this.redirect();
+        }
+
+        redirect() {
+            window.location.pathname = this.Redirect;
+        }
+    }
+    var countdown = new CountDownStopWatch(5, "@Url.Action("Index", "Account")");
+    countdown.start();
+</script>
+

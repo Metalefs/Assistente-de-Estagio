@@ -1,0 +1,40 @@
+﻿@using ADE.Utilidades.Extensions
+@using ADE.Apresentacao.Models
+@model ADE.Apresentacao.Models.Sidenav.Sidebar
+@{ 
+    string LinkPrincipal = User.ShowDefaultInterface(ViewData["Title"].ToString()) == true ? Model.LinkPrincipal : "/";
+    string View = Model.LoadType == LoadType.Full ? "Bootstrap" : "Skeleton";
+}
+    <nav id="sidebar" class="active show-on-large">
+        <a href="@LinkPrincipal">
+            <div class="sidebar-header">
+                <div class="row fix-row">
+                    <div class="col col-sm-3">
+                        <img src="~/Images/Logo/logo-sidenav.png" id="sidebar-logo" />
+                    </div>
+                    <div id="sidenav-title" class="col-sm-9">
+                        <h6>@Model.Titulo</h6>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+        <div class="sidebar-elements-container">
+            <ul>
+                @foreach (Elemento elemento in Model.Elementos)
+                {
+                    if (elemento.AreaComponente == AreaComponente.Admin && !User.IsAdminOrCriadorConteudo())
+                    {
+                        continue;
+                    }
+                    <vc:side-bar-element elemento="elemento" tipo="@View"></vc:side-bar-element>
+                }
+            </ul>
+
+        </div>
+        <div class="btn btn-light btn-sair">
+            <a href="/Account/Logout" title="Sair">
+                <i class="material-icons">exit_to_app</i>Sair
+            </a>
+        </div>
+    </nav>

@@ -1,0 +1,19 @@
+﻿@using ADE.Dominio.Models;
+@model RegistroDeHoras;
+<li class="collection-item avatar">
+    <a id="editar-@Model.Identificador" onclick="new EditorRegistroHoras().EditarRegistro(@Model.Identificador)">
+        <i class="hoverable material-icons circle tooltipped orange" data-position="bottom" data-tooltip="Alterar">mode_edit</i>
+    </a>
+    <div class="col col-md-11">
+        <a id="editar-@Model.Identificador" onclick="new EditorRegistroHoras().EditarRegistro(@Model.Identificador)">
+            <span class="title h5-responsive"> @Model.Atividade </span>
+            <p>@Model.Data.ToShortDateString()</p>
+            <p>@Model.HoraInicio.ToShortTimeString() - @Model.HoraFim.ToShortTimeString()</p>
+            <p>Carga Horária: @Html.Raw(Model.CargaHoraria / 60) Horas.</p>
+            <p class="indent">Incluído em @Model.DataHoraInclusao</p>
+        </a>
+        <a class="right" id="remover-@Model.Identificador" onclick="new EditorRegistroHoras().RemoverRegistro(@Model.Identificador)" style="bottom: 80px;    position: relative;">
+            <i class="hoverable material-icons tooltipped red-text" data-position="bottom" data-tooltip="Remover">close</i>
+        </a>
+    </div>
+</li>

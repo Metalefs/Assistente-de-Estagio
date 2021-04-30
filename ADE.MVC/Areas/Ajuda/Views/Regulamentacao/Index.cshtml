@@ -1,0 +1,43 @@
+﻿@using ADE.Dominio.Models
+@using ADE.Utilidades.Extensions
+@model RegulamentacaoCurso
+@{
+    ViewData["Title"] = "Regulamentação";
+    ViewData["Selection"] = "Regulamentacao";
+    ViewData["ViewSelection"] = "Regulamentacao";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="card-header text-muted p-0">
+        <p class="center"><span id="total-paginas"></span> páginas</p>
+        <div id="app" class="pr-0">
+            <div role="toolbar" id="toolbar">
+                <div id="pager">
+                    <button data-pager="prev" onclick="$('#container-ref').click()">Anterior</button>
+                    <button data-pager="next" onclick="$('#container-ref').click()">Próximo</button>
+                    <a href="#viewport-container" id="container-ref"></a>
+                </div>
+                <div id="page-mode">
+                    <label>Página <input type="number" value="1" min="1" /></label>
+                </div>
+                <a href="@Model.Endereco" style="right: 30px; position: absolute;" ><i class="material-icons">open_in_new</i></a>
+            </div>
+            <div id="viewport-container">
+                <div role="main" id="pdf-viewport">
+
+                </div>
+            </div>
+        </div>
+        @Model.IdCursoNavigation.Instituicao.ExibirEntidadeColorCodedSemImagem()
+        <p>Regulamentação para o curso <span style="font-weight:500">@Model.IdCursoNavigation.NomeCurso</span></p>
+    </div>
+@section StyleUriParser {
+    <link rel="stylesheet" href="~/Styles/Principal/PDFstyle.css" type="text/css" />
+}
+@section Scripts{
+    <script src="https://unpkg.com/pdfjs-dist@2.0.489/build/pdf.min.js"></script>
+    <script src="~/Scripts/ADE/PDFControll.js"></script>
+    <script>
+        initPDFViewer("@Model.Endereco");
+    </script>
+}

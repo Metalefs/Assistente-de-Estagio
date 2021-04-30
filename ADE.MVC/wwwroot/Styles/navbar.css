@@ -1,0 +1,273 @@
+﻿
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+    font-family: "Unica One";
+}
+#company-brand {
+    margin: 6px;
+    width: 30px;
+}
+nav {
+    line-height: 51px;
+}
+.btn:hover, .btn-large:hover, .btn-small:hover {
+    background-color: #a0a5f7;
+}
+.nav-shortcut {
+    position: absolute;
+    width: 30px;
+    background: none;
+    margin: 0;
+    text-align: left;
+    z-index:2;   
+    padding: 6px 0 0 0;
+    display: inline-table;
+    border: none;
+}
+#user-tab-body {
+    padding: 0px;
+    border: none;
+}
+.admin-nav {
+    width: 103.2%;
+    margin: 0 -15px;
+}
+
+.admin-nav-tabs {
+    min-width: 100%;
+}
+
+ul.nav.nav-tabs {
+    border-bottom: 1px solid #e4e4e4ab;
+    z-index: 0;
+    border-radius: 5px;
+    background: var(--nav-tab-bg-color);
+}
+
+.btn-nav {
+    margin: 20px -2px 1px;
+    font-size: 0.81rem;
+    min-width: 150px;
+    min-height: 28px;
+    max-height: 28px;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+    border: 0;
+    -webkit-border-radius: 0.125rem;
+    cursor: pointer;
+    white-space: normal;
+    word-wrap: break-word;
+    color: inherit;
+    background: #efefef;
+}
+.tab-content {
+    width: 100%;
+    height: 100%;
+    min-width: -webkit-fill-available;
+    display: inline-block;
+}
+.btn-nav:hover {
+    background: white;
+}
+.tab-select-btn {
+    position: relative;
+    left: 6px;
+    bottom: 8px;
+    justify-self: center;
+    display: flex;
+    align-items: center;
+    margin: 2px;
+}
+.tab-select-div {
+    position: absolute;
+    z-index: 12;
+}
+
+.navbar-ADE {
+    box-shadow: 0px 0px 3px #514d4d;
+    height: 52px;
+    background: var(--nav-bg-color);
+    transition: 1s;
+}
+.AccountManage p {
+    font-weight: 400;
+    overflow-x: scroll;
+}
+.AccountManage li {
+    padding: 0px 5px;
+    margin: 0px;
+    transition: 1s;
+}
+.AccountManage li:hover{
+    right:1px;
+}
+.AccountLogout {
+    margin-top: 15px;
+    border-radius: 80px;
+    display: block;
+    padding: 5px;
+}
+    .AccountLogout:hover {
+        font-size: larger;
+    }
+
+    .notification:active{
+        display:none
+    }
+.notifications-div {
+    position: absolute;
+    width: 20.85rem !important;
+    right: 0;
+    height: max-content !important;
+    color: black;
+    top: 48px !important;
+    line-height:initial !important;
+    margin-right: 2px;
+    z-index: 2;
+    max-height: 100vh;
+    overflow: scroll !important;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2) !important;
+}
+@media only screen and (max-width: 600px) {
+
+    .notifications-div {
+        max-width: initial;
+        width: initial !important;
+    }
+}
+    .notifications-div .card-title {
+        font-size: initial;
+    }
+    .notifications-div::-webkit-scrollbar {
+        width: 0px;
+        background: transparent; /* Chrome/Safari/Webkit */
+    }
+
+        .notifications-div::-webkit-scrollbar::after {
+            width: 0px;
+            background: transparent; /* Chrome/Safari/Webkit */
+        }
+
+.notifications-div-count {
+    font-size: 8px;
+    margin: 10px 26px;
+    text-align: center;
+    display: flex;
+    overflow: visible;
+    width: 100%;
+    align-self: center;
+    background: #ff7b66;
+    background-color: rgb(255, 123, 102);
+    color: white;
+    justify-content: center;
+    width: 20px;
+    border-radius: 90px;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.user-area-icon {
+    padding: 0px 10px;
+    top: 0;
+    padding-bottom: 0;
+    right: 0px;
+    height: fit-content;
+    display: inline-flex;
+    position: absolute;
+    z-index: 10;
+}
+
+    .user-area-icon div, .user-area-icon a {
+        vertical-align: middle;
+        min-height: 40px;
+        background: unset;
+    }
+
+.ade-user-icon {
+    text-align: center;
+    /* margin: 10px auto; */
+    position: relative;
+    display: inherit;
+    color: #2196F3;
+    text-shadow: -1px 0px 2px white;
+}
+
+.ade-user-leave {
+    text-align: center !important;
+    font-size: x-large;
+    position: relative;
+    display: block;
+}
+
+.user-area-icon span {
+    color: #ffffff70;
+    margin-right: 25px;
+    font-size: large;
+}
+
+.account-info {
+    position: absolute;
+    background: #f5f5f59e;
+    color: black;
+    border-radius: 1px;
+    border: 1px solid #0483ff29;
+    max-width: 500px;
+    overflow: hidden !important;
+    z-index: 10;
+    height:auto !important;
+    left: 93px !important;
+    top: 1px;
+    transition: .2s;
+}
+    .account-info li i {
+        font-size:initial;
+    }
+.nav-tabs .nav-item {
+    margin: 0px;
+    height: 42px;
+    border-bottom: 1px solid #e6e7e7;
+    min-width: 200px;
+    border-bottom-right-radius: 2px;
+}
+
+.nav-item .nav-link {
+    position: relative;
+    color: #868080;
+    height: -webkit-fill-available;
+    height: 100%;
+    text-transform: none !important;
+    box-shadow: none !important;
+}
+.nav-item .nav-link:hover {
+    color: initial;
+}
+    #myTab {
+    width: 100%;
+    width: -webkit-fill-available;
+}
+
+.mobile-nav-tab {
+    position: fixed;
+    bottom: 0;
+    padding: 5px;
+    margin-bottom: -1px;
+    left: 0;
+    height: 53px;
+	width: inherit;
+    border-radius: 0 !important;
+    background: var(--mobile-nav-color);
+}
+@media only screen and (max-width: 600px) {
+
+    .nav-tabs .nav-item {
+        min-width: initial;
+    }
+}
+@media only screen and (min-width: 601px){
+    nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
+        height: initial;
+    }
+}

@@ -1,0 +1,32 @@
+{
+    "LoadType": "Full",
+    "AreaComponente": "Admin",
+    "ItemPrincipal": {
+        "NavItem": {
+            "Nome": "Ferramentas administrativas",
+            "Link": "/Administracao/Dashboard",
+            "Controller": "Dashboard",
+            "Action": "Index",
+            "Icon": "home",
+            "Area": "Administracao"
+        }
+    },
+    "NavItems": [
+        {
+            "Nome": "Materiais Cadastrados",
+            "Link": "/Administracao/GerenciamentoDocumento",
+            "Controller": "GerenciamentoDocumento",
+            "Action": "Index",
+            "Icon": "home",
+            "Area": "Administracao"
+        },
+        {
+            "Nome": "Requisitos",
+            "Link": "/Administracao/GerenciamentoRequisito",
+            "Controller": "GerenciamentoRequisito",
+            "Action": "Index",
+            "Icon": "home",
+            "Area": "Administracao"
+        }
+    ]
+}

@@ -1,0 +1,50 @@
+﻿@model ADE.Dominio.Models.Curso
+@using ADE.Utilidades.Extensions;
+@using Microsoft.AspNetCore.Html;
+
+@{string CollapseId = "curso" + Model.Identificador; }
+<ul class="collapsible">
+    <li>
+        <div class="collapsible-header dropdown-toggle" id="@CollapseId">
+
+            <div class="card-header-pills" style="margin-top:2px;">
+                <a class="btn small-btn btn-danger deletebtn tooltipped" href="#delete-curso-@Model.Identificador" data-toggle="collapse" data-position="bottom" data-tooltip="Deletar curso @Model.NomeCurso">
+                    <i class="fas fa-window-close" style="color:black;"></i>
+                </a>
+            </div>
+
+            <a class="col-md-11 dropdown-toggle">
+                <p class="h6">(@Model.Sigla) - <span class="text-info">@Model.NomeCurso</span> @Model.TipoCurso.ObterNomeEnum()</p>
+            </a>
+
+        </div>
+
+        <div class="collapsible-body">
+
+            <div data-position="bottom" data-tooltip="Última modificação: @Model.DataHoraUltimaAlteracao" class="tooltipped">
+                <a class="fa fa-info tooltipped" href="./GerenciamentoCurso/VisualizarEntidade?id=@Model.Identificador" data-position="bottom" data-tooltip="Visualizar alterações"></a>
+
+                @Html.ActionLink("Alterar", "Editar", "GerenciamentoCurso", new { idCurso = Model.Identificador, idInstituicao = Model.IdInstituicao }, new { Class = "btn btn-primary admin-add-btn card-header" })
+                @Model.MensagemDePropriedadesEmHTMLOmitindoAtributos("md-form card-body")
+                <a href="#@CollapseId" class="fa fa-arrow-up"></a>
+
+            </div>
+
+            <div class="deleteDivOverlay collapse" id="delete-curso-@Model.Identificador">
+
+                <div class="deleteDiv">
+
+                    @{
+                        IHtmlContent Conteudo = await Html.PartialAsync("_ExcluirCurso", Model);
+
+                        Assistente_de_Estagio.Areas.Shared.ModalCardViewModel modal = new Assistente_de_Estagio.Areas.Shared.ModalCardViewModel($"delete-curso-{Model.Identificador}", Model.NomeCurso, Conteudo, ADE.Apresentacao.Models.TipoModal.Normal, "", "");
+
+                        @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Views.Shared.Components.ModalCardViewComponent.ModalCardViewComponent), new { modal = modal, CanClose = false, DefaultOpen = false })
+                    }
+
+                </div>
+
+            </div>
+        </div>
+    </li>
+</ul>       

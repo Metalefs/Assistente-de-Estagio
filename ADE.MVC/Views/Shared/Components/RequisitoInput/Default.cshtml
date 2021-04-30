@@ -1,0 +1,42 @@
+﻿@model Assistente_de_Estagio.Views.Shared.Components.RequisitoInput.RequisitoInputViewModel;
+@using ADE.Dominio.Models.Enums;
+
+@{string Obrigatorio = Model.Requisito.Obrigatorio == true ? "*" : "";}
+
+@if (Model.Requisito.TipoElementoHTMLRequisito != EnumTipoRequisito.select && !Model.Requisito.Bookmark.Contains("AreasEstagio_"))
+{
+    if (Model.Requisito != null && Model.Requisito.RequisitoDeUsuario != null)
+    {
+        if (Model.Requisito.RequisitoDeUsuario.Count > 0)
+        {
+            <div class="input-field">
+                @if (Model.Requisito.MascaraEntrada != null)
+                {
+                    <i class="prefix material-icons">edit</i>
+                    <input type="@Model.Requisito.TipoElementoHTMLRequisito" data-mask="@Model.Requisito.MascaraEntrada" data-position="bottom" onchange="@Model.Onchange" value="@Model.Requisito.RequisitoDeUsuario.FirstOrDefault(x => x.IdRequisito == Model.Requisito.Identificador).Valor" class="form-control validate" name="@Model.Requisito.Identificador:@Model.Requisito.Bookmark" id="@Model.Requisito.Identificador-@Model.Requisito.Bookmark" required="@Model.Requisito.Obrigatorio" />
+                }
+                else
+                {
+                    <i class="prefix material-icons">edit</i>
+                    <input type="@Model.Requisito.TipoElementoHTMLRequisito" data-position="bottom" onchange="@Model.Onchange" value="@Model.Requisito.RequisitoDeUsuario.FirstOrDefault(x => x.IdRequisito == Model.Requisito.Identificador).Valor" class="form-control validate" name="@Model.Requisito.Identificador:@Model.Requisito.Bookmark" id="@Model.Requisito.Identificador-@Model.Requisito.Bookmark" required="@Model.Requisito.Obrigatorio" />
+                }
+                <label class="active" for="@Model.Requisito.Identificador-@Model.Requisito.Bookmark">@Model.Requisito.NomeRequisito @Obrigatorio</label>
+            </div>
+        }
+        else
+        {
+            <div class="input-field">
+                @if (Model.Requisito.MascaraEntrada != null)
+                {
+                    <input type="@Model.Requisito.TipoElementoHTMLRequisito" data-mask="@Model.Requisito.MascaraEntrada" data-position="bottom" onchange="@Model.Onchange" class="form-control validate" name="@Model.Requisito.Identificador:@Model.Requisito.Bookmark" id="@Model.Requisito.Identificador-@Model.Requisito.Bookmark" required="@Model.Requisito.Obrigatorio" />
+                }
+                else
+                {
+                    <input type="@Model.Requisito.TipoElementoHTMLRequisito" data-position="bottom" onchange="@Model.Onchange" data-tooltip="@Model.Requisito.Descricao" class="form-control validate" name="@Model.Requisito.Identificador:@Model.Requisito.Bookmark" id="@Model.Requisito.Identificador-@Model.Requisito.Bookmark" required="@Model.Requisito.Obrigatorio" />
+                }
+                <label for="@Model.Requisito.Identificador-@Model.Requisito.Bookmark">@Model.Requisito.NomeRequisito @Obrigatorio </label>
+            </div>
+        }
+    }
+
+}

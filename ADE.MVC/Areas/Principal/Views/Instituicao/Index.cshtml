@@ -1,0 +1,54 @@
+﻿@using Assistente_de_Estagio.Areas.Principal.Models
+@using Microsoft.AspNetCore.Html;
+@model InstituicaoViewModel
+@{
+    ViewData["Title"] = "Escolha de instituição";
+    ViewData["Selection"] = "Minha Faculdade";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<p class="card-header text-muted" style="font-size:x-small"><a href="/Principal/Contratos">Contratos ></a><a href="/Principal/Instituicao"> Instituicao</a></p>
+<div class="row card-body">
+    @foreach (InformacaoInstituicao instituicao in Model.PaginaInstituicoes)
+    {
+        <div class="col-lg-12">
+            <a data-toggle="modal" data-target="#inst-info-@instituicao.Instituicao.Identificador" href="#inst-info-@instituicao.Instituicao.Identificador">
+                <i class="fa fa-expand" title="Expandir"></i>
+            </a>
+            @{
+                IHtmlContent Conteudo = await Html.PartialAsync("_ModalExibicaoInstituicao", instituicao);
+
+                Assistente_de_Estagio.Areas.Shared.ModalCardViewModel modal = new Assistente_de_Estagio.Areas.Shared.ModalCardViewModel($"inst-info-{instituicao.Instituicao.Identificador}",instituicao.Instituicao.Nome, Conteudo, ADE.Apresentacao.Models.TipoModal.Normal, "", "");
+
+                @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Views.Shared.Components.ModalCardViewComponent.ModalCardViewComponent), new { modal = modal, CanClose = false, DefaultOpen = false })
+            }
+            <div>
+                @await Html.PartialAsync("_ExibicaoInstituicao", instituicao)
+            </div>
+            @if (Model.PrimeiraInstituicao == true)
+            {
+               <h5>Selecione a sua instituição</h5>
+            }
+        </div>
+    }
+</div>
+@if (Model.PaginaInstituicoes.TotalPages > 1)
+{
+    var prevDisabled = !Model.PaginaInstituicoes.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.PaginaInstituicoes.HasNextPage ? "disabled" : "";
+    <div class="card-body">
+
+        @Html.ActionLink("<", "Index", "Instituicao", new { pageNumber = Model.PaginaInstituicoes.PageIndex - 1 }, new { @class = "btn btn-info " + prevDisabled })
+
+        @Html.ActionLink(">", "Index", "Instituicao", new { pageNumber = Model.PaginaInstituicoes.PageIndex + 1 }, new { @class = "btn btn-info " + nextDisabled })
+
+        <p>Página @Model.PaginaInstituicoes.PageIndex de @Model.PaginaInstituicoes.TotalPages</p>
+    </div>
+}
+@section Scripts{
+    <script>
+            @foreach (var item in Model.PaginaInstituicoes)
+            {
+                @Html.Raw("dragElement('inst-info-"+item.Instituicao.Identificador+"');")
+            }
+    </script>
+}

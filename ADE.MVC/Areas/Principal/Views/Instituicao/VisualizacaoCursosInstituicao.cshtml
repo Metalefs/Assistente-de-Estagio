@@ -1,0 +1,69 @@
+﻿@using Assistente_de_Estagio.Areas.Shared;
+@using Assistente_de_Estagio.Areas.Principal.Models;
+@model PaginatedList<InformacaoCursoVM>
+
+@{
+    ViewData["Title"] = $"Faculdade {Model.FirstOrDefault().Curso.Instituicao.Nome}: Cursos cadastrados";
+    ViewData["Selection"] = "Minha Faculdade";
+}
+
+<p class="card-header text-muted" style="font-size:x-small"><a href="/Principal/Contratos">Contratos ></a><a href="/Principal/Instituicao"> Instituicao ></a><a href="/Principal/Instituicao/VisualizacaoInstituicao?idInstituicao=@Html.DisplayFor(modelItem => modelItem.FirstOrDefault().Curso.Instituicao.Identificador)"> Visualizar instituição > </a><a href="/Principal/Instituicao/ListagemCursos">Visualizar cursos</a></p>
+<div class="card-body">
+    <div class="row md-form">
+         <p class="mascote mascote-min"></p>
+        <input type="text" id="InputFiltro-curso" list="listacursos" class="col-md-10" placeholder="Pesquisar curso.." title="Para inserir, pressione a tecla 'Enter'">
+        <a class="btn btn-blue col-md-2" onclick="busca()">Pesquisar</a>
+        <div id="search-feedback"></div>
+        <datalist id="listacursos">
+            @foreach (var item in Model)
+            {
+                <option value="@item.Curso.NomeCurso"></option>
+            }
+        </datalist>
+    </div>
+    @section Scripts{
+        <script type="module">
+            import { FilterTableWithInput } from "/Scripts/ADE/InputEvents.js";
+            FilterTableWithInput("InputFiltro-curso", "curso-table");
+        </script>
+        <script>
+            $('#curso-table').DataTable({
+                searching: false,
+                fixedHeader: true,
+                info: false,         
+                lengthChange:false,
+                language: {
+                    url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Portuguese-Brasil.json"
+                },
+                responsive: true
+
+            }).draw(true).columns.adjust();
+
+            const EscolherCurso = (idCurso) => {
+                window.location.href = `/Principal/ListagemCursos/TrocarCurso/?idCurso=${idCurso}`;
+            };
+        </script>
+    }
+    <div id="UlFiltro">
+        <div id="CursoOptions">
+            @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Principal.Shared.Components.TabelaCursosViewComponent.TabelaCursosViewComponent), new { InfoCursos = Model })
+        </div>
+    </div>
+</div>
+
+<div class="card-body">
+    <hr />
+    @{
+        var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+
+        @Html.ActionLink("<", "Index", "ListagemCursos", new { pageNumber = Model.PageIndex - 1 }, new { @class = "btn btn-info " + prevDisabled })
+
+        @Html.ActionLink(">", "Index", "ListagemCursos", new { pageNumber = Model.PageIndex + 1 }, new { @class = "btn btn-info " + nextDisabled })
+        <p>Página @Model.PageIndex de @Model.TotalPages</p>
+        if (Model.Count > 0)
+        {
+            <h6 style="text-align:right">Exibindo @Model.Count de @Model.TotalContent Curso(s)</h6>
+        }
+    }
+</div>

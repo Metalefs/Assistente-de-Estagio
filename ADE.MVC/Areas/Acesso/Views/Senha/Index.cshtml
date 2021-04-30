@@ -1,0 +1,29 @@
+﻿@model Assistente_de_Estagio.Areas.Acesso.Models.SenhaModel;
+@{
+    ViewData["Title"] = "Trocar Senha de Acesso";
+}
+@await Html.PartialAsync("_ManageNav", "Senha")
+<form method="post" action="/Acesso/Senha/TrocarSenha">
+    <div class="card-body">
+        <div class="md-form">
+            <label for="OldPassword">*Senha atual</label>
+            <input id="OldPassword" name="Input.OldPassword" class="form-control" placeholder="Senha atual" type="password" required/>
+            <span asp-validation-for="Input.OldPassword" class="text-danger"></span>
+        </div>
+        <div class="md-form">
+            <label for="NewPassword">*Senha nova</label>
+            <input id="NewPassword" name="Input.NewPassword" class="form-control" placeholder="senha nova" type="password" required/>
+            <span asp-validation-for="Input.NewPassword" class="text-danger"></span>
+        </div>
+        <div class="md-form">
+            <label for="ConfirmPassword">Confirme a senha nova</label>
+            <input id="ConfirmPassword" name="Input.ConfirmPassword" class="form-control" title="Confirmação" type="password" />
+            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            <button type="submit" class="btn btn-primary admin-add-btn card-header">Atualizar senha</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

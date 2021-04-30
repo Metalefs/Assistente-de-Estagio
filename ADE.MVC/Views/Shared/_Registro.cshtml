@@ -1,0 +1,30 @@
+﻿@{ 
+    string Email = string.Empty;
+    if (ViewData["RegistroEmail"] != null)
+    {
+        Email = (string)ViewData["RegistroEmail"].ToString() ?? "";
+    }
+}
+<div class="ADE-card">
+    <form>
+        <div>
+            <div class="input-field">
+                <i class="material-icons prefix">email</i>
+                <input id="RegistrarEmail" onkeypress="Login.CheckRegistrarSubmit(event)" onload="Login.SetEmailRegistro(this.value)" onchange="Login.SetEmailRegistro(this.value)" name="RegistrarEmail" type="email" style="border-radius:4px;text-indent:5px;" class="form-control input-group validate">
+                <label for="RegistrarEmail" data-error="Email-invalido" data-success="">Seu E-mail</label>
+                <span class="helper-text" data-error="E-mail inválido" data-success=""></span>
+                <p>Um e-mail de confirmação será enviado para o endereço inserido, não se esqueça de verifica-lo!</p>
+            </div>
+        </div>
+        <div>
+            <div class="input-field">
+                <i class="material-icons prefix cursor-pointer" title="Alterar visibilidade" onclick="Login.toggleInputVisibility('RegistrarPassword')">lock_outline</i>
+                <input id="RegistrarPassword" onkeypress="Login.CheckRegistrarSubmit(event);" onload="Login.SetPasswordRegistro(this.value)" onchange="Login.SetPasswordRegistro(this.value)" name="RegistrarPassword" type="password" style="border-radius:4px; text-indent:5px;" class="form-control input-group validate">
+                <label for="RegistrarPassword" data-error="Incorreto" data-success="">Sua Senha</label>
+                <div>
+                    <a id="completar-cadastro" onclick="Login.Registro()" class="btn btn-raised btn-primary waves-button waves-effect waves-light">Concluir</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

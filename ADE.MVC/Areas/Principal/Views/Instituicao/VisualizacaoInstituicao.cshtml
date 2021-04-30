@@ -1,0 +1,73 @@
+﻿@model Assistente_de_Estagio.Areas.Principal.Models.InformacaoInstituicao
+@using ADE.Utilidades.Extensions
+@{
+    ViewData["Title"] = "Faculdade";
+    ViewData["Selection"] = "Minha Faculdade";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    string Curs = "Curs"; Curs += Model.QuantidadeCursosInstituicao > 1 ? "os" : "o";
+    string Cadastrado = Curs == "Cursos" ? "cadastrados" : "cadastrado";
+    string Alun = "Alun"; Alun += Model.QuantidadeAlunosInstituicao > 1 ? "os" : "o";
+    string AlunoCadastrado = Alun == "Alunos" ? "cadastrados" : "cadastrado";
+}
+<div>
+
+    <p class="card-header text-muted" style="font-size:x-small"><a href="/Principal/Contratos">Contratos ></a><a href="/Principal/Instituicao"> Instituicao ></a><a href="/Principal/VisualizacaoInstituicao?idInstituicao=@Model.Instituicao.Identificador"> Visualizar instituição</a></p>
+    @Model.Instituicao.ExibirEntidadeColorCoded("h3")
+
+    <div class="">
+        @if (!Model.InstituicaoDoUsuario)
+        {
+            <a class="btn btn-primary" href="/Principal/Instituicao/TrocarInstituicao/?idInstituicao=@Model.Instituicao.Identificador">Registrar-se</a>
+        }
+    </div>
+    <div class="card-body d-block">
+        <div class="">
+            <a class="btn btn-yellow shadow-none hoverable" href="/Ajuda/FAQ/Index">
+                <i class="material-icons">forum</i>Perguntas Frequentes
+            </a>
+            <a class="btn btn-primary shadow-none hoverable" href="/Principal/Instituicao/ListagemCursos/?pageNumber=1&idInstituicao=@Model.Instituicao.Identificador">
+                <span class="h5-responsive"><i class="fas fa-school"></i>@Model.QuantidadeCursosInstituicao @Html.Raw(Curs) </span>
+            </a>
+            <p><i class="fas fa-user"></i> <span class="h3-responsive">@Model.QuantidadeAlunosInstituicao</span>  @Html.Raw(Alun) </p>
+            @if (User.IsAdminOrCriadorConteudo())
+            {
+                <a class="fa fa-cog card-header-pills adm-color" href="/Administracao/GerenciamentoInstituicao/VisualizarEntidade?id=@Model.Instituicao.Identificador"></a>
+            }
+        </div>
+    
+        <div class="row">
+            <div class="card col-md-2">
+                <div class="card-body">
+                    <i class="material-icons prefix teal-text">web</i><p class="h4-responsive"><a href="https://@Model.Instituicao.Website">@Model.Instituicao.Website</a></p>
+                </div>
+            </div>
+            <div class="card col-md-2">
+                <div class="card-body">
+                    <i class="material-icons prefix">mail</i>
+                    <p class="h4-responsive">@Model.Instituicao.Email</p>
+                </div>
+            </div>
+            <div class="card col-md-2">
+                <div class="card-body">
+                    <i class="material-icons prefix">phone</i><p class="h4-responsive">@Model.Instituicao.Telefone</p>
+                </div>
+            </div>
+            <div class="card col-md-6">
+                <div class="card-body">
+                    <i class="material-icons prefix red-text">location_on</i><p class="h4-responsive">@Model.Instituicao.Endereco</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-body pt-0">
+            <div class="input-field">
+                <p>@Model.Instituicao.Descricao</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    document.getElementById("body-column").style.height = "initial";
+</script>

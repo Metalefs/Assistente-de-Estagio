@@ -1,0 +1,86 @@
+﻿@using Assistente_de_Estagio.Areas.Principal.Models
+@using Assistente_de_Estagio.Areas.Shared;
+@using ADE.Utilidades.Extensions;
+@model UsuarioHomeViewModel
+
+@section StyleUriParser{
+    @if (Model.PrimeiroCurso == true && Model.Usuario.AceitouTermos)
+    {
+        <link href="~/Styles/Acesso/formularioPosLogin.css" rel="stylesheet" />
+    }
+}
+
+<div class="card height-100 p-0">
+    <div class="card-tabs">
+        <ul class="tabs tabs-fixed-width">
+            <li class="tab"><a href="#tab-aluno" class="active">Aluno</a></li>
+            <li class="tab"><a href="#tab-Estatisticas"><i class="material-icons">show_chart</i>Estatisticas</a></li>
+        </ul>
+    </div>
+    <div class="card-content p-0">
+        <div id="tab-aluno" style="display: block;" class="active">
+            <div>
+                @if (Model.Usuario.Id != "N/A" && Model.Usuario.IdCursoNavigation != null && Model.Usuario.IdInstituicaoNavigation != null)
+                {
+                    string url = "Principal/UserHome/Index";
+                    @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Acesso.Components.InfoHelperComponentViewComponent.InfoHelperViewComponent), url)
+                    <div id="material-curso">
+
+                    </div>
+                    <script type="module">
+                        import { MateriaisComponent } from "/Scripts/ADE/Principal/ListagemDocumento/MateriaisComponent.js";
+                        import { addStyleSheet } from "/Scripts/ADE/PageSetup.js";
+                        addStyleSheet("/Styles/Principal/ModalPreenchimento.css", "listagem_documentos");
+                        const MateriaisController = new MateriaisComponent();
+                        MateriaisController.Add();
+                        window.MateriaisController = MateriaisController;
+                    </script>
+                }
+                @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Principal.UserHome.Components.InformacoesEstagioViewComponent.InformacoesEstagioViewComponent))
+            <a onclick="$('.tap-target').tapTarget('open')" id="sidebar-help" class="text-info hide-on-med-and-up p-3">Onde está a sidebar?</a>
+            </div>
+            <div>
+                <div class="row float-bottom-right m-2 z-index-2">
+                    @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Principal.UserHome.Components.DropdownRegistroHorasComponentViewComponent.DropdownRegistroHorasViewComponent))
+                </div>
+                @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Acesso.Notificacoes.Components.VisualizacaoNotificacaoViewComponent.VisualizacaoNotificacaoViewComponent), new { })
+                @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Principal.Views.RegistroHoras.Components.UltimosRegistros.UltimosRegistrosViewComponent))
+            </div>
+        </div>
+        <div id="tab-Estatisticas" class="" style="display: none;">
+            @await Html.PartialAsync("_Estatisticas", Model)
+        </div>
+    </div>
+</div>
+
+@if (Model.PrimeiroCurso == true && Model.Usuario.AceitouTermos)
+{
+    <div class="center">
+        @{ModalCardViewModel modal = new ModalCardViewModel("loginContaTemporaria", "Configurando o sistema para você", await Html.PartialAsync("_FormularioPosRegistro"), ADE.Apresentacao.Models.TipoModal.Mini, "", "");}
+        @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Views.Shared.Components.ModalCardFieldSetViewComponent.ModalCardFieldSetViewComponent), new { modal = modal, CanClose = false, DefaultOpen = true })
+    </div>
+}
+
+@section Scripts {
+    <script src="~/Scripts/Externo/Chartjs-min.js"></script>
+    <script src="~/Scripts/Externo/apexcharts.min.js"></script>
+    <script type="module">
+        import { PorcentagemConlusaoPizzaChart } from '/Scripts/ADE/Principal/UsuarioHome/PorcentagemConclusaoChart.js';
+        import { AtividadesUsuarioChart } from '/Scripts/ADE/Principal/UsuarioHome/AtividadesLineChart.js';
+
+        let PorcentagemConclusaoChart = new PorcentagemConlusaoPizzaChart('@Model.Usuario.Id');
+        PorcentagemConclusaoChart.CreatePizzaChart();
+
+        let AtividadesChart = new AtividadesUsuarioChart("line-chart-canvas");
+        @if (Model.PrimeiroCurso == true && Model.Usuario.AceitouTermos)
+        {
+
+            @Html.Raw("import { PosRegistroMultiStepFormMini } from '/Scripts/ADE/Acesso/Multi-Step-Form.js';window.StepForm = new PosRegistroMultiStepFormMini(4, 'curso-select');StepForm.Start();$('.carousel.carousel-slider').carousel({fullWidth: true});");
+
+        }
+        @if (Model.PrimeiroCurso == true)
+        {
+            Html.Raw("dragElement('loginContaTemporaria');$('#loginContaTemporaria').show();");
+        }
+    </script>
+}

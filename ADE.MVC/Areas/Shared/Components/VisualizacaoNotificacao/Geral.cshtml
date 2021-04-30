@@ -1,0 +1,7 @@
+﻿@model Assistente_de_Estagio.Areas.Shared.Notificacao
+
+<div class="card mb5">
+    <div class="card-header">@Model.Entidade.ToString()</div>
+    <div class="card-body">@Html.Raw(Model.Mensagem)</div>
+    <div class="card-footer">@Model.Data</div>
+</div>

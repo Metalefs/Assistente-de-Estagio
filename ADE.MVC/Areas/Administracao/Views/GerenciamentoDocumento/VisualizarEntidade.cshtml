@@ -1,0 +1,29 @@
+﻿@model Assistente_de_Estagio.Areas.Administracao.Models.VisualizarEntidadeViewmodel<Documento>
+@using ADE.Dominio.Models
+@{
+    ViewData["Title"] = "ADE- Visualizar Entidade";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="">
+    <div class="row">
+        <div class="card-header col-lg-12">
+            <h5>Visualizar Entidade </h5>
+            <h6>Documento : @Model.Entidade.ToString() <a class="fa fa-arrow-left float-lg-right" onclick="window.history.back();"></a></h6>
+        </div>
+    </div>
+    <div class="row chart-container" name="middle-charts" id="middle-charts">
+        <div class="col-md-8 card-body" id="line-chart-div">
+            <div id="line-chart-canvas"></div>
+            <p>Criado em: <span class="h3-responsive">@Model.Entidade.DataHoraInclusao</span> </p>
+            <p>Última modificação: <span class="h3-responsive">@Model.Entidade.DataHoraUltimaAlteracao</span></p>
+            @Html.ActionLink("Editar", "Editar", "GerenciamentoDocumento", new { idDocumento = Model.Entidade.Identificador, idCurso = Model.Entidade.IdCurso }, new { Class = "btn btn-deep-orange" })
+            @Html.ActionLink("Voltar ao Gerenciamento", "Index", "GerenciamentoDocumento", new { }, new { Class = "btn admin-back-btn floating-button" })
+        </div>
+        <div class="col-md-4 instrucao">
+            <p><span class="h3-responsive">@Model.ListaAlteracoes.Count</span> Alterações totais</p>
+            <div class="md-form row">
+                <a class="btn btn-blue" href="./VisualizarAlteracoesEntidade?id=@Model.Entidade.Identificador">Visualizar alterações</a>
+            </div>
+        </div>
+    </div>
+</div>

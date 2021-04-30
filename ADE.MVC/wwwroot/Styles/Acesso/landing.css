@@ -1,0 +1,107 @@
+
+[hidden] {
+    display: none;
+}
+#__bs_notify__ {
+    display: none !important;
+}
+.module {
+    margin: 8rem 0;
+    padding: 2rem;
+}
+.flex-grid {
+    display: flex;
+    justify-content: center;
+}
+@media (max-width: 680px) {
+    .flex-grid {
+        display: block;
+    }
+    .single-column .col {
+        margin: 2rem;
+        width: auto;
+    }
+}
+/* Text styles */
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3bO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
+}
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Open Sans Bold'), local('OpenSans-Bold'), url(https://fonts.gstatic.com/s/opensans/v13/k3k702ZOKiLJc3WVjuplzKRDOzjiPcYnFooOUGCOsRk.woff) format('woff');
+}
+header#top h2, header#top h3 {
+    margin-bottom: 0;
+}
+header#top h1 {
+    font-size: 3.8rem;
+}
+header#top h2 {
+    font-size: 2.4rem;
+}
+header#top h3 {
+    font-size: 1.8rem;
+}
+header#top h4, header#top h5 {
+    font-size: 1.4rem;
+    text-transform: uppercase;
+}
+header#top p, header#top li {
+    font-size: 1.8rem;
+    line-height: 1.5;
+}
+header#top a {
+    font-weight: bold;
+    text-decoration: none;
+}
+header#top a:hover {
+    box-shadow: 1px 1px 10px black;
+}
+
+.calls-to-action {
+    margin: 8rem 0 16rem;
+}
+.calls-to-action h2 {
+    margin-bottom: 2rem;
+}
+.calls-to-action .col {
+    min-height: 32rem;
+    margin-top: 2rem;
+    text-align: center;
+}
+.calls-to-action .col p:nth-child(2) {
+    flex-grow: 1;
+}
+.calls-to-action .col.most-popular {
+    background: #fff;
+    border: 2px solid rgba(0,0,0,0.2);
+    border-radius: .8rem;
+    margin-top: 4em;
+    transform: scale(1.2);
+}
+
+.header-content img {
+    box-shadow: 0px 0px 2px lightskyblue;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    height: 130px;
+    width: 130px;
+    background-size: contain;
+}
+
+.section-title {
+    text-align: center;
+}
+.button {
+    background: #3c7e25;
+    color: #fff;
+    display: block;
+    padding: 2rem;
+    margin: 0 auto;
+    text-align: center;
+}

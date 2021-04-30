@@ -1,0 +1,27 @@
+﻿@using ADE.Dominio.Models.Enums;
+<form id="au-form" method="post" action="/Principal/Atividades/CadastrarAtividadeUsuario">
+    <input type="hidden" value="0" name="IdCurso" />
+    <div class="md-form">
+        <div class="row">
+            <div class="col col-md-4">
+                <input id="data-atividade" type="text" class="datepicker" title="Data" name="Data" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-md-8">
+                <label for="titulo-atividade">Titulo</label>
+                <input id="titulo-atividade" type="text" name="Titulo" required>
+            </div>
+            <div class="col col-md-8">
+                <label for="descricao-atividade">Descrição</label>
+                <input id="descricao-atividade" type="text" name="Descricao" required>
+            </div>
+            <div class="input-field col-md-4">
+                <input id="TipoAtividade" type="hidden" name="TipoAtividade" value="8">
+            </div>
+            <div class="col">
+                <button type="submit" onclick="$('#au-form').submit()" class="btn-floating btn-large btn-primary right" value=""><i class="material-icons">add</i></button>
+            </div>
+        </div>
+    </div>
+</form>

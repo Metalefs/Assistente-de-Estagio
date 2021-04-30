@@ -1,0 +1,61 @@
+﻿@page
+@model IndexModel
+@using Assistente_de_Estagio.Areas.Identity.Pages.Account.Manage;
+@{
+    ViewData["Title"] = "Perfil";
+}
+@await Html.PartialAsync("_ManageNav", "Perfil")
+<form id="profile-form" action="/Account/AtualizarPerfil" method="post" class="card-body">
+    @if (Model.IsEmailConfirmed)
+    {
+        <div class="md-form">
+            <label for="NomeUsuario">Nome do usuário</label>
+            <input id="NomeUsuario" name="NomeUsuario" class="form-control" data-toggle="tooltip" data-placement="bottom" placeholder="@Model.Username" title="Nome do usuário" type="text" />
+        </div>
+        <div class="md-form">
+            <label for="Email">Email</label>
+            <input id="Email" name="EmailUsuario" class="form-control" data-toggle="tooltip" data-placement="bottom" value="@Model.Input.Email" title="Email do usuário" type="text" />
+        </div>
+        <div class="alert alert-warning" role="alert">
+            <h4>Alterar dados pessoais</h4>
+            <p>
+                <span class="glyphicon glyphicon-warning-sign"></span>
+                <strong>Ao alterar o seu e-mail, certifique-se de confirmá-lo acessando a sua caixa de entrada.</strong>
+            </p>
+            <button class="btn" type="submit">Salvar</button>
+        </div>
+    }
+</form>
+<div class="card-body">
+    <div class="md-form form-group">
+        @if (Model.IsEmailConfirmed)
+        {
+            <div class="input-group">
+                <span class="input-group-addon" style="width: 200px;" aria-hidden="true">
+                    <p>Email verificado</p>
+                    <span class="fa fa-check text-success"></span>
+                </span>
+            </div>
+        }
+        else
+        {
+            <input id="Username" name="Username" class="form-control" disabled placeholder="@Model.Username" data-toggle="tooltip" data-placement="bottom"  title="Nome do usuário" type="text" />
+            <form id="profile-form" action="/Account/EnviarEmailDeConfirmacaoDeRegistro" method="post">
+                <p>Status da conta:</p>
+                <div class="input-group md-form input-group-addon" aria-hidden="true">
+                    <p>Email não verificado</p>
+                    <i class="glyphicon glyphicon-warning-sign" style="font-size: xx-large; color: yellow; padding: 5px;"></i>
+                    <input name="Email" class="form-control" placeholder="Insira novamente o seu e-mail de acesso" />
+                    <button id="email-verification" type="submit" class="btn btn-link text-warning">Reenviar e-mail de verificação</button>
+                </div>
+                <span class="bg-warning">Após a confirmação do e-mail, o nome de usuário poderá ser alterado.</span>
+            </form>
+        }
+        @Html.Raw(ViewBag.Retorno)
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

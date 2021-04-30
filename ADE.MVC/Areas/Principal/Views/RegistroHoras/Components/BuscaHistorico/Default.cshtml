@@ -1,0 +1,20 @@
+﻿@model List<DateTime>
+
+<form method="get" action="/Principal/RegistroHoras/BuscarRegistrosPorData">
+    <div class="row">
+        <div class="col-md-2">
+            <input type="text" list="listaregistros" name="data" placeholder="@DateTime.Now.ToShortDateString()" required data-mask="99/99/9999" class="validate">
+        </div>
+        <div class="col-md-3">
+            <button type="submit" class="btn btn-rounded admin-add-btn">Buscar</button>
+        </div>
+        
+        <datalist id="listaregistros">
+            @foreach (DateTime date in Model)
+            {
+                <option value="@date.ToShortDateString()"></option>
+            }
+        </datalist>
+    </div>
+    <a href="/Principal/RegistroHoras/Exportar" class="btn btn-large btn-blue z-index-2 pt-0 right float-bottom-right"><i class='prefix medium material-icons'>file_download</i>Exportar</a>
+</form>

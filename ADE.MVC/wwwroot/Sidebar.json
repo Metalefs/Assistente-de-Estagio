@@ -1,0 +1,87 @@
+{
+  "Titulo": "Assistente de Estágio",
+  "SrcLogo": "/Images/Logo/logo-sidenav.png",
+  "LoadType" : "Full",
+  "LinkPrincipal": "/Principal/UserHome",
+  "Elementos": [
+    {
+      "Nome": "Administrar",
+      "AreaComponente": "Admin",
+      "Icone": "fas fa-calendar-plus",
+      "Link": "/Administracao/Dashboard",
+      "IdCollapsible": "administracao",
+      "NavItems": [
+        {
+          "Nome": "Dashboard",
+          "Link": "/Administracao/Dashboard",
+          "Controller": "Dashboard",
+          "Action": "Index",
+          "Icon": "",
+          "Area": "Administracao"
+        },
+        {
+          "Nome": "Conteúdo disponível",
+          "Link": "/Administracao/GerenciamentoDocumento",
+          "Controller": "GerenciamentoDocumento",
+          "Action": "Index",
+          "Icon": "",
+          "Area": "Administracao"
+        },
+        {
+          "Nome": "Controle de Acessos",
+          "Link": "/Administracao/ControleUsuarios",
+          "Controller": "ControleUsuarios",
+          "Action": "Index",
+          "Icon": "",
+          "Area": "Administracao"
+        }
+      ]
+    },
+    {
+      "Nome": "Faculdades",
+      "AreaComponente": "Usuario",
+      "Icone": "fas fa-graduation-cap",
+      "Link": "/Principal/Instituicao",
+      "IdCollapsible": "contratos",
+      "NavItems": [
+        {
+          "Nome": "Minha Faculdade",
+          "Link": "/Principal/Instituicao/VisualizacaoInstituicao",
+          "Controller": "Instituicao",
+          "Action": "Index",
+          "Area": "Principal"
+        }
+      ]
+    },
+    {
+      "Nome": "Ajuda",
+      "Tipo": "Usuario",
+      "Icone": "fas fa-question-circle",
+      "Link": "/Ajuda/Suporte",
+      "IdCollapsible": "ajuda",
+      "NavItems": [
+        {
+          "Nome": "Regulamentação",
+          "Link": "/Ajuda/Regulamentacao/Index",
+          "Controller": "Regulamentacao",
+          "Action": "Index",
+          "Area": "Ajuda"
+        },
+        {
+          "Nome": "Legislação",
+          "Link": "http://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11788.htm",
+          "Controller": "Legislacao",
+          "Action": "Index",
+          "Area": "Ajuda"
+        },
+        {
+          "Nome": "Perguntas Frequentes",
+          "Link": "/Ajuda/FAQ/Index",
+          "Controller": "FAQ",
+          "Action": "Index",
+          "Area": "Ajuda"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+﻿@model Assistente_de_Estagio.Views.Shared.Components.RequisitoInput.RequisitoInputViewModel
+@using ADE.Dominio.Models;
+@if (!Model.Requisito.Bookmark.Contains("AreasEstagio_"))
+{
+    <label for="@Model.Requisito.Identificador:@Model.Requisito.Bookmark">@Model.Requisito.NomeRequisito</label>
+    <select title="@Model.Requisito.Descricao" data-position="bottom" onchange="@Model.Onchange" name="@Model.Requisito.Identificador:@Model.Requisito.Bookmark" placeholder="@Model.Requisito.Bookmark" id="@Model.Requisito.Identificador:@Model.Requisito.Bookmark" required="@Model.Requisito.Obrigatorio">
+        <option value="">@Model.Requisito.NomeRequisito</option>
+        @{
+            foreach (OpcaoRequisito opreq in Model.Requisito.OpcaoRequisito)
+            {
+                if (Model.Requisito != null && Model.Requisito.RequisitoDeUsuario != null)
+                {
+                    if (Model.Requisito.RequisitoDeUsuario.Count > 0)
+                    {
+                        string Value = Model.Requisito.RequisitoDeUsuario.FirstOrDefault().Valor;
+                        int id = Model.Requisito.RequisitoDeUsuario.FirstOrDefault().IdRequisito;
+                        if (id == opreq.IdRequisito)
+                        {
+                            <option value="@Model.Requisito.RequisitoDeUsuario.FirstOrDefault().Valor" selected="selected">@Model.Requisito.RequisitoDeUsuario.FirstOrDefault().Valor</option>
+                        }
+                        else
+                        {
+                            <option value="@opreq.Valor">@opreq.Valor</option>
+                        }
+                    }
+                    else
+                    {
+
+                        <option value="@opreq.Valor">@opreq.Valor</option>
+                    }
+                }
+            }
+        }
+    </select>
+}

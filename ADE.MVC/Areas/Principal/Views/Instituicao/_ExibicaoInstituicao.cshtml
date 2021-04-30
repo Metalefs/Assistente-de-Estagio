@@ -1,0 +1,16 @@
+﻿@model Assistente_de_Estagio.Areas.Principal.Models.InformacaoInstituicao
+@using ADE.Utilidades.Extensions
+@{
+    string classe = Model.InstituicaoDoUsuario ? "card border-success instituicao_selecionada" : string.Empty;
+    string titulo = Model.InstituicaoDoUsuario ? "Sua faculdade" : string.Empty;
+}
+    <a class="" href="/Principal/Instituicao/VisualizacaoInstituicao?idInstituicao=@Model.Instituicao.Identificador">
+        <div class="@classe border-top-0 border-bottom-0 tooltipped" style="padding:1rem;" data-position="bottom" data-tooltip="@titulo : @Model.Instituicao.Email">
+            @Model.Instituicao.ExibirEntidadeColorCoded()
+            <i class="material-icons">arrow_forward</i>
+        </div>
+    </a>
+@if (User.IsAdminOrCriadorConteudo())
+{
+    <vc:icone-administracao gerenciamento="GerenciamentoInsituicao" id="Model.Instituicao.Identificador"></vc:icone-administracao>
+}

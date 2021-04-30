@@ -1,0 +1,11 @@
+﻿@model Assistente_de_Estagio.Areas.Principal.Shared.Components.ContabilizacaoHorasViewComponent.ContabilizacaoHorasVM;
+@{
+    string progresso = Model.progress > 1 ? (Model.progress).ToString()+"h" : "0h";
+    string porcentagem = ((Model.progress * 100)/ Model.total).ToString();
+}
+
+<input type="text" disabled value="@progresso" />
+<div class="progress blue lighten-4 tooltipped" data-position="top" data-tooltip="Progresso em @porcentagem%">
+    <span>Carga-Horaria</span>
+    <div class="determinate blue" style="width: @porcentagem%; animation: grow 2s;">@porcentagem%</div>
+</div>

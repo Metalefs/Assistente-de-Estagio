@@ -1,0 +1,154 @@
+@model Assistente_de_Estagio.Models.DocumentoCursoRegistroAluno
+@{
+    ViewData["Title"] = "Home Page";
+    ViewData["Caminho"] = ViewBag.Caminho[0];
+
+    int IdDoc;
+}
+<script src="~/js/download-pdf.js"></script>
+<script src="~/js/addCampos.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+@ViewBag.Caminho
+
+<div class="MainContainer">
+    <div id="instrucao">
+        <img class="mascote" src="~/Images/student-icon.png" height="150" width="150" alt="Mascote do ADE" />
+        <h2 id="tituloSelec">Selecione o documento que deseja preencher:</h2>
+        <p class="pSelec">Siga os passos de criação dos documentos para uma melhor experiência, ou gere somente aqueles que precisar.</p>
+        <p class="pSelec">Veja ao lado algumas dicas para a realização do seu estágio</p>
+
+    </div>
+
+    <hr />
+    @foreach (var doc in Model.Documentos)
+    {
+        IdDoc = doc.IdDocumento;
+        <div id="@IdDoc" class="btn btnDoc">
+            <div class="docDiv" id="doc@{Html.DisplayFor(model => doc.IdDocumento);} ">
+                <span class="card-header nomeDoc"><h3 class="passoDoc">@Html.DisplayFor(model => doc.PosicaoDocumento)°Passo</h3><h4 class="tituloDoc" style="overflow=hidden">@Html.DisplayFor(model => doc.TituloDocumento)</h4></span>
+                <p>@Html.DisplayFor(model => doc.DescricaoDocumento)</p>
+                <button type="submit" id="downloadDoc" class="button downloadInSelec" onclick="Download(@IdDoc)"><p>Download</p></button> <button type=submit id="printDoc" class="button printInSelec"><p>Imprimir</p></button>
+            </div>
+
+        </div>
+    }
+    <div class="docDiv" id="OpenRegistro"><h4>Ficha de registro de horas de estágio</h4></div>
+
+    <div id="registro-ficha" class="pop-up hidden" ng-app="">
+        <div id="campo-preview" class="in-preenchimento">
+         <table class="table">   
+            <thead class="table table-success ">
+                <tr class="table table-success">
+                    <th>
+                        DATA
+                    </th>
+                    <th>
+                        HORÁRIO
+                    </th>
+                    <th>
+                        INICIO
+                        <th>
+                        TÉRMINO
+                        </th>
+                    </th>
+                    <th>
+                        ATIVIDADES DESENVOLVIDAS
+                    </th>
+                    <th style="text-decoration:italic;font-style:italic">Carga horária cumprida/th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Fichas)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Data)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HoraInicio)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HoraFim)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Atividades)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model =>item.CargaHoraria) Horas
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        </div>
+    </div>
+
+    <hr />
+    <label for="selecaoCurso"><p>Selecione o curso matriculado para o Estágio</p></label>
+    @Html.DropDownList("Cursos", new SelectList(ViewBag.Curso, "IdCurso", "NomeCurso"), new { @class = "form-control" })
+</div>
+
+<hr />
+
+<div class="SideContainer">
+
+    <p>Ao lado estão os documentos do estágio que devem ser levados a faculdade</p>
+    <p>Os documentos requerem ASSINATURA de termo de compromisso do Estágio Supervisionado</p>
+    <p>O Estágio Supervisionado somente poderá ter inicio após a programação ter sido aprovada pela Coordenação de Estãgio Supervisionado</p>
+    <p>Condições para aprovação no Estágio Supervisionado:</p>
+    <ul>
+        <li>Cumprimento das 200 horas de estágio</li>
+        <li>Observação da linguagem cientifica nos relatórsios</li>
+        <li>Entrega da documentação</li>
+    </ul>
+    <div><p>Clique aqui para as regras gerais do Estágio Supervisionado</p></div>
+</div>
+
+<hr />
+
+<div id="interface-preenchimento-popup" class="pop-up" ng-app="">
+    <div id="campos-requisitos" class="in-preenchimento">
+        <h3 id="hint1" class="hint">Insira os dados a abaixo para preencher o documento:</h3>
+        <form id="campos-documento" class="form"></form><div id="errors" class="hidden error"></div>
+        <button type="submit" id="download" class="button download"><p>Download</p></button>    <button type=submit id="print" class="button print"><p>Imprimir</p></button>
+    </div>
+    <div id="campo-preview" class="in-preenchimento">
+        <h3 id="hint2" class="hint">Visualização do documento</h3>
+        <canvas id="pdf-image" class="canvas_div_pdf"></canvas>
+    </div>
+</div>
+
+
+
+
+<script>
+
+var serviceURL = @Url.Action("Download","Home");
+
+</script>
+<script src="~/js/openPreenchimento.js"></script>
+<script>
+   
+    var serviceURL = @Url.Action("Download","Home");
+    var url = "@ViewBag.Caminho"+".pdf";   // CARREGA O PDF NO SCRIPT 'load-pdf.js'
+    var idDocumento = 1;
+
+    var DadosRequisitos = @Json.Serialize(ViewBag.ListaRequisitos);
+    DadosRequisitos = JSON.parse(DadosRequisitos);
+    var download = document.getElementById("download");
+    var campoRequisitos = document.getElementById("campos-documento");
+    var preview = document.getElementById("campo-preview");
+
+    addCampos();
+
+    var accept = false;
+        download.addEventListener('click',function(){
+        createDocument();
+    });
+
+</script>
+<script src="~/js/CreateDoc.js"></script>
+<script src="~/js/load-pdf.js"></script>

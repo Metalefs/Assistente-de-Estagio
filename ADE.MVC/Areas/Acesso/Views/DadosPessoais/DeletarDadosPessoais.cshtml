@@ -1,0 +1,33 @@
+﻿@model Assistente_de_Estagio.Areas.Acesso.Models.DadosPessoaisModel
+@{
+    ViewData["Title"] = "Deletar dados pessoais";
+}
+@await Html.PartialAsync("_ManageNav")
+<div class="alert alert-warning" role="alert">
+    <h4>Deletar dados pessoais</h4>
+    <p>
+        <span class="glyphicon glyphicon-warning-sign"></span>
+        <strong>Deletar esses dados irá remover a sua conta permanentemente, essa ação não pode ser desfeita.</strong>
+    </p>
+</div>
+
+<div>
+    <form id="delete-user" method="post" class="form-group" action="./DeletarDadosPessoais">
+        <div class="rounded bg-light">
+            @Html.ValidationSummary(false, "", new { @id = "Campo-Validacao" })
+        </div>
+        <div class="rounded bg-light card notification">
+            @ViewBag.Retorno
+        </div>
+        <div class="form-group card-body">
+            <label for="Password"><p>Confirme a sua senha abaixo para deletar a conta</p></label>
+            <input name="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+            <button class="btn btn-danger" type="submit">Deletar perfil</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,17 @@
+﻿@*@model Assistente_de_Estagio.Areas.Principal.Models.SetaPaginacaoVM
+
+@if (Model.Paginated.TotalPages > 1)
+{
+    var prevDisabled = !Model.Paginated.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Paginated.HasNextPage ? "disabled" : "";
+
+    @Html.ActionLink("<", "Index", "ListagemDocumentos", new { pageNumber = Model.Paginated.PageIndex - 1 }, new { @class = "btn btn-info " + prevDisabled })
+    @Html.ActionLink(">", "Index", "ListagemDocumentos", new { pageNumber = Model.Paginated.PageIndex + 1 }, new { @class = "btn btn-info " + nextDisabled })
+    <a href="/@Model.Area/@Model.Controller/@Model.Action/?pageNumber=@{Model.Paginated.PageIndex - 1} ">
+        <i class="material-icons">arrow_back</i>
+    </a>
+    <a href="/@Model.Area/@Model.Controller/@Model.Action/?pageNumber=@{Model.Paginated.PageIndex + 1}">
+        <i class="material-icons">arrow_forward</i>
+    </a>
+    <p>Página @Model.Paginated.PageIndex de @Model.Paginated.TotalPages</p>
+}*@

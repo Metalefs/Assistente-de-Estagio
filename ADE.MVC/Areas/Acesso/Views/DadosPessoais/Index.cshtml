@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Dados Pessoais";
+}
+
+@await Html.PartialAsync("_ManageNav","DadosPessoais")
+<div class="card-body">
+    <p>Seu perfil contém dados pessoais que você inseriu ao utilizar o sistema. Essa página te permite baixar ou deletar esses dados.</p>
+    <p>
+        <strong>Deletar os dados pessoais significa remover a sua conta permanentemente, essa ação não pode ser desfeita.</strong>
+    </p>
+    <form action="/Acesso/DadosPessoais/BaixarDadosPessoaisAcao" method="post" class="form-group">
+        <button class="btn btn-blue" type="submit">Baixar dados pessoais</button>
+    </form>
+    <p>
+        <a href="/Acesso/DadosPessoais/DeletarDadosPessoais" class="btn btn-danger card-header">Deletar</a>
+        <span role="alert" class="alert alert-warning">
+            <span class="glyphicon glyphicon-warning-sign"></span>
+            <strong>Após confirmação</strong>
+        </span>
+    </p>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

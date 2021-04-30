@@ -1,0 +1,52 @@
+main#signup {
+    position: relative;
+}
+
+form#signup-form {
+    font-family: 'Roboto';
+    padding: 10px;
+    float:right;
+    background-color: rgba(0,0,0,.5);
+}
+
+.hidden-field {
+    visibility: hidden;
+    margin-bottom: -200px;
+}
+
+.field-show {
+    overflow: visible;
+    visibility: visible;
+    margin-bottom: 0px;
+
+}
+.signup-form {
+    display: block;
+    border-radius: 1px;
+    box-shadow: none;
+}
+
+input#sub-signup {
+    margin: 5px;
+    padding: 5px;
+    border-radius: 1px;
+    background-color: white;
+    color: black;
+    font-weight: bolder;
+} 
+
+input#sub-signup:hover {
+    box-shadow: 1px 1px 5px black;
+    color:black;
+    
+}
+
+.eye {
+    position: relative;
+    left: 120px;
+    top: 30px;
+    display: inline;
+}
+.eye:hover {
+    box-shadow: 1px 1px 2px black;
+}

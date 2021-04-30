@@ -1,0 +1,31 @@
+﻿@model Assistente_de_Estagio.Areas.Administracao.Models.AlteracoesAdministradorViewModel
+@using ADE.Dominio.Models
+@{
+    ViewData["Title"] = "ADE- Visualizar Alteracoes De Administrador";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="">
+    <div class="card-header col-md-12">
+        Alterações feitas por @Model.Usuario.UserName
+        <a class="fa fa-arrow-left" onclick="window.history.back();"></a>
+    </div>
+</div>
+<div class="">
+    @if (Model.Alteracoes != null)
+    {
+        @foreach (AlteracaoEntidadesSistema alteracao in Model.Alteracoes)
+        {
+            @await Html.PartialAsync("_AdmAlteracaoEntidadeAdministrador", alteracao)
+        }
+    }
+</div>
+@{
+    var prevDisabled = !Model.Alteracoes.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Alteracoes.HasNextPage ? "disabled" : "";
+
+    @Html.ActionLink("<", "VisualizarAlteracoesDeAdministrador", "ControleUsuarios", new { userName = Model.Usuario.UserName, pageNumber = Model.Alteracoes.PageIndex - 1 }, new { @class = "btn btn-info " + prevDisabled })
+
+    @Html.ActionLink(">", "VisualizarAlteracoesDeAdministrador", "ControleUsuarios", new { userName = Model.Usuario.UserName, pageNumber = Model.Alteracoes.PageIndex + 1 }, new { @class = "btn btn-info " + nextDisabled })
+    <p>Página @Model.Alteracoes.PageIndex de @Model.Alteracoes.TotalPages</p>
+   
+}

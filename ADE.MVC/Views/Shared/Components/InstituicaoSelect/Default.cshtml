@@ -1,0 +1,15 @@
+﻿@model List<Instituicao>
+@using ADE.Dominio.Models.Individuais;
+@if (Model != null && Model.Count > 0)
+{
+    <div class="md-form">
+        <label for="SelecaoInstituicao">Faculdade</label>
+        @Html.DropDownList("IdFaculdade", new SelectList(Model, "Identificador", "Nome","Selecionar")
+        , new { @class = "show-tick mdb-select", id = "SelecaoInstituicao", @name = "IdFaculdade",  @data_size = "5", @data_live_search = "true" })
+    </div>
+    <a class="btn btn-primary left add-circle" onload="StepForm.SetInstituicao(document.getElementById('SelecaoInstituicao'))" onclick="StepForm.SetInstituicao(document.getElementById('SelecaoInstituicao'))">Confirmar</a>
+}
+else
+{
+    <p class="text-danger">Nenhuma instituição foi encontrada</p>
+}

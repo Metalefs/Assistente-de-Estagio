@@ -1,0 +1,40 @@
+﻿@using ADE.Dominio.Models.Enums
+@using ADE.Utilidades.Extensions
+@model ADE.Dominio.Models.Individuais.Instituicao
+
+@{
+    ViewData["Title"] = "ADE - Editar Instituição";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="">
+    @await Html.PartialAsync("EditarNav", "Instituicao")
+    <div class="tab-content" id="myTabContent">
+        <div>
+            <div class="modal-header">Editar</div>
+            <div class="card-header text-info">
+                <h4>Instituicao:</h4> @Model.ExibirEntidadeColorCoded()
+            </div>
+            <div>
+                <div class="border-top">
+                    <div class="col-md-9">
+                        @Model.CriarFormularioDeEdicaoParaEntidadeHTML("Editar", "", "post", "md-form")
+                    </div>
+                    <div class="col-md-3 bg-light">
+                        <p>Os alertas aparecerão para os usuários na listagem dos documentos para esse curso na página @Html.ActionLink("Documentos", "Index", "ListagemDocumentos", new { idCurso = 0, currentFilter = string.Empty, searchString = string.Empty, p = 0 })</p>
+                        <p>As Informações apareceram como diálogo na mesma página</p>
+                        <div class="form-group md-form">
+                            <input type="submit" value="Alterar" onclick="document.forms[0].submit();" class="btn btn-primary admin-add-btn" />
+                            @Html.ActionLink("Voltar ao Gerenciamento", "Index", "GerenciamentoInstituicao", new { }, new { Class = "btn admin-back-btn" })
+                        </div>
+                    </div>
+                </div>
+             </div>
+            <div class="form-group md-form floating-button">
+                @Html.ActionLink("Voltar ao Gerenciamento", "Index", "GerenciamentoInstituicao", new { }, new { Class = "btn admin-back-btn" })
+            </div>
+        </div>
+    </div>
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+</div>

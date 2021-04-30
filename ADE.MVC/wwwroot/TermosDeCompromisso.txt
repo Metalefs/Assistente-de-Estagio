@@ -1,0 +1,120 @@
+﻿<h4>Termos de Uso</h4>
+<h4>Assistente De Estagio<h4>
+<h4>1. INTRODUÇÃO</h4>
+<p>A DEVSHIP CNP000.000.000/0001-00, está comprometida com a proteção da sua privacidade.
+A nossa Política de Privacidade foi concebida para comunicar as nossas práticas relativas à
+coleta e utilização de informações que o USUÁRIO possa fornecer através do acesso ao nosso
+produto, site <a href="https://www.assistentedeestagio.com.br">https://www.assistentedeestagio.com.br</a>.
+Para que nossos serviços sejam oferecidos da melhor maneira possível, nossa equipe, site e
+plataforma coleta diversos dados e informações, visando oferecer a melhor experiência e
+eficiência para você. Nós, da DevShip, estamos cientes da importância da sua privacidade e
+tomamos todas as medidas possíveis para assegurá-la.
+</p>
+<p>
+As condições e informações apresentadas neste termo estão de acordo com a legislação
+brasileira, atendendo, inclusive, os termos da Lei no. 13.709/2018 (“LGPD – Lei Geral de
+Proteção de Dados”) e normas relacionadas.
+</p>
+<p>
+A aceitação dos termos desta política será realizada através do acesso aos nossos sites, após
+seu cadastro no primeiro acesso a nossa plataforma (portal ou aplicativo para celular) ou para
+casos excepcionais, através de e-mail. Através deste aceite, você declara ciência e total acordo
+de como suas informações e dados serão utilizados.
+</p>
+<h4>1.1. CONTROLADOR DE DADOS</h4>
+<p>
+Quanto ao manuseio e acesso aos dados do usuário ficam a encargo da DevShip e/ou a
+faculdade contratadora do sistema, elas são responsáveis por suas informações sob esta
+Política de Privacidade (o “Controlador de Dados”).
+</p>
+<h5>2. COLETA DE DADOS E ATIVIDADES</h5>
+<h5>2.1. Os dados pessoais e informações do USUÁRIO serão sempre submetidos voluntariamente
+pelo mesmo e poderão ser coletados das seguintes formas:</h4>
+</p>
+<h4>2.1.1. PLATAFORMA DIGITAL OU SITE</h5>
+<p>
+Os dados do USUÁRIO são fornecidos pelo mesmo e coletados pela plataforma fornecida pela
+DevShip (aplicativo ou site).
+</p>
+<h5>2.2. Os dados e informações que coletamos incluem, porém não se limitam a:</h5>
+<h5>2.2.1. DADOS CADASTRAIS</h5>
+<p>
+Nome completo, telefone, CPF, RG, e-mail, data de nascimento, país e município de domicílio,
+endereço da residência atual, foto.
+</p>
+<h5>2.2.2. DADOS DE NAVEGAÇÃO</h5>
+<p>
+Endereço IP, data e hora de cadastro do USUÁRIO, data e hora de saída do USUÁRIO,
+dispositivo, modelo, sistema operacional, país, região da localização atualizada no momento
+do acesso, ações na plataforma ou site.
+</p>
+<h5>3. SEUS DIREITOS</h5>
+<p>
+Você pode exercer qualquer um dos direitos descritos nesta seção junto ao seu Controlador de
+Dados enviando um e-mail para suporte@assistentedeestagio.com.br . Tenha em mente que
+poderemos pedir que você confirme sua identidade e requisitar antes de tomar qualquer
+medida sobre seu pedido.
+</p>
+<h5>31. GERENCIAMENTO DAS SUAS INFORMAÇÕES</h5>
+<p>
+Você pode acessar e atualizar algumas das suas informações através das configurações do seu
+acesso de USUÁRIO no site e/ou plataforma do Assistente de Estágio. Você é responsável por
+manter suas informações pessoais atualizadas.
+</p>
+<h5>3.2. RETIFICAÇÃO DE INFORMAÇÕES INCORRETAS OU INCOMPLETAS</h5>
+<p>
+Você tem o direito de nos pedir para corrigir informações pessoais incorretas ou incompletas
+referentes a você, e que você não pode alterar através do seu acesso de USUÁRIO no site e/ou
+plataforma do Assistente de Estágio.
+</p>
+<h5>3.3. PORTABILIDADE E ACESSO A DADOS</h5>
+<p>De acordo com a lei aplicável você pode permitir que você solicite cópias de seus dados
+pessoais mantidas pelo Assistente de Estágio. Você também pode solicitar cópias de dados
+pessoais que você nos forneceu em um formato estruturado, comumente usados e legível
+e/ou solicitar que enviemos essas informações a outro provedor de serviços (quando for
+tecnicamente viável).
+</p>
+<h5>3.4. RETENÇÃO E EXCLUSÃO DE DADOS</h5>
+<p>De modo geral, mantemos seus dados pessoais pelo tempo necessário. Se você não quiser
+mais que usemos suas informações, você pode solicitar que apaguemos suas informações
+pessoais e fechemos seu acesso de USUÁRIO. Por favor, leve em conta que, se você solicitar a
+exclusão de suas informações pessoais:
+<p>
+Podemos reter algumas de suas informações pessoais conforme necessário para nossos
+interesses comerciais legítimos, como detecção e prevenção de fraudes e melhoria da
+segurança;
+</p>
+<p>
+Podemos reter e usar suas informações pessoais na medida necessária para cumprir nossas
+obrigações legais. Por exemplo, relatórios legais e auditorias;
+Mesmo após o seu acesso de USUÁRIO for removido algumas cópias de suas informações (por
+exemplo, registros de log) podem permanecer em nosso banco de dados, mas são
+desassociadas do seu USUÁRIO;
+Como mantemos o site e/ou plataforma Assistente de Estágio para proteger contra a perda e
+destruição acidental ou maliciosa de dados, cópias residuais de suas informações pessoais não
+podem ser removidas de nossos sistemas de backup por um período limitado.
+</p>
+<h5>3.5. RETIRADA DE CONSENTIMENTO E RESTRIÇÃO DE PROCESSAMENTO</h5>
+<p>Se estivermos processando seus dados pessoais com base em seu consentimento, você poderá
+retirar seu consentimento a qualquer momento, alterando as configurações do seu USUÁRIO
+ou enviando um e-mail para suporte@assistentedeestagio.com.br especificando qual
+consentimento você está retirando. Por favor, tenha em mente que a retirada de seu
+consentimento não afeta a legalidade de quaisquer atividades de processamento com base em
+tal consentimento antes de sua retirada.
+</p>
+<h5>3.6. OBJEÇÃO AO PROCESSAMENTO</h5>
+<p>De acordo com a lei aplicável você pode exigir que o Assistente de Estágio não processe seus
+dados pessoais para determinados fins específicos. Se você se opuser a tal processamento, o
+Assistente de Estágio não processará mais seus dados pessoais, a menos que possamos
+demonstrar motivos legítimos convincentes para tal processamento ou que esse
+processamento seja necessário para o estabelecimento, o exercício ou a defesa de
+reivindicações legais. Quando suas informações pessoais são processadas para fins de
+marketing direto, você pode solicitar a qualquer momento que o Assistente de Estágio pare de
+processar seus dados para esses fins enviando um e-mail para
+suporte@assistentedeestagio.com.br
+</p>
+<h5>3.7. APRESENTAÇÃO DE RECLAMAÇÕES</h5>
+<p>Você tem o direito de apresentar reclamações sobre nossas atividades registrando uma queixa
+junto ao nosso Departamento de Proteção de Dados, que pode ser acessada pela seção "Fale
+conosco" ou com uma autoridade controladora da Lei Geral de Proteção de Dados.
+</p>

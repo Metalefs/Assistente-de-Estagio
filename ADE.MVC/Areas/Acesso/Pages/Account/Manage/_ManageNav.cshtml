@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using ADE.Dominio.Models.Individuais; 
+@using Assistente_de_Estagio.Areas.Identity.Pages.Account.Manage;
+@inject SignInManager<UsuarioADE> SignInManager
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+
+<div class="input-group-prepend admin-nav-tabs">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="@ManageNavPages.IndexNavClass(ViewContext) nav-item">
+            <a class="nav-link" href="/Acesso/Account/Manage/Index">Perfil</a>
+        </li>
+        <li class="@ManageNavPages.ChangePasswordNavClass(ViewContext) nav-item">
+            <a class="nav-link" id="change-password" href="/Acesso/Senha">Senha</a>
+        </li>
+        @*@if (hasExternalLogins)
+        {
+            <li class="@ManageNavPages.ExternalLoginsNavClass(ViewContext) nav-item">
+                <a class="nav-link" id="external-login" href="/Acesso/Account/Manage/LoginsExternos">Login com redes sociais</a>
+            </li>
+        }*@
+        <li class="@ManageNavPages.PersonalDataNavClass(ViewContext) nav-item">
+            <a class="nav-link" href="/Acesso/DadosPessoais">Dados pessoais</a>
+        </li>
+        <li class="@ManageNavPages.PersonalDataNavClass(ViewContext) nav-item">
+            <a class="nav-link" href="/Acesso/Notificacoes">Notificações</a>
+        </li>
+    </ul>
+</div>

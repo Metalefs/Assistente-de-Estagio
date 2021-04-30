@@ -1,0 +1,109 @@
+﻿@model Assistente_de_Estagio.Areas.Administracao.Models.CriarCursoViewModel
+@using ADE.Dominio.Models.Enums
+@{
+    ViewData["Title"] = "Criar Curso";
+}
+<script>
+    document.getElementById("admin-tabs").style.display = "none";
+</script>
+<div class="input-group-prepend admin-nav-tabs">
+    <div class="nav row fix-row-left card-body" id="myTab" role="tablist">
+        @await Html.PartialAsync("CadastrarNav", "Curso")
+        <div class="tab-content" id="myTabContent">
+            <div>
+                <div class="card-header text-info">
+                    Criar Um Novo Curso
+                </div>
+                <div class="row fix-row-left border-top">
+                    <div class="col-md-6">
+                        <form action="/Administracao/GerenciamentoCurso/CriarCurso" method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="md-form">
+                                @if (Model.Instituicoes != null && Model.Instituicoes.Count > 0)
+                                {
+                                    @Html.DropDownList("Curso.IdInstituicao", new SelectList(Model.Instituicoes, "Identificador", "Nome")
+                                    , new { id = "SelecaoInstituicao", @name = "Curso.IdInstituicao"})
+                                }
+                                else
+                                {
+                                    <p class="text-danger">Nenhuma instiuição foi encontrada</p>
+                                }
+                                <label for="SelecaoCurso">Instituicao</label>
+                            </div>
+                            <div class="md-form">
+                                <label for="NomeCurso">@Html.DisplayNameFor(model => model.Curso.NomeCurso)</label>
+                                <input required type="text" id="NomeCurso" name="Curso.NomeCurso" title="Insira o nome do curso o qual o documento pertence" />
+                                <span asp-validation-for="Curso.NomeCurso" class="text-danger"></span>
+                            </div>
+                            <div class="md-form">
+                                <label id="Sigla">@Html.DisplayNameFor(model => model.Curso.Sigla)</label>
+                                <input required type="text" id="Sigla" name="Curso.Sigla" title="Insira uma Sigla para o curso" />
+                                <p>A sigla é utilizada para cursos com nomes maiores do que 13 caráteres em algumas ocasiões</p>
+                                <span asp-validation-for="Curso.Sigla" class="text-danger"></span>
+                            </div>
+                            <div class="md-form">
+                                <label for="CoordenadorCurso" class="control-label">@Html.DisplayNameFor(model => model.Curso.CoordenadorCurso)</label>
+                                <input name="Curso.CoordenadorCurso" id="CoordenadorCurso" type="text" title="Insira o nome do coordenador do curso na instituição" />
+                                <span asp-validation-for="Curso.CoordenadorCurso" class="text-danger"></span>
+                            </div>
+                            <div class="md-form">
+                                <label for="EmailCoordenadorCurso" class="control-label">@Html.DisplayNameFor(model => model.Curso.EmailCoordenadorCurso)</label>
+                                <p>Opcional</p>
+                                <input name="Curso.EmailCoordenadorCurso" type="text" title="Insira o email do coordenador do curso na instituição" />
+                                <span asp-validation-for="Curso.EmailCoordenadorCurso" class="text-danger"></span>
+                            </div>
+                            <div class="md-form">
+                                <label for="CargaHorariaMinimaEstagio" class="control-label">@Html.DisplayNameFor(model => model.Curso.CargaHorariaMinimaEstagio)</label>
+                                <input name="Curso.CargaHorariaMinimaEstagio" type="number" title="Insira Carga Horaria Minima do Estagio para o curso" />
+                                <span asp-validation-for="Curso.CargaHorariaMinimaEstagio" class="text-danger"></span>
+                            </div>
+                            <div class="form-group md-form">
+                                <label for="DescricaoCurso" class="control-label">@Html.DisplayNameFor(model => model.Curso.DescricaoCurso)</label>
+                                <textarea required maxlength="255" id="DescricaoCurso" style="resize: none;" name="Curso.DescricaoCurso" title="Insira uma descrição para o documento"></textarea>
+                                <span asp-validation-for="Curso.DescricaoCurso" class="text-danger"></span>
+                            </div>
+                            <div class="input-field">
+                                @Html.DropDownList("Tipo",
+                                    Html.GetEnumSelectList<EnumTipoCurso>(),
+                                    "Selecione o tipo",new {@name= "Curso.TipoCurso" })
+                                <label name="TipoCurso">@Html.DisplayNameFor(model => model.Curso.TipoCurso)</label>
+                            </div>
+                            <div class="form-group md-form">
+                                <label name="InformacaoCursos">@Html.DisplayNameFor(model => model.Curso.Informacao)</label>
+                                <p>Opcional</p>
+                                <div id="alert-box">
+                                    <input name="Curso.Informacao" type="text">
+                                </div>
+                                <span asp-validation-for="Curso.InformacaoCursos" class="text-danger"></span>
+                            </div>
+                            <div class="md-form">
+                                <label for="Alerta" class="control-label">@Html.DisplayNameFor(model => model.Curso.Alerta)</label>
+                                <p>Opcional</p>
+                                <input name="Curso.Alerta" type="text" title="Insira um alerta opcional para o curso" />
+                                <span asp-validation-for="Curso.Alerta" class="text-danger"></span>
+                            </div>
+                            <hr />
+                            <div class="form-group md-form">
+                                <input type="submit" value="Criar" class="btn admin-add-btn" />
+                                @Html.ActionLink("Voltar ao Gerenciamento", "Index", "GerenciamentoCurso", new { }, new { Class = "btn admin-back-btn" })
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6 border-left bg-light">
+                        <p>Os alertas aparecerão para os usuários na listagem dos documentos para esse curso na página @Html.ActionLink("Documentos", "Index", "ListagemDocumentos", new { idCurso = 0, currentFilter = string.Empty, searchString = string.Empty, p = 0 })</p>
+                        <p>As Informações apareceram como diálogo na mesma página</p>
+                        <div class="form-group md-form floating-button">
+                            @Html.ActionLink("Voltar ao Gerenciamento", "Index", "GerenciamentoCurso", new { }, new { Class = "btn admin-back-btn" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @section Scripts {
+                @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+                <script>
+                    document.getElementById("SelecaoInstituicao").selectedIndex = @(Convert.ToInt32(@Model.SelectedInstituicao) - 1);
+                </script>
+            }
+        </div>
+    </div>
+</div>

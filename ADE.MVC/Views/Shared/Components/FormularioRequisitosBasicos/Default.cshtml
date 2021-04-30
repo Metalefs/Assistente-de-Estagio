@@ -1,0 +1,96 @@
+﻿@model IList<Requisito>;
+@using ADE.Dominio.Models;
+@using ADE.Dominio.Models.Enums;
+@using System.Collections.Generic;
+@using System.Linq;
+
+@{ 
+    List<Requisito> RequisitosAluno = Model.Where(x=>x.Grupo == EnumGrupoRequisito.Aluno).ToList();
+    List<Requisito> RequisitosEmpresa = Model.Where(x => x.Grupo == EnumGrupoRequisito.Empresa).ToList();
+    List<Requisito> RequisitosFaculdade = Model.Where(x=>x.Grupo == EnumGrupoRequisito.Faculdade).ToList();
+}
+    <form id="DadosAluno" style="background: #ffffff;padding: 10px;">
+
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="Aluno-tab" data-toggle="tab" href="#aluno-tab" role="tab" aria-controls="home"
+                   aria-selected="true">Aba Aluno</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="Empresa-tab" data-toggle="tab" href="#empresa-tab" role="tab" aria-controls="profile"
+                   aria-selected="false">Aba Empresa</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="Faculdade-tab" data-toggle="tab" href="#faculdade-tab" role="tab" aria-controls="contact"
+                   aria-selected="false">Aba Faculdade</a>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+            <div class="card-content">
+                <p>Os dados a seguir irão facilitar a geração dos contratos do seu estágio. Não se preocupe, você pode altera-los a qualquer momento.</p>
+            </div>
+            <div class="tab-pane fade show active" id="aluno-tab" role="tabpanel" aria-labelledby="aluno-tab">
+                <div class="input-field">
+
+                    <p>
+                        <label>
+                            <input type="checkbox" data-position="bottom" onchange="StepForm.SetEstagiando(this.checked)" data-tooltip="Está em estágio ativo" class="tooltipped form-control validate" name="Estagiando" id="Aluno_Estagiando" style=" width: auto;" required />
+                            <span>Está estágiando</span>
+                        </label>
+                    </p>
+
+                </div>
+                @foreach (Requisito req in RequisitosAluno)
+                {
+                    if (req.ElementoHTMLRequisito != EnumElementoHTMLRequisito.select)
+                    {
+                        <div class="">
+                            <vc:requisito-input requisito="req" onchange=""></vc:requisito-input>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="">
+                            <vc:requisito-select requisito="req" onchange=""></vc:requisito-select>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="tab-pane fade" id="empresa-tab" role="tabpanel" aria-labelledby="empresa-tab">
+                @foreach (Requisito req in RequisitosEmpresa)
+                {
+                    if (req.ElementoHTMLRequisito != EnumElementoHTMLRequisito.select)
+                    {
+                        <div class="">
+                            <vc:requisito-input requisito="req" onchange=""></vc:requisito-input>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="">
+                            <vc:requisito-select requisito="req" onchange=""></vc:requisito-select>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="tab-pane fade" id="faculdade-tab" role="tabpanel" aria-labelledby="faculdade-tab">
+                @foreach (Requisito req in RequisitosFaculdade)
+                {
+                    if (req.ElementoHTMLRequisito != EnumElementoHTMLRequisito.select)
+                    {
+                        <div class="col-md-12">
+                            <vc:requisito-input requisito="req" onchange=""></vc:requisito-input>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-12">
+                            <vc:requisito-select requisito="req" onchange=""></vc:requisito-select>
+                        </div>
+                    }
+                }
+            </div>
+
+        </div>
+    </form>

@@ -1,0 +1,47 @@
+﻿@model Assistente_de_Estagio.Areas.Principal.Models.CartaoDocumentoViewmodel
+@using ADE.Utilidades.Extensions;
+
+@{
+    string title = Model.DataPreenchimento.Year != 0001 ?
+            $"Preenchido : {Model.DataPreenchimento.ToShortDateString()} ás {Model.DataPreenchimento.ToShortTimeString()}H" :
+            "Não preenchido.";
+}
+
+<div id="@Model.Documento.Identificador-doc" class="documentDivisor documentContainer hoverable @Model.Preenchido" title="@title" >
+    <div class="docDiv" id="docDiv@{Html.DisplayFor(model => Model.Documento.Identificador);} ">
+        <div class="card-header tituloDocumento">
+            <h6 class="passoDoc"><i class="material-icons">archive</i>@Html.DisplayFor(model => Model.Documento.PosicaoDocumento)°Passo</h6>
+            <h5>@Html.DisplayFor(model => Model.Documento.TituloDocumento)</h5>
+        </div>
+        <div class="p-2">
+            <p class="descricaoDoc card-text">@Html.DisplayFor(model => Model.Documento.DescricaoDocumento)</p>
+                    
+            <button type="submit" class="btn waves-effect waves-light input-group-prepend" onclick="PreenchimentoDocumento.AbrirPaginaPrenchimento(@Model.Documento.Identificador)">
+                <span class="fa fa-file"></span>
+                <h6>Baixar</h6>
+            </button>
+            <button type="submit" class="btn waves-effect waves-light input-group-prepend" onclick="PreenchimentoDocumento.DownloadDocument(@Model.Documento.Identificador)">
+                <span class="fa fa-download"></span>
+                <h6>Baixar</h6>
+            </button>
+            @if (User.IsAdminOrCriadorConteudo())
+            {
+                <a class="fa fa-cog card-header-pills adm-color" href="/Administracao/GerenciamentoDocumento/VisualizarEntidade?id=@Model.Documento.Identificador"></a>
+            }
+            
+            @*<a href='#' data-target='dropdown-@Model.Documento.Identificador' class="dropdown-trigger btn printDoc waves-effect waves-light input-group-prepend dropdown-toggle">
+                <i class="material-icons prefix">print</i>
+                <h6>Visualizar</h6>
+            </a>
+            <ul id='dropdown-@Model.Documento.Identificador' class='dropdown-content'>
+                <li class="btn btn-info">
+                    <a onclick="PreenchimentoDocumento.Print(@Model.Documento.Identificador,'pdf')">PDF</a>
+                </li>
+                <li class="divider" tabindex="-1"></li>
+                <li class="btn btn-info">
+                    <a onclick="PreenchimentoDocumento.Print(@Model.Documento.Identificador,'docx')">DOCX</a>
+                </li>
+            </ul>*@
+        </div>
+    </div>
+</div>

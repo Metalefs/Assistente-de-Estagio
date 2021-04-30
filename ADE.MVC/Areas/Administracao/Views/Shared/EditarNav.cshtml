@@ -1,0 +1,20 @@
+﻿@model string;
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+        <a id="home-tab" class="card-header h5" data-toggle="tab" href="#painel" role="tab" aria-controls="painel"
+           aria-selected="false" style="position: relative; bottom: 18px;">Edição</a>
+    </li>
+    <li class="nav-item">
+        @Html.ActionLink("Instituicao", "Index", "GerenciamentoInstituicao", new { }, new { @class = "nav-link " + @Html.DisplayName(Model == "Instituicao" ? "active" : ""), @datatoggle = "tab", @role = "tab", @ariacontrols = "requisitos" })
+    </li>
+    <li class="nav-item">
+        @Html.ActionLink("Curso", "Index", "GerenciamentoCurso", new { }, new { @class = "nav-link " + @Html.DisplayName(Model == "Curso" ? "active" : ""), @datatoggle = "tab", @role = "tab", @ariacontrols = "cursos" })
+    </li>
+    <li class="nav-item">
+        @Html.ActionLink("Documento", "Index", "GerenciamentoDocumento", new { }, new { @class = "nav-link " + @Html.DisplayName(Model == "Documento" ? "active" : ""), @datatoggle = "tab", @role = "tab", @ariacontrols = "docs" })
+    </li>
+    <li class="nav-item">
+        @Html.ActionLink("Requisitos", "Index", "GerenciamentoRequisito", new { }, new { @class = "nav-link " + @Html.DisplayName(Model == "Requisito" ? "active" : ""), @datatoggle = "tab", @role = "tab", @ariacontrols = "requisitos" })
+    </li>
+</ul>

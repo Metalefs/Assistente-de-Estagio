@@ -1,0 +1,14 @@
+﻿@model IList<ADE.Dominio.Models.Curso>
+@if (Model != null && Model.Count > 0)
+{
+    <div class="md-form">
+        @Html.DropDownList("IdCurso", new SelectList(Model, "Identificador", "NomeCurso", "Selecionar")
+        , new { @class = "show-tick mdb-select", id = "SelecaoCurso", @name = "IdCurso", @data_size = "5", @data_live_search = "true", @onclick = "StepForm.SetCurso(document.getElementById('SelecaoCurso'))" })
+    </div>
+    <a class="btn btn-primary left add-circle" onload="StepForm.SetCurso(document.getElementById('SelecaoCurso'))" onclick="StepForm.SetCurso(document.getElementById('SelecaoCurso'))">Confirmar</a>
+    
+}
+else
+{
+    <p class="text-danger">Nenhum curso foi encontrado</p>
+}

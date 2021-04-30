@@ -1,0 +1,66 @@
+﻿@using ADE.Dominio.Models.Individuais;
+@model Assistente_de_Estagio.Areas.Principal.Views.RegistroHoras.Components.AtividadesPendentes.AtividadesPendentesVM
+@{
+    string collapse = Model.UltimoLogin != null && Model.UltimoLogin.DataHoraLogin.Hour < DateTime.Now.Hour ? " show" : "";
+
+}
+@if (Model.Registros.Count > 0 || Model.AtividadesEstagio.Count > 0)
+{
+    <div id="AtividadesF" class="modal fade @collapse alert alert-dismissible" role="dialog">
+        <div class="modal show">
+            <div id="preenchimento-container"></div>
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <a class="tooltipped close" data-dismiss="modal" id="fechar-pend-top-btn" aria-label="Close" data-tooltip="Fechar" data-placement="bottom" style="z-index:10">
+                        <i class="material-icons ">close</i>
+                    </a>
+                    <div class="modal-header">
+                        <h4 class="modal-title">Atividades Pendentes</h4>
+                    </div>
+                    <div class="modal-body">
+                        @if(Model.Registros.Count > 0)
+                        {
+                            <form method="post" action="/Principal/Atividades/">
+                                @foreach (AtividadeUsuario atividade in Model.Registros)
+                                {
+                                    <p>
+                                        <label>
+                                            <input type="checkbox" name="IdAtividade" value="@atividade.Titulo" class="filled-in" />
+                                            <span>Concluido</span>
+                                        </label>
+                                    </p>
+                                }
+                                <button type="submit" class="btn btn-primary">Salvar</button>
+                            </form>
+                        }
+                        @foreach (AtividadeEstagio atividade in Model.AtividadesEstagio)
+                        {
+                            @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Shared.Components.CardAtividadeEstagioComponent.CardAtividadeEstagioComponent), atividade)
+                        }
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-dark" id="fechar-pend-btn" data-dismiss="modal" data-target="#AtividadesF">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <script type="module">
+            import { Atividades } from "/Scripts/ADE/PageSetup.js";
+            import { post, HandleDefault } from "/Scripts/ADE/AsyncHttpMethods.js";
+            Atividades();
+
+            function AtualizarLogin() {
+                post("/Account/AtualizarLogin", {}, HandleDefault);
+                $("#AtividadesF").hide();
+             }
+
+            $('#fechar-pend-btn').click(() => { AtualizarLogin() });
+            $('#fechar-pend-top-btn').click(()=>{ AtualizarLogin() });
+
+            //document.getElementById("AtividadesF").addEventListener('click', rootClick);
+            document.querySelector(".modal.show").addEventListener('click', modalClick);
+            function modalClick(e) { e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();  document.querySelector(".modal-backdrop.show").addEventListener('click', modalClick); return false;};
+            function rootClick() { document.getElementById("AtividadesF").classList.remove("fade", "show");  }
+        </script>
+    </div>
+}

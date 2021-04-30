@@ -1,0 +1,17 @@
+﻿@model ADE.Dominio.Models.Individuais.Instituicao
+@using ADE.Utilidades.Extensions
+<div class="modal-body">
+    <div>
+        <h3>Você tem certeza de que deseja deletar esta instituição?</h3>
+        <h4>Ao deletar uma instituição, ela e seus os cursos vinculádos são colocados na lixeira e se tornam invisíveis.</h4>
+        <h5>Para restaurar uma instituição juntamente com seus cursos e documentos, acesse a lixeira através do Gerenciamento de Instituição e clique em "Restaurar" na instituição desejada</h5>
+        <hr />
+    </div>
+    <dl style="text-align: left;">
+        @Model.MensagemDePropriedadesEmHTML("dl-horizontal")
+    </dl>
+</div>
+
+@Html.ActionLink("Deletar", "ExcluirInstituicaoConfirmed", "GerenciamentoInstituicao", new { id = Model.Identificador }, new { Class = "btn btn-danger" })
+|
+
