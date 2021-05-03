@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using ADE.Dominio.Models.Individuais;
+@using Assistente_de_Estagio.Areas.Identity.Pages.Account.Manage;
+@inject SignInManager<UsuarioADE> SignInManager
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+@model string
+<div class="input-group-prepend admin-nav-tabs">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class=" nav-item">
+            <a class="@Html.DisplayName(Model == "Pefil" ? "active": "") nav-link" href="/Acesso/Account/Manage">Perfil</a>
+        </li>
+        <li class=" nav-item">
+            <a class="@Html.DisplayName(Model == "Senha" ? "active": "") nav-link" id="change-password" href="/Acesso/Senha">Senha</a>
+        </li>
+        @*@if (hasExternalLogins)
+        {
+            <li class=" nav-item">
+                <a class="@Html.DisplayName(Model == "ExternalLogins" ? "active": "") nav-link" id="external-login" href="/Acesso/Account/Manage/LoginsExternos">Login com redes sociais</a>
+            </li>
+        }*@
+        <li class=" nav-item">
+            <a class="@Html.DisplayName(Model == "DadosPessoais" ? "active": "") nav-link" href="/Acesso/DadosPessoais">Dados pessoais</a>
+        </li>
+        <li class=" nav-item">
+            <a class="@Html.DisplayName(Model == "Notificacoes" ? "active": "") nav-link" href="/Acesso/Notificacoes">Notificações</a>
+        </li>
+    </ul>
+</div>

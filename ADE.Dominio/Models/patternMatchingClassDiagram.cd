@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="ADE.Dominio.Models.AlteracaoEntidadesSistema">
+    <Position X="25" Y="3" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AggAAABAAAAAAAIAAAAAAAAAAAAAgEAAAAAAAAAQAAA=</HashCode>
+      <FileName>Models\RelacaoEntidades\AlteracaoEntidadesSistema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADE.Dominio.Models.AreaEstagioCurso">
+    <Position X="25" Y="28.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAAAAiAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Models\RelacaoEntidades\AreaEstagioCurso.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADE.Dominio.Models.ArquivoDownload">
+    <Position X="42.25" Y="8.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Models\ArquivoDownload.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADE.Dominio.Models.ComparacaoRequisitos">
+    <Position X="44.25" Y="5.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>QCAAAAoACAAAAAAAAAQAAAAAACAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Models\ComparacaoRequisitos.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADE.Dominio.Models.Curso">
+    <Position X="26.5" Y="12.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>IAAABAQAAAIEEAAEAAABAAAAAggBgAAGAAAACQUABAI=</HashCode>
+      <FileName>Models\Individuais\Curso.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ADE.Dominio.Models.DadosAlunoKV">
+    <Position X="40.25" Y="8.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAgABAAAAA=</HashCode>
+      <FileName>Models\DadosAlunoKV.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADE.Dominio.Models.Documento">
+    <Position X="20.25" Y="12.25" Width="5" />
+    <TypeIdentifier>
+      <HashCode>IBAAAAAIAAKAAAAEAUABAAgABSAAiIAABACAAEAAAAU=</HashCode>
+      <FileName>Models\Individuais\Documento.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ADE.Dominio.Models.HistoricoGeracaoDocumento">
+    <Position X="14.75" Y="25.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAABAAAEAAAAAAAAAAAggAACAAQAAAAAAAA=</HashCode>
+      <FileName>Models\Individuais\HistoricoGeracaoDocumento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADE.Dominio.Models.InformacaoCurso">
+    <Position X="26" Y="24.75" Width="2.75" />
+    <InheritanceLine Type="ADE.Dominio.Models.ModeloBase" FixedToPoint="true">
+      <Path>
+        <Point X="32.75" Y="1.562" />
+        <Point X="32.75" Y="16" />
+        <Point X="30.75" Y="16" />
+        <Point X="30.75" Y="24.375" />
+        <Point X="27.312" Y="24.375" />
+        <Point X="27.312" Y="24.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>ABAACAAAAAAAAAAEAAEAAAAAAAAAiAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\RelacaoEntidades\InformacaoCurso.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADE.Dominio.Models.InformacaoDocumento">
+    <Position X="18.5" Y="25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAEAAAEAAEAAAAAAAAggAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\RelacaoEntidades\InformacaoDocumento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADE.Dominio.Models.ModeloBase" Collapsed="true">
+    <Position X="32" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAgAAAAAAAgIAAAgAAAAAAAAA=</HashCode>
+      <FileName>Models\ModeloBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ADE.Dominio.Models.OpcaoRequisito">
+    <Position X="48.5" Y="22.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAEAQAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\RelacaoEntidades\OpcaoRequisito.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADE.Dominio.Models.RegistroDeHoras">
+    <Position X="36.75" Y="25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAQAAAAAAAAEAgABAABEAAAAgRAAAAAEAAAAAAA=</HashCode>
+      <FileName>Models\Individuais\RegistroDeHoras.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADE.Dominio.Models.Requisito">
+    <Position X="41" Y="12.25" Width="4.25" />
+    <InheritanceLine Type="ADE.Dominio.Models.ModeloBase" FixedToPoint="true">
+      <Path>
+        <Point X="32.75" Y="1.562" />
+        <Point X="32.75" Y="11.875" />
+        <Point X="42.938" Y="11.875" />
+        <Point X="42.938" Y="12.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>IAAAAIQAAABBgAAEAEJAAAAAAAAAgAAABAEAAADAAAA=</HashCode>
+      <FileName>Models\Individuais\Requisito.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ADE.Dominio.Models.RequisitoDeDocumento">
+    <Position X="45.25" Y="23.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAIAEAAAAAAAAAAAAAQAggAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\RelacaoEntidades\RequisitoDeDocumento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADE.Dominio.Models.RequisitoDeUsuario">
+    <Position X="43.5" Y="26.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAIAAAAAEAAAAAAgEAQAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\RelacaoEntidades\RequisitoDeUsuario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADE.Dominio.Models.RetornoUploadDocumento">
+    <Position X="44.5" Y="8.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAQAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\RetornoUploadDocumento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADE.Dominio.Models.SysLogs">
+    <Position X="34.75" Y="5.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAgAEAAAABAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Individuais\SysLogs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADE.Dominio.Models.TermoCompromisso">
+    <Position X="40.75" Y="5.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAIAAAAAgAAAAAAgAAAAAAAAAAAABA=</HashCode>
+      <FileName>Models\Individuais\TermoCompromisso.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ADE.Dominio.Models.Individuais.AtividadeEstagio">
+    <Position X="20.75" Y="28.75" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAQABAAAAAAAAAgAAAAAAiQAAAAEAAAAAADA=</HashCode>
+      <FileName>Models\Individuais\AtividadeEstagio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADE.Dominio.Models.Individuais.AtividadeUsuario">
+    <Position X="28.75" Y="28" Width="3.25" />
+    <InheritanceLine Type="ADE.Dominio.Models.ModeloBase" FixedToPoint="true">
+      <Path>
+        <Point X="32.75" Y="1.562" />
+        <Point X="32.75" Y="16" />
+        <Point X="30.75" Y="16" />
+        <Point X="30.75" Y="27.75" />
+        <Point X="31.188" Y="27.75" />
+        <Point X="31.188" Y="28" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>ACAAAAQAAQABgCAEAAABAAAAAAAAiRAAACAEAGAEABg=</HashCode>
+      <FileName>Models\Individuais\AtividadeUsuario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADE.Dominio.Models.Individuais.FAQ">
+    <Position X="39.25" Y="19.25" Width="2.5" />
+    <InheritanceLine Type="ADE.Dominio.Models.ModeloBase" ManuallyRouted="true">
+      <Path>
+        <Point X="32.75" Y="1.562" />
+        <Point X="32.75" Y="15.291" />
+        <Point X="36.652" Y="15.291" />
+        <Point X="36.652" Y="18.189" />
+        <Point X="40.5" Y="18.189" />
+        <Point X="40.5" Y="19.25" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAIAEAAAABIAAAAAAAAAAAAABgAAEAAQAAQAAAAA=</HashCode>
+      <FileName>Models\Individuais\FAQ.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADE.Dominio.Models.Individuais.Instituicao">
+    <Position X="37.25" Y="12.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>IAIAAQACgSABgAAEAAABAAAAAAAAwAAAAAAAgAEAEgA=</HashCode>
+      <FileName>Models\Individuais\Instituicao.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ADE.Dominio.Models.Individuais.LogAcoesEspeciais">
+    <Position X="29" Y="5.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAQAgAAAAAABAAAAAAAgAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Models\Individuais\LogAcoesEspeciais.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADE.Dominio.Models.Individuais.Logins">
+    <Position X="33" Y="26.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAQAAAAAAAAAAAAAAAAAAAAAgABAAAAEAAAAAAA=</HashCode>
+      <FileName>Models\Individuais\Logins.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADE.Dominio.Models.Individuais.MensagemIndividual">
+    <Position X="37" Y="32.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAACAAAAAAAAAAAAgAAAAAQAAAAUAAA=</HashCode>
+      <FileName>Models\Individuais\MensagemIndividual.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADE.Dominio.Models.Individuais.NotificacaoIndividual">
+    <Position X="40" Y="26.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAEAAAAAAACAAAAAAAAAAAAgAAAAAQAAAAUAAA=</HashCode>
+      <FileName>Models\Individuais\NotificacaoIndividual.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADE.Dominio.Models.Individuais.TourStep">
+    <Position X="22" Y="8" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAQAQAAABAAAAAAAAAAAAEAAAABgAAAAAAAAQAEABA=</HashCode>
+      <FileName>Models\Individuais\TourStep.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADE.Dominio.Models.Individuais.UsuarioADE">
+    <Position X="31" Y="16.25" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>EBcAASQABBAAAAAEACAEBAAIABACCIgGAgQTQQCAgBA=</HashCode>
+      <FileName>Models\Individuais\UsuarioADE.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADE.Dominio.Models.RelacaoEntidades.ConclusaoAtividadeCurso">
+    <Position X="23.25" Y="25.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAgAAQAAAAAAAgAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Models\RelacaoEntidades\ConclusaoAtividadeCurso.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADE.Dominio.Models.RelacaoEntidades.ListaAmigos">
+    <Position X="32.25" Y="30.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAQAAAAAAAAAAAAAAAAAAAAIgAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Models\RelacaoEntidades\ListaAmigos.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ADE.Dominio.Models.RelacaoEntidades.VisualizacaoNotificacaoGeral">
+    <Position X="35.75" Y="29.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAAABAAAAAAAgAAAAAQAIAAAAAA=</HashCode>
+      <FileName>Models\RelacaoEntidades\VisualizacaoNotificacaoGeral.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,222 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+  
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <RootNamespace>Assistente_de_Estagio</RootNamespace>
+    <UserSecretsId>9acb4a8b-d84f-4801-8e0f-edd87fda4d01</UserSecretsId>
+  </PropertyGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--<PackageReference Update="Microsoft.NETCore.App" Version="3.1.0" />-->
+    <Compile Remove="wwwroot\Scripts\ADE\Principal\ListagemCurso\**" />
+    <Compile Remove="\ADE.MVC\Views\Shared\Shared\**" />
+    <Content Remove="wwwroot\Scripts\ADE\Principal\ListagemCurso\**" />
+    <Content Remove="\ADE.MVC\Views\Shared\Shared\**" />
+    <EmbeddedResource Remove="wwwroot\Scripts\ADE\Principal\ListagemCurso\**" />
+    <EmbeddedResource Remove="\ADE.MVC\Views\Shared\Shared\**" />
+    <None Remove="wwwroot\Scripts\ADE\Principal\ListagemCurso\**" />
+    <None Remove="\ADE.MVC\Views\Shared\Shared\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="bootstrap" Version="4.2.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.5" />
+    
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
+    <PackageReference Include="MySql.Data" Version="8.0.14" />
+    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.5" />
+    
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.0" />
+    <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
+    <PackageReference Include="WebEssentials.AspNetCore.PWA" Version="1.0.49" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+
+    <Content Remove="appsettings.json" />
+
+    <Content Remove="Views\Shared\_Sidenav.cshtml" />
+    <Content Remove="wwwroot\EmailTemplates\ConfirmacaoRegistroADE.html" />
+    <Content Remove="wwwroot\EmailTemplates\ConfirmacaoRegistroAdministradorADE.html" />
+    <Content Remove="wwwroot\Images\Backgrounds\1mimi-thian-_Front_Using_PC_Green.jpg" />
+    <Content Remove="wwwroot\Images\Backgrounds\AnnieSpratt_Back_Computer_Dark.jpg" />
+    <Content Remove="wwwroot\Images\Backgrounds\Lampada_Quadro_Negro.jpg" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Remove="favicon.ico" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Include="favicon.ico">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\EmailTemplates\ConfirmacaoRegistroAdministradorADE.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\EmailTemplates\ConfirmacaoRegistroADE.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="wwwroot\lib\md-min\font\roboto\Roboto-Bold.woff2" />
+    <None Include="wwwroot\lib\md-min\font\roboto\Roboto-Light.woff2" />
+    <None Include="wwwroot\lib\md-min\font\roboto\Roboto-Medium.woff2" />
+    <None Include="wwwroot\lib\md-min\font\roboto\Roboto-Regular.woff2" />
+    <None Include="wwwroot\lib\md-min\font\roboto\Roboto-Thin.woff2" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\ADE.Dominio\ADE.Dominio.csproj" />
+    <ProjectReference Include="..\Aplicacao\ADE.Aplicacao.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Compile Update="Areas\Ajuda\Controllers\RegulamentacaoController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Update="Areas\Ajuda\Controllers\SuporteController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Update="Areas\Ajuda\Controllers\FAQController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Update="Areas\Principal\Controllers\ContratosController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Update="Areas\Principal\Controllers\ListagemCursosController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Update="Areas\Principal\Controllers\ListagemDocumentosController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Update="Areas\Ajuda\Controllers\SobreController.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Update="Areas\Acesso\Pages\Shared\_ViewImports.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\Administracao\Views\_ViewStart.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Shared\_Layout.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="wwwroot\admin-nav-tab.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Documentos\Geral\FACISABH\Letras\atestado.doc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Documentos\Geral\FACISABH\Letras\autorizacao_para_realização_do_estágio_supervisionado.doc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Documentos\Geral\FACISABH\Letras\declaracao_de_opcao_pela_area_do_estágio.doc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Documentos\Geral\FACISABH\Letras\ficha.doc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Documentos\Geral\FACISABH\Letras\questionario_de_avaliacao_do_estágio_supervisionado.doc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Documentos\Geral\FACISABH\Letras\roteiro7let.doc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Documentos\Geral\FACISABH\Letras\solicitao-de-estgio-supervisionado.doc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Documentos\Geral\FACISABH\Pedagogia\passos_para_realizacao_do_estagio_supervisionado_ped.doc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Documentos\Geral\FACISABH\ROTEIRO_RELATÓRIO_FINAL.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Documentos\Regulamentacao\FACISABH\REGULAMENTO-ADM.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Documentos\Regulamentacao\FACISABH\REGULAMENTO-ADS.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Documentos\Regulamentacao\FACISABH\REGULAMENTO-CC.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Documentos\Regulamentacao\FACISABH\REGULAMENTO-LET.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Documentos\Regulamentacao\FACISABH\REGULAMENTO-PED.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\EmailTemplates\ResetSenhaADE.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Images\FacisaLogo.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Images\xxxhdpi.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\TermosDeCompromisso.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Areas\Acesso\Views\Notificacoes\Components\" />
+    <Folder Include="Areas\Principal\Views\ListagemDocumentos\Components\" />
+    <Folder Include="Areas\Principal\Views\Perfis\Components\" />
+  </ItemGroup>
+
+
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties appsettings_1json__JsonSchema="" />
+    </VisualStudio>
+  </ProjectExtensions>
+
+
+</Project>

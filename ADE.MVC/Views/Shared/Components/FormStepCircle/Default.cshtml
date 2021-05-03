@@ -1,0 +1,7 @@
+﻿@model  int
+    <div style="text-align:center;padding:10px">
+        @for (int i = 1; i <= Model; i++)
+        {
+            <span class="multi-tab-step-indicator" onclick="StepForm.Step(@i)"></span>
+        }
+    </div>

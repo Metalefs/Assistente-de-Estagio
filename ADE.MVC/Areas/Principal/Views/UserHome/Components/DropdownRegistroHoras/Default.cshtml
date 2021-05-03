@@ -1,0 +1,49 @@
+﻿
+<a href='#' data-target='dropdown-registro-horas' class="dropdown-trigger btn-floating btn-large btn-primary dropdown-toggle">
+    <i class="material-icons">add</i>
+</a>
+<ul id='dropdown-registro-horas' class='dropdown-content'>
+    <li>
+        <div class="p-3" onclick="RegistroHorasController.Add()">
+            <a >Registro de Horas</a>
+            <i class="material-icons">launch</i>
+        </div>
+    </li>
+    <li>
+        <a class="" href="/Principal/RegistroHoras/Exportar">
+            <div class="btn btn-large btn-default text-white center">
+                Exportar atividades
+                <i class="material-icons">cloud_download</i>
+            </div>
+        </a>
+    </li>
+    <li>
+        <a href="/Principal/RegistroHoras/Historico" title="Outra página">
+            <div class="">
+                Histórico de atividades
+                <i class="material-icons">arrow_forward</i>
+            </div>
+        </a>
+    </li>
+    <li>
+        <div class="btn btn-large btn-default text-white center" onclick="AtividadesController.Add()">
+            <a>Verificar Eventos</a>
+            <i class="material-icons">launch</i>
+        </div>
+    </li>
+    <li>
+        <a href="/Principal/Perfis" title="Outra página">
+            <div class="btn btn-large btn-default text-white center">
+                Adicionar contatos
+                <i class="material-icons">arrow_forward</i>
+            </div>
+        </a>
+    </li>
+</ul>
+
+<script type="module">
+    import { RegistroHorasComponent } from "/Scripts/ADE/Principal/RegistroHoras/RegistroHorasComponent.js";
+    import { AtividadesComponent } from "/Scripts/ADE/Principal/Atividades/AtividadesComponent.js";
+    window.RegistroHorasController = new RegistroHorasComponent();
+    window.AtividadesController = new AtividadesComponent();
+</script>

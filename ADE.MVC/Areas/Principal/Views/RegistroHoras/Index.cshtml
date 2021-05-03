@@ -1,0 +1,68 @@
+﻿@model Assistente_de_Estagio.Areas.Principal.Models.TabelaHorasViewModel
+
+@{
+    ViewData["Title"] = "Registrar Atividades";
+    ViewData["Selection"] = "Registro de Horas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div class="height-100">
+        @{string url = "Principal/RegistroHoras/Index";}
+        @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Acesso.Components.InfoHelperComponentViewComponent.InfoHelperViewComponent), url)
+
+        <form method="post" action="/Principal/RegistroHoras/IncluirRegistroHora">
+            <div class="md-form" id="registro-hora-novo">
+                <div class="row">
+                    <div class="col col-md-4">
+                        <input id="data-atividade" type="date" title="Data" name="Data" required>
+                    </div>
+                    <div class="col col-md-4">
+                        <label for="inicio-atividade">Inicio</label>
+                        <input id="inicio-atividade" type="text" class="timepicker" name="HoraInicio" onchange="calculo_horas.setInicio(this)" required>
+                    </div>
+                    <div class="col col-md-4">
+                        <label for="fim-atividade">Fim</label>
+                        <input id="fim-atividade" type="text" class="timepicker" name="HoraFim" onchange="calculo_horas.setFim(this)" required>
+                    </div>
+                    <div class="col col-md-12">
+                        <label for="atividade">Atividade</label>
+                        <input id="atividade" type="text" name="Atividade" required />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-md-8">
+                        <span class="calculo-carga-horaria"></span>
+                        <input class="calculo-carga-horaria-input" type="hidden" name="CargaHoraria" required>
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn-floating btn-large btn-primary right" value=""><i class="material-icons">add</i></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="col-md-2">
+                <a href="/Principal/RegistroHoras/Exportar" class="btn btn-large btn-blue"><i class='prefix medium material-icons'>file_download</i>Exportação</a>
+            </div>
+            <div class="col-md-10">
+                <a href="/Principal/RegistroHoras/Historico" class="btn btn-large btn-rounded btn-amber"><i class='prefix medium material-icons'>history</i>Histórico</a>
+            </div>
+        </div>
+        @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Principal.Views.RegistroHoras.Components.UltimosRegistros.UltimosRegistrosViewComponent))
+    </div>
+
+@section Scripts{
+    <script type="module" src="~/Scripts/ADE/Principal/RegistroHoras/TabelaHoras.js"></script>
+    <script type="module">
+
+        import { CalculoHoras } from '/Scripts/ADE/Principal/RegistroHoras/TabelaHoras.js';
+        let calculo_horas = new CalculoHoras("calculo-carga-horaria");
+        window.calculo_horas = calculo_horas;
+
+        (async () => {
+            const moduleSpecifier = '/Scripts/ADE/MaterializeDates.js';
+            const module = await import(moduleSpecifier)
+            module.CreateTimePicker();
+        })();
+
+    </script>
+}

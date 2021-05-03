@@ -1,0 +1,47 @@
+﻿@model Assistente_de_Estagio.Areas.Shared.Chat.Components.ChatViewComponent.ChatVM
+
+<ul class="collapsible">
+    <li>
+        <div class="collapsible-header chat-icon" id="close-chat">
+            <i class="material-icons">mail</i>
+        </div>
+        <div class="collapsible-body">
+            <div class="modal show modal-backdrop" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content chat_modal p-0">
+                        <div class="modal-header chat-top-icon" id="chat-column-divheader" title="Segure para Arrastar">
+                            <div id="extra-options" class="fa fa-bars chat-top-icon"></div>
+                            <h4 class="modal-title">Chat</h4>
+                            <a class="hoverable right width-100" onclick="$('#close-chat').click()"><i class="prefix material-icons">remove</i></a>
+                            <div id="informacoes-bot" class="hide-chat"></div>
+                            <div id="perfil-assistente-chat"></div>
+                        </div>
+                        @if(Model.Usuario != null)
+                        {
+                        <div class="row chat-row">
+                            @if(Model.Amigos != null)
+                                {
+                            <div class="col-md-4 chat-sidebar">
+                                @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Shared.Chat.Components.ChatSidebarViewComponent.ChatSidebarViewComponent), new { amigos = Model.Amigos })
+                            </div>
+                                }
+                            <div class="col-md-8">
+                                @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Shared.Chat.Components.ChatCampoMensagemViewComponent.ChatCampoMensagemViewComponent))
+                            </div>
+                        </div>
+
+                        <script type="module">
+                            import { Chat } from '/Scripts/ADE/Chat.js';
+                            window.Chat = new Chat("@Model.Usuario.UserName","@Model.Usuario.Email","@Model.Usuario.Id");
+                        </script>
+
+                        }
+                        @*<div class="modal-footer">
+
+                        </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>

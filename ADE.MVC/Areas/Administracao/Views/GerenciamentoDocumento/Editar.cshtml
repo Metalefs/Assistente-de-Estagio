@@ -1,0 +1,144 @@
+﻿@using ADE.Dominio.Models
+@using ADE.Utilidades.Extensions
+@model Assistente_de_Estagio.Areas.Administracao.Models.AlterarDocumentoViewModel
+
+@{
+    ViewData["Title"] = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div class="">
+        @await Html.PartialAsync("EditarNav", "Documento")
+        <div class="tab-content" id="myTabContent">
+            <div>
+                <div class="modal-header">Editar</div>
+                <div class="card-header text-info">
+                    <h4>Documento:</h4> @Html.DisplayFor(model => model.Documento.TituloDocumento)
+                </div>
+                <div class="card-body">
+
+                    <form action="/Administracao/GerenciamentoDocumento/EditarDocumento" class="md-form" method="post">
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" name="Documento.Identificador" value="@Model.Documento.Identificador" />
+
+                        <div class="form-group">
+                            <label for="IdCurso">Curso do Documento</label>
+                            <select name="Documento.IdCurso">
+                                @{
+                                    foreach (Curso curso in Model.Cursos)
+                                    {
+                                        <option value="@curso.Identificador">@curso.Nome()</option>
+                                        if (curso.Identificador == Model.SelectedCurso)
+                                        {
+                                            <option value="@curso.Identificador" selected>@curso.Nome()</option>
+                                        }
+                                    }
+                                }
+                            </select>
+                            <span asp-validation-for="Documento.IdCurso" class="text-danger"></span>
+                        </div>
+
+                        <div class="md-form">
+                            <label for="TituloDocumento">Titulo do Documento</label>
+                            <input name="Documento.TituloDocumento" class="form-control" type="text" value="@Model.Documento.TituloDocumento" placeholder="Titulo do Documento" />
+                            <span asp-validation-for="Documento.TituloDocumento" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="md-form">
+                            <label for="DescricaoDocumento">Descrição do Documento</label>
+                            <textarea name="Documento.DescricaoDocumento" rows="5" class="form-control" type="text" placeholder="Descrição do Documento">@Model.Documento.DescricaoDocumento</textarea>
+                            <span asp-validation-for="Documento.DescricaoDocumento" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="md-form">
+                            <label for="PosicaoDocumento">Posição do Documento</label>
+                            <input name="Documento.PosicaoDocumento" class="form-control" type="number" min="0" value="@Model.Documento.PosicaoDocumento" placeholder="Posição do Documento" />
+                            <span asp-validation-for="Documento.PosicaoDocumento" class="text-danger"></span>
+                        </div>
+
+                        <div class="row d-none" id="hidden-campos-requisito">
+                            <div id="campo-requisitos-reconhecidos" class="col-md-6">
+                                <h6>Requisitos novos encontrados no documento</h6>
+                            </div>
+                            <div id="campo-requisitos-compativeis" class="col-md-6">
+                                <h6>Requisitos encontrados que são compativeis com já registrados</h6>
+                            </div>
+                        </div>
+
+                        <div class="md-form">
+                            <label for="Assinatura">Assinatura</label>
+                            <input name="Documento.Assinatura" class="form-control" type="text" value="@Model.Documento.Assinatura" placeholder="Assinatura" />
+                            <span asp-validation-for="Documento.Assinatura" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="input-field">
+                            <label for="Aviso">Alerta do Documento</label>
+                            <input name="Documento.Aviso" value="@Model.Documento.Aviso" class="form-control" type="text" placeholder="Alerta do Documento" />
+                            <span asp-validation-for="Documento.Aviso" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="md-form">
+                            <label for="Tipo">Tipo do Documento</label>
+                            <input name="Documento.Tipo" value="@Model.Documento.Tipo" class="form-control" type="text" placeholder="Tipo de Documento" />
+                            <span asp-validation-for="Documento.Tipo" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="input-field">
+                            <label for="Texto">Texto prévia do Documento</label>
+                            <input name="Documento.Texto" class="form-control" type="text" value="@Model.Documento.Texto" placeholder="Texto prévia do Documento" />
+                            <span asp-validation-for="Documento.Texto" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="md-form">
+                            <label for="Etapa">Etapa do Documento</label>
+                            <input name="Documento.Etapa" value="@Model.Documento.Etapa" class="form-control" type="text" placeholder="Etapa do Documento" />
+                            <span asp-validation-for="Documento.Etapa" class="text-danger"></span>
+                        </div>
+
+                        <div class="input-field">
+                            <label for="PossuiAssinaturaResposavelEstagio">@Html.DisplayNameFor(model => model.Documento.PossuiAssinaturaResposavelEstagio)</label>
+                            <input name="Documento.PossuiAssinaturaResposavelEstagio" id="PossuiAssinaturaResposavelEstagio" type="checkbox" class="validate" checked="@Model.Documento.PossuiAssinaturaResposavelEstagio"/>
+                            <span asp-validation-for="Documento.PossuiAssinaturaResposavelEstagio" class="text-danger"></span>
+                        </div>
+                        <div class="input-field">
+                            <label for="PossuiCarimboCNPJ">@Html.DisplayNameFor(model => model.Documento.PossuiCarimboCNPJ)</label>
+                            <input name="Documento.PossuiCarimboCNPJ" id="PossuiCarimboCNPJ" type="checkbox" class="validate" checked="@Model.Documento.PossuiCarimboCNPJ" />
+                            <span asp-validation-for="Documento.PossuiCarimboCNPJ" class="text-danger"></span>
+                        </div>
+                        <div class="input-field">
+                            <label for="PossuiData">@Html.DisplayNameFor(model => model.Documento.PossuiData)</label>
+                            <input name="Documento.PossuiData" id="PossuiData" type="checkbox" class="validate" checked="@Model.Documento.PossuiData"/>
+                            <span asp-validation-for="Documento.PossuiData" class="text-danger" ></span>
+                        </div>
+
+                        @Model.Documento.CreateCampoMensagemAlteracao("md-form")
+                        <div>
+                            <input type="submit" value="Salvar" class="btn admin-submit-btn admin-add-btn" />
+                        </div>
+                    </form>
+                </div>
+                <div class="row">
+                    @await Html.PartialAsync("_FormularioEdicaoRequisitosDocumento", Model.Requisitos)
+                    <div class="form-group md-form floating-button">
+                        @Html.ActionLink("Voltar ao Gerenciamento", "Index", "GerenciamentoDocumento", new { }, new { Class = "btn admin-back-btn" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="~/Scripts/ADE/Administracao/Documento/ComparacaoDeRequisitos.js"></script>
+        <div>
+            @Html.ActionLink("Voltar ao Gerenciamento", "Index", "GerenciamentoDocumento", new { }, new { Class = "btn admin-back-btn floating-button" })
+        </div>
+        @section Scripts{
+            <script>
+                $('select').formSelect();
+            </script>
+        }
+    </div>
+

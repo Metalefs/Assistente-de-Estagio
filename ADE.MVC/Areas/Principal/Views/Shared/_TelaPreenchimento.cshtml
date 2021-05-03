@@ -1,0 +1,130 @@
+﻿@using ADE.Principal.Models
+@using ADE.Dominio.Models
+@using ADE.Dominio.Models.Enums
+@model DocumentoViewModel
+
+@addTagHelper *, Assistente_De_Estagio
+
+    <div id="modal-documento-@Model.Documento.Identificador" class="modal collapse show alert alert-dismissible" role="alert">
+        <div class="modal-dialog">
+            <div class="alerta-ade left">
+                <div id="errors" class="error"></div>
+                <div id="success" class="success"></div>
+                @if (Model.Documento.InformacaoDocumentos != null)
+                {
+                    <p>:@Model.Documento.Aviso</p>
+
+                    @foreach (InformacaoDocumento infDoc in Model.Documento.InformacaoDocumentos)
+                    {
+                        if (infDoc.TipoInformacao == ADE.Dominio.Models.Enums.EnumTipoInformacao.Alerta)
+                        {
+                            @infDoc.ConteudoInformacao
+                        }
+                    }
+                }
+            </div>
+            <div class="modal-content">
+                <a class="tooltipped close" data-dismiss="alert" aria-label="Close" onclick="$('#modal-documento-@Model.Documento.Identificador').hide()" data-tooltip="Fechar" data-placement="bottom" style="z-index:10">
+                    <i class="material-icons ">close</i>
+                </a>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-documento-@Model.Documento.Identificador-window-basic-control">@Model.Documento.TituloDocumento : @Model.Documento.Tipo</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="pInstrucao">
+                            @{
+                                if (Model.Documento.InformacaoDocumentos != null)
+                                {
+                                    foreach (InformacaoDocumento infDoc in Model.Documento.InformacaoDocumentos)
+                                    {
+                                        if (infDoc.TipoInformacao == ADE.Dominio.Models.Enums.EnumTipoInformacao.Aviso)
+                                        {
+                                            @infDoc.ConteudoInformacao
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                        <div id="campos-documento" class="in-preenchimento col-sm-7">
+                            <h3 id="hint1" class="hint">Preenchimento do documento</h3>
+                            @{
+                                if (Model.Documento != null)
+                                {
+                                    string col = Model.Documento.Tipo == EnumTipoDocumento.Questionario ? "col-md-12" : "col-md-6"; 
+                                    <form id="serial-input-form" method="post" class="row">
+                                        @foreach (Requisito req in Model.Requisitos)
+                                        {
+                                            <div class="md-form @col">
+                                                @if (req.ElementoHTMLRequisito == EnumElementoHTMLRequisito.select)
+                                                {
+                                                    @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Views.Shared.Components.RequisitoSelectViewComponent.RequisitoSelectViewComponent), new { requisito = req, onchange = "PreenchimentoDocumento.SetChanged()" });
+                                                }
+                                                else
+                                                {
+                                                    @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Views.Shared.Components.RequisitoInputViewComponent.RequisitoInputViewComponent), new { requisito = req, onchange = "PreenchimentoDocumento.SetChanged()" });
+                                                }
+                                            </div>
+                                        }
+                                        @if (Model.AreasEstagioCurso != null && Model.AreasEstagioCurso.Count > 0)
+                                        {
+                                            <div class="md-form @col">
+                                                @await Html.PartialAsync("_AreaCursoSelect", Model.AreasEstagioCurso)
+                                            </div>
+                                        }
+                                        <p>Suas informações ficarão salvas para auxiliar com os proximos modelos de formulário</p>
+                                    </form>
+                                }
+                            }
+                            @if (Model.Documento != null)
+                            {
+                                <div class="input-group-prepend div_botao_acao_documento" style="margin-bottom:15px">
+                                    <a id="downloadDocument" onclick="PreenchimentoDocumento.Download(@Model.Documento.Identificador)" class="btn btn-large download waves-effect waves-light input-group-prepend" style="">
+                                        <i class="material-icons large">file_download</i>
+                                    </a>
+                                    <a id="printDocument" onclick="PreenchimentoDocumento.Print(@Model.Documento.Identificador,'pdf')" class="btn btn-large print waves-effect waves-light input-group-prepend" style="">
+                                        <i class="material-icons large">print</i>
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                        <div id="campo-preview" class="in-preenchimento  col-sm-5">
+                            <h3 id="hint2" class="hint modal-title">Prévia do documento</h3>
+                            <div id="redundancia-previa-documento" class="collapse">
+                                @{
+                                    if (Model.Documento.Texto != null)
+                                    {
+                                        <p>@Model.Documento.Texto</p>
+                                    }
+                                }
+                            </div>
+                            <canvas id="pdf-canvas"></canvas>
+                            <div>
+                                <p>Carregado para o curso @Model.Documento.IdCursoNavigation.NomeCurso</p>
+                                @{
+                                    if (Model.Documento.Aviso != null)
+                                    {
+                                        <h5 class="alert">Aviso: @Model.Documento.Aviso</h5>
+                                    }
+                                }
+                                <p>Deve ser assinado por: <span class="text-warning">@Model.Documento.Assinatura</span></p>
+                                <p>Data: @Model.Documento.DataHoraUltimaAlteracao</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-dark" data-toggle="modal" onclick="$('#modal-documento-@Model.Documento.Identificador').hide()"  data-target="#@Model.Documento.Identificador">Fechar</a>
+                </div>
+            </div>
+        </div>
+        <script type="module">
+            //document.getElementById("modal-documento-@Model.Documento.Identificador").addEventListener('click', rootClick);
+            document.querySelector(".modal.show").addEventListener('click', modalClick);
+            function modalClick(e) { e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();  document.querySelector(".modal-backdrop.show").addEventListener('click', modalClick); return false;};
+            function rootClick() { document.getElementById("modal-documento-@Model.Documento.Identificador").classList.remove("fade", "show");  }
+        </script>
+    </div>
+    <script>
+            dragElement("modal-documento-@Model.Documento.Identificador");
+    </script>

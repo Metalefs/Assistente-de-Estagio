@@ -1,0 +1,53 @@
+﻿@using Assistente_de_Estagio.Areas.Shared;
+@using ADE.Dominio.Models;
+@model PaginatedList<Requisito>
+
+<table class="table table-striped table-responsive" id="log-table">
+    <thead>
+        <tr>
+            <th>Nome do Requisito</th>
+            <th>Descrição</th>
+            <th>Elemento de entrada de dados</th>
+            <th>Formato de entrada de dados</th>
+            <th>Bookmark associado</th>
+            <th>Última Modificação</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a href="./GerenciamentoRequisito/VisualizarEntidade?id=@item.Identificador" title="Clique para visualizar">
+                        <p class="h6-responsive">@item.NomeRequisito - <span class="text-info">@item.Bookmark</span></p>
+                    </a>
+                </td>
+                <td>@item.Descricao</td>
+                <td>@item.ElementoHTMLRequisito</td>
+                <td>@item.TipoElementoHTMLRequisito</td>
+                <td>@item.Bookmark</td>
+                <td>@item.DataHoraUltimaAlteracao</td>
+                <td>
+                    <a class="btn btn-primary" href="GerenciamentoRequisito/Editar/?IdRequisito=@item.Identificador">
+                        Editar
+                    </a>
+                </td>
+                <td>
+                    <a class="btn btn-deep-orange" href="#Excluir-@item.Identificador" data-toggle="collapse" aria-expanded="false">
+                        Excluir
+                    </a>
+                </td>
+            </tr>
+            <div class="col-md-12">
+                <div class="deleteDivOverlay collapse" id="Excluir-@item.Identificador">
+                    <div class="deleteDiv">
+                        @await Html.PartialAsync("_Excluir", item)
+                        <a class="btn btn-primary" href="#Excluir-@item.Identificador" data-toggle="collapse">Voltar</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </tbody>
+</table>

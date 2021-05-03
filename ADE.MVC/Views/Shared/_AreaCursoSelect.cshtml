@@ -1,0 +1,23 @@
+﻿@using ADE.Dominio.Models
+@using ADE.Utilidades.Constants
+@model IList<AreaEstagioCurso>
+@if (Model != null && Model.Count > 0)
+{
+    <div class="input-field">
+        <label for="1:_AreasEstagio_">Areas De estágio</label>
+        <select title="" data-position="bottom" name="1:@NomesRequisitos.AreasEstagio_" id="1:@NomesRequisitos.AreasEstagio_">
+            <option value="">Áreas de estágio</option>
+            @foreach (AreaEstagioCurso op in Model)
+            {
+                <option value="@op.Nome">@op.Nome</option>
+            }
+        </select>
+    </div>
+}
+else
+{
+    <p class="text-danger">Nenhuma opção de área de estágio do curso foi encontrada</p>
+}
+<script>
+    $('select').formSelect();
+</script>

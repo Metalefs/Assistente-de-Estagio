@@ -1,0 +1,60 @@
+@using ADE.Apresentacao.Models;
+@model List<Membro>;
+@{
+    ViewData["Title"] = "Sobre";
+}
+@section StyleUriParser  {
+    @*<link rel="stylesheet" href="@Url.Content(@Url.Content("~/Styles/Principal/Sobre/Sobre.css"))" />*@
+}
+@section Scripts{
+    @*<script src="~/Scripts/ADE/Principal/Sobre/Sobre.js"></script>*@
+}
+<div class="container">
+    <div style="padding: 4rem 2rem;">
+        <div class="card">
+            <div class="card-body">
+                <img class="img-rounded" src="~/Images/Logo/logo-sidenav.png" width="200" alt="Logo do ADE" />
+                <span class="tituloInstrucao">
+                    Sobre o ADE
+                </span>
+                <div class="secondary">
+                    <p>
+                        O ADE surgiu como uma solução para problemas encontrados por acadêmicos na obtenção do material para a realização do estágio curricular, modernizando os serviços de gerenciamento desses documentos.
+                    </p>
+                    <p>
+                        Com o aumento <a href="#">de 110% da população de acadêmicos no Brasil</a> nos útlimos 10 anos, e o aumento da competição pelas vagas de estágio, que consequentemente tornou o mercado mais exigente, percebemos
+                        a necessidade de agilizar e modernizar esse processo, facilitando para todos os perfis de alunos, o acesso ao material para se preparar para essa etapa.
+                    </p>
+                    <p>
+                        O Estágio curricular é algo imprescindivel na formação do acadêmico, e é <a href="#">obrigatório em 80% dos cursos</a> existentes, o que foi um fator muito importante na disponibilização do sistema para as instituições.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div style="padding: 4rem 2rem;">
+        <h4 class="panel-title">Equipe de desenvolvimento</h4>
+        <div class="row">
+        @{
+            foreach (Membro membro in Model)
+            {
+                <div class="col-sm-4">
+                    <div class="card login-card p-3">
+                        <div>
+                            <div class="view overlay">
+                                <img class="card-img-top img-rounded" width="50" src="@membro.ImgSrc" alt="Foto do @membro.Funcao">
+                                <a href="#!">
+                                    <div class="mask rgba-white-slight"></div>
+                                </a>
+                            </div>
+                            <h5 class="card-title">@membro.Nome</h5>
+                            <p class="card-text">@membro.Funcao</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        </div>    
+    </div>        
+</div>

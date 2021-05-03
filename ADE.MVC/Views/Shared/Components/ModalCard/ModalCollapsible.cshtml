@@ -1,0 +1,20 @@
+﻿@model Assistente_de_Estagio.Areas.Shared.ModalCardViewModel
+@{string collapse = Model.DefaultOpen == true ? "collapse show" : "collapse";}
+
+<div id="@Model.ModalId" class="modal fade" role="dialog">
+    
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">@Model.Title</h4>
+            </div>
+        </div>
+        <div class="modal-body">
+            @Model.Content
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        </div>
+    </div>
+
+</div>

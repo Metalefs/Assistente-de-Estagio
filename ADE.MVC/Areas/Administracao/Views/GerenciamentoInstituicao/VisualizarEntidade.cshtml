@@ -1,0 +1,38 @@
+﻿@model Assistente_de_Estagio.Areas.Administracao.Models.VisualizarEntidadeViewmodel<Instituicao>
+@using ADE.Dominio.Models.Individuais
+@using ADE.Utilidades.Extensions
+@{
+    ViewData["Title"] = "ADE - Visualizar Entidade";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="">
+    <div class="row">
+        <div class="card-header col-lg-12">
+            <h5>Visualizar Entidade </h5>
+            <h4>Instituição </h4>
+            @Model.Entidade.ExibirEntidadeColorCoded()
+            <a class="fa fa-arrow-left float-lg-right" onclick="window.history.back();"></a>
+            <div class="rounded bg-light">
+                @Html.ValidationSummary(false, "", new { @id = "Campo-Validacao" })
+            </div>
+            <div class="rounded bg-light card notification">
+                @ViewBag.Retorno
+            </div>
+        </div>
+    </div>
+    <div class="row chart-container" name="middle-charts" id="middle-charts">
+        <div class="col-md-8 card-body" id="line-chart-div">
+            <div id="line-chart-canvas"></div>
+            <p>Criado em: <span class="h3-responsive">@Model.Entidade.DataHoraInclusao</span> </p>
+            <p>Última modificação: <span class="h3-responsive">@Model.Entidade.DataHoraUltimaAlteracao</span></p>
+            @Html.ActionLink("Alterar", "Editar", "GerenciamentoInstituicao", new { idInstituicao = Model.Entidade.Identificador }, new { Class = "btn btn-deep-orange" })
+            @Html.ActionLink("Voltar ao Gerenciamento", "Index", "GerenciamentoInstituicao", new { }, new { Class = "btn admin-back-btn" })
+        </div>
+        <div class="col-md-4 instrucao">
+            <p><span class="h3-responsive">@Model.ListaAlteracoes.Count</span> Alterações totais</p>
+            <div class="md-form row">
+                <a class="btn btn-blue" href="./VisualizarAlteracoesEntidade?id=@Model.Entidade.Identificador">Visualizar alterações</a>
+            </div>
+        </div>
+    </div>
+</div>

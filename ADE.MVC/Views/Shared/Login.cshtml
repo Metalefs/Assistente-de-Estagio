@@ -1,0 +1,119 @@
+﻿@using ADE.Apresentacao.Models
+@using Assistente_de_Estagio.Areas.Acesso.Models
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Entrar";
+}
+<link rel="stylesheet" href="~/Styles/Acesso/Login.css" />
+<div class="row vh-100 w-100 mb-0">
+    <div id="left-main" class="col col-md-8">
+        <canvas id="logo-canvas"></canvas>
+        <div class="custom-page-header">
+            <div id="instrucaoHome" class="instrucao" style="background: rgba(255,255,255,0.75);">
+                <img class="mascote" src="~/Images/Mascote/student-icon.png" height="110" width="110" alt="Mascote do ADE" />
+                <h1 id="tituloHome" class="tituloInstrucao"> Assistente de Estágio</h1>
+                <hr />
+                <h3>Indo além da faculdade</h3>
+                <p class="pInstrucao">
+                    Solução simplificada para organizar os documentos regulatórios de estágio, o seu <em>Assistente de Estágio digital.</em><br />
+                </p>
+            </div>
+        </div>
+        <div class="container mb-5 mt-5">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="card def-card">
+                        <div class="card-body">
+                            <div class="view overlay">
+                                <a href="#!">
+                                    <div class="mask rgba-white-slight"></div>
+                                </a>
+                            </div>
+                            <h5 class="card-title"></h5>
+                            <p class="card-text">Uma ferramenta de auxilio com instruções na realização do seu estágio</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card def-card">
+                        <div class="card-body">
+                            <div class="view overlay">
+                                @*<img class="card-img-top" src="~/Images/Icons/Downloads.png" alt="Card image cap">*@
+                                <a href="#!">
+                                    <div class="mask rgba-white-slight"></div>
+                                </a>
+                            </div>
+                            <p class="card-text">Dowbload de documentos com geração rápida, Memória de dados e exposição ordenada dos contratos de estágio.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card def-card">
+                        <div class="card-body">
+                            <p class="card-text">FAQ sobre as áreas mais importantes da realização do seu estágio curricular.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <aside id="right-main" class="col col-md-4">
+        <div id="ADE-card-div card">
+            <div class="rounded bg-light">
+                @Html.ValidationSummary()
+            </div>
+            <div class="card-header tituloADEcard">
+                <h5 id="loginH5" class="text-white">Entrar ou Registrar-se</h5>
+            </div>
+            <form >
+                <div class="">
+                    <div class="row">
+                        <div class="md-form col-md-10" style="margin: 0 auto;">
+                            <i class="fas fa-envelope prefix"></i>
+                            <input name="email" onkeypress="Login.SetEmailLogin(event)" value="@Model.Email" onload="Login.SetEmailLogin(this.value)" onchange="Login.SetEmailLogin(this.value)" type="email" id="campo-email" style="border-radius:4px;text-indent:5px;" class="form-control input-group">
+                            <label for="campo-email" data-error="wrong" data-success="" class="">Seu E-mail</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="md-form col-md-10" style="margin: 0 auto;">
+                            <i class="fas fa-lock prefix"></i>
+                            <input name="password" type="password" value="@Model.Password" onkeypress="Login.SetPasswordLogin(event)" onload="Login.SetPasswordLogin(this.value)" onchange="Login.SetPasswordLogin(this.value)" id="campo-senha" style="border-radius:4px; text-indent:5px;" class="form-control input-group">
+                            <label for="campo-senha" data-error="wrong" data-success="" class="">Sua Senha</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="container ade_flex">
+                    <button type="button" id="entrarHome" onclick="Login.Login()" class="btn btn-raised btn-primary waves-button">Entrar</button>
+                    <a id="registroHome" class="btn btn-raised btn-warning waves-button modal-trigger" data-toggle="modal" data-target="#registro-modal">Registrar-se</a>
+                </div>
+                <div class="container ade_flex">
+                    <a  onclick="Login.Login()"  class="btn btn-success waves-button col text-white">Entrar sem login</a>
+                </div>
+                <div class="form-group">
+                    <p>
+                        <a href="Account/ForgotPassword" class="esq-senha">Esqueceu sua senha</a>
+                    </p>
+                </div>
+            </form>
+            <section>
+                <div style="border-bottom:1px solid gray"></div>
+                <section>
+                    <form asp-action="ExternalLogin" method="post" class="form-horizontal">
+                        <div>
+                            <img class="logo-empresa" src="~/Images/DEVSHIP.png" height="100" />
+                        </div>
+                    </form>
+                </section>
+            </section>
+        </div>
+    </aside>
+</div>
+@{
+    Assistente_de_Estagio.Areas.Shared.ModalCardViewModel modal = new Assistente_de_Estagio.Areas.Shared.ModalCardViewModel("registro-modal", "Registrar-se", await Html.PartialAsync("_Registro"), TipoModal.Normal, "", "");
+    @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Views.Shared.Components.ModalCardViewComponent.ModalCardViewComponent), new { modal = modal, CanClose = false, DefaultOpen = false })
+}
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/Scripts/ADE/Acesso/logo-canvas.js"></script>
+    <script src="~/Scripts/ADE/Acesso/login.js"></script>
+}

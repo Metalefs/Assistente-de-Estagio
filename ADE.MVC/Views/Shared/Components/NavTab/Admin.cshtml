@@ -1,0 +1,28 @@
+﻿@using ADE.Apresentacao.Models.NavTab
+@using ADE.Apresentacao.Models;
+@model NavTab
+@{string id = Model.ItemPrincipal.NavItem.Area == "Administracao" ? "admin-tabs" : "user-tabs";}
+@{string controller = Model.LoadType == LoadType.Full ? Model.ItemPrincipal.NavItem.Controller : "";}
+<ul class="collapsible" style="box-shadow:none;border:none">
+    <li>
+        <div class="collapsible-header p-1"></div>
+        <div id="admin-tab-body" class="collapsible-body" style="padding:0">
+            <ul class="nav nav-tabs bg-white show-on-medium-and-up" id="@id" role="tablist">
+                <li class="nav-item">
+                    @Html.ActionLink(Model.ItemPrincipal.NavItem.Nome, Model.ItemPrincipal.NavItem.Action, controller, new { area = Model.ItemPrincipal.NavItem.Area }, new { @class = "mt-0 pb-0 nav-link card-header h5 text-info" })
+                </li>
+                @foreach (NavItem item in Model.NavItems)
+                {
+                    if (Model.LoadType == LoadType.Full)
+                    {
+                        <vc:nav-tab-element elemento="item" tipo="Default"></vc:nav-tab-element>
+                    }
+                    else
+                    {
+                        <vc:nav-tab-element elemento="item" tipo="Skeleton"></vc:nav-tab-element>
+                    }
+                }
+            </ul>
+        </div>
+    </li>
+</ul>

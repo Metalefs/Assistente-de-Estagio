@@ -1,0 +1,40 @@
+﻿@model Assistente_de_Estagio.Areas.Administracao.Models.UsuariosAdministradoresViewmodel
+@using ADE.Dominio.Models.Individuais
+
+@{
+    ViewData["Title"] = "ADE - Usuarios Administradores";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="card-header col-lg-12">
+       Usuários com funções de administração
+        <a class="fa fa-arrow-left float-lg-right" onclick="window.history.back();"></a>
+    </div>
+    @foreach (UsuarioADE usuario in Model.Admins)
+    {
+        <div class="jumbotron col-md-12">
+            <a href="./VisualizarAlteracoesDeAdministrador?userName=@usuario.UserName" class="btn pt-0 btn-outline-light-blue">@usuario.UserName</a>
+        </div>
+    }
+    @foreach (UsuarioADE usuario in Model.CriadoresConteudo)
+    {
+        <div class="jumbotron col-md-12">
+            <a href="./VisualizarAlteracoesDeAdministrador?userName=@usuario.UserName" class="btn pt-0 btn-outline-light">@usuario.UserName</a>
+        </div>
+    }
+    @{
+        var prevDisabled = !Model.CriadoresConteudo.HasPreviousPage || !Model.Admins.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.CriadoresConteudo.HasNextPage || !Model.Admins.HasNextPage ? "disabled" : "";
+
+        @Html.ActionLink("<", "UsuariosAdministradores", "ControleUsuarios", new { pageNumber = Model.Admins.PageIndex - 1 }, new { @class = "btn btn-info " + prevDisabled })
+
+        @Html.ActionLink(">", "UsuariosAdministradores", "ControleUsuarios", new { pageNumber = Model.Admins.PageIndex + 1 }, new { @class = "btn btn-info " + nextDisabled })
+        <p>Pagina @Model.Admins.PageIndex de @Model.Admins.TotalPages (Admins)</p>
+        <hr />
+        @Html.ActionLink("<", "UsuariosAdministradores", "ControleUsuarios", new { pageNumber = Model.CriadoresConteudo.PageIndex - 1 }, new { @class = "btn btn-info " + prevDisabled })
+
+        @Html.ActionLink(">", "UsuariosAdministradores", "ControleUsuarios", new { pageNumber = Model.CriadoresConteudo.PageIndex + 1 }, new { @class = "btn btn-info " + nextDisabled })
+        <p>Pagina @Model.Admins.PageIndex de @Model.Admins.TotalPages (CriadoresConteudo)</p>
+    }
+</div>

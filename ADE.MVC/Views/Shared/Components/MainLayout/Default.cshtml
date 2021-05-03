@@ -1,0 +1,71 @@
+﻿@using ADE.Utilidades.Extensions;
+@using Microsoft.Extensions.Configuration;
+@inject IConfiguration Configuration
+@model ADE.Apresentacao.Models.UserInterface
+
+@{
+    string blur = string.Empty;
+    if (ViewData["Blur"] != null)
+    {
+        blur = "blur";
+    }
+    
+}
+
+<vc:nav-bar usuario="Model.Usuario"></vc:nav-bar>
+
+@if (User.ShowDefaultInterface(ViewData["Title"].ToString()))
+{
+    <vc:side-bar usuario="Model.Usuario" screen-type="Mobile"></vc:side-bar>
+}
+
+<div class="ADE-Content @blur">
+    @{
+        if (User.ShowDefaultInterface(ViewData["Title"].ToString()))
+        {
+
+            <div id="sidebar-column" class="ADE-Sidenav">
+
+                <vc:side-bar usuario="Model.Usuario" screen-type="Desktop"></vc:side-bar>
+
+            </div>
+
+            <div id="body-column" class="ADE-Main">
+
+                @if (User.IsAdminOrCriadorConteudo())
+                {
+                    <vc:admin-body ui="Model"></vc:admin-body>
+                }
+
+                else
+                {
+                    <vc:user-body ui=Model></vc:user-body>
+                }
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="hide-on-med-and-down">
+                        <vc:chat></vc:chat>
+                    </div>
+                }
+
+            </div>
+        }
+        else
+        {
+            @Model.Body
+        }
+    }
+</div>
+
+@if(Model.Usuario != null && Model.Usuario.IdCurso != 0)
+{
+    <script type="module">
+        import { TourHub } from '/Scripts/ADE/Card-Tour.js';
+        window.Hub = new TourHub();
+    </script>
+}
+@if (User.ShowDefaultInterface(ViewData["Title"].ToString()))
+{
+    <vc:footer versao="@Configuration.GetSection("Version").Value"></vc:footer>
+}

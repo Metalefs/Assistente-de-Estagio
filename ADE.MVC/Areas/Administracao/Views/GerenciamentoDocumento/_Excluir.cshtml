@@ -1,0 +1,75 @@
+﻿@using ADE.Utilidades.Extensions
+@model ADE.Dominio.Models.Documento
+<div class="modal-body">
+    <div>
+        <h3>Você tem certeza de que deseja deletar este documento?</h3>
+        <h4>Os usuarios deixarão de vê-lo!</h4>
+        <h5>Para restaurar um documento, acesse a lixeira através do Gerenciamento de Documento e clique em "Restaurar" no documento desejado</h5>
+        <hr />
+    </div>
+    <dl class="dl-horizontal text-default" style="text-align: left;">
+        <dt>
+            @Html.DisplayNameFor(Model => Model.TituloDocumento)
+            :
+        </dt>
+        <dd>
+            @Html.DisplayFor(Model => Model.TituloDocumento)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(Model => Model.PosicaoDocumento)
+            :
+        </dt>
+        <dd>
+            @Html.DisplayFor(Model => Model.PosicaoDocumento)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(Model => Model.Assinatura)
+            :
+        </dt>
+        <dd>
+            @Html.DisplayFor(Model => Model.Assinatura)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(Model => Model.Tipo)
+            :
+        </dt>
+        <dd>
+            @Html.DisplayFor(Model => Model.Tipo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(Model => Model.DescricaoDocumento)
+            :
+        </dt>
+        <dd>
+            @Html.DisplayFor(Model => Model.DescricaoDocumento)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(Model => Model.IdCursoNavigation.NomeCurso)
+            :
+        </dt>
+        <dd>
+            @Html.DisplayFor(Model => Model.IdCursoNavigation.NomeCurso)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(Model => Model.IdCursoNavigation.Instituicao)
+            :
+        </dt>
+        <dd>
+            @Html.DisplayFor(Model => Model.IdCursoNavigation.Instituicao)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(Model => Model.Texto)
+            :
+        </dt>
+        <dd>
+            @Html.DisplayFor(Model => Model.Texto)
+        </dd>
+        <dl style="text-align: left;">
+            @Model.MensagemDePropriedadesEmHTML("dl-horizontal")
+        </dl>
+    </dl>
+</div>
+
+@Html.ActionLink("Deletar", "ExcluirDocumentoConfirmed", "GerenciamentoDocumento", new { id = Model.Identificador }, new { Class = "btn btn-danger" })
+|
+

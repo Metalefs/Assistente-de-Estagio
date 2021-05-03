@@ -1,0 +1,43 @@
+﻿<div>
+    <div class="md-form" id="registro-hora-novo">
+        <div class="row">
+            <div class="col col-md-4">
+                <label for="data-atividade"></label>
+                <input id="data-atividade" type="date" name="Data" onchange="calculo_horas.setData(this)" required>
+            </div>
+            <div class="col col-md-4">
+                <label for="inicio-atividade">Inicio</label>
+                <input id="inicio-atividade" type="text" data-mask="00:00" class="timepicker" name="HoraInicio" onchange="calculo_horas.setInicio(this)" required>
+            </div>
+            <div class="col col-md-4">
+                <label for="fim-atividade">Fim</label>
+                <input id="fim-atividade" type="text" data-mask="00:00" class="timepicker" name="HoraFim" onchange="calculo_horas.setFim(this)" required>
+            </div>
+        </div>
+        <div class="col col-md-12">
+            <label for="atividade">Atividade</label>
+            <input id="atividade" type="text" name="Atividade" onchange="calculo_horas.setAtividade(this)" required />
+        </div>
+        <div class="row">
+            <div class="col col-md-8">
+                <span class="calculo-carga-horaria"></span>
+                <input class="calculo-carga-horaria-input" type="hidden" name="CargaHoraria" required>
+            </div>
+            <div class="col">
+                <button type="submit" onclick="calculo_horas.Add()" class="btn-floating btn-large btn-primary right" value=""><i class="material-icons">add</i></button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <a href="/Principal/RegistroHoras/Exportar" class="btn btn-large btn-blue"><i class='prefix medium material-icons'>file_download</i>Exportação</a>
+        </div>
+        <div class="col-md-10">
+            <a href="/Principal/RegistroHoras/Historico" class="btn btn-large btn-rounded btn-amber"><i class='prefix medium material-icons'>history</i>Histórico</a>
+        </div>
+    </div>
+    @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Principal.Views.RegistroHoras.Components.UltimosRegistros.UltimosRegistrosViewComponent))
+
+</div>
+@{string url = "Principal/RegistroHoras/Index";}
+@await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Acesso.Components.InfoHelperComponentViewComponent.InfoHelperViewComponent), url)

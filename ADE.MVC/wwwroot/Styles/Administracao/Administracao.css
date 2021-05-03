@@ -1,0 +1,208 @@
+
+/**/
+table.table a {
+    margin: 0;
+}
+
+.ade-curso-row {
+    max-width: 100%;
+    margin: 0 auto;
+    display:inline-block;
+}
+
+    .ade-curso-row input {
+        width: 50%;
+    }
+
+
+.input-group-prepend .btn {
+    z-index:0;
+}
+
+.md-form label.active {
+    -webkit-transform: none;
+    -ms-transform: none;
+    transform: none;
+}
+.clearButton {
+    padding: 0;
+    overflow: hidden;
+    border: none;
+    background: none;
+}
+.clearButton:focus {
+    outline: 0;
+}
+    .clearButton:hover {
+        cursor: pointer;
+    }
+.socialLoginButton {
+    padding: 0;
+    overflow: hidden;
+    border: none;
+    background: none;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.CenterText {
+    text-align: center;
+}
+
+table .table{
+    margin:0 auto;
+}
+
+/*Botão da página de Gerenciamento de curso/documento */
+.adminSelectionButton {
+    width: 100%;
+    width: -webkit-fill-available !important;
+    overflow: scroll;
+    width: 100%;
+    color: #0070ff;
+    text-align: center;
+    text-transform: none;
+    border-radius: 1px !important;
+    margin-top: 10px;
+    transition: 0.3s;
+    box-shadow: 0px 0px -1px black !important;
+}
+    .adminSelectionButton::-webkit-scrollbar {
+        width: 0px;
+        background: transparent;
+    }
+    .adminSelectionButton:hover * {
+        border-top-color: #333347;
+        right:2px;
+    }
+    .adminSelectionButton:focus {
+        outline: 0;
+    }
+    .adminSelectionButton:focus * {
+        border-top-color: #333347;
+    }
+
+
+.adm_doc_card {
+    border: 0;
+    padding: 13px 35px;
+    box-shadow:1px 1px 3px lightblue;
+    font-size:initial;
+    margin-bottom: 2px;
+}
+
+.admin-add-in {
+    margin: 10px 118px;
+}
+
+.small-btn {
+    font-size: 11px;
+    height: 44px;
+    margin: 0;
+    margin-top:3px;
+    text-align: center;
+    display: flex;
+    align-self: center;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+/*Para overlays de remoção de dados*/
+.deleteDivOverlay {
+    position: fixed; /* Sit on top of the page content */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    text-align:center;
+    overflow-y:scroll;
+}
+.deleteDiv {
+    background-color: white;
+    padding: 0px 5px 10px 5px;
+    width: 70%;
+    max-width: 70%;
+    display: inline-block;
+    position: relative;
+    top: 20%;
+    z-index:20;
+}
+
+.requisito {
+    min-height: 120px;
+    font-size: 10px;
+    margin: 2px;
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    color: black !important;
+    cursor: default;
+}
+
+.create_requisito_div {
+    position: fixed;
+    bottom: 0px;
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.req_card {
+    max-width: 70%;
+    margin: 20px auto;
+}
+
+.card_delete_button {
+    height: 25px;
+    width: 25px;
+    border-radius: 180px;
+    color: white;
+    margin: -1px;
+    background: #2e2e2e;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.deletebtn {
+    position: relative;
+    width: 100%;
+    width: -webkit-fill-available;
+    text-align: center;
+    height: 64px;
+}
+
+@media only screen and (min-width: 768px) {
+    .admin-submit-btn {
+        width: 600px;
+    }
+}
+.requisito:hover {
+    bottom: 1px;
+}
+
+/*DASHBOARD*/
+#adm-messages {
+    padding: 10px;
+}
+
+
+#log-table {
+    margin: 0;
+}
+
+    #log-table thead {
+        background: #0089ffa8;
+    }
+
+    #log-table tbody {
+        background: white;
+    }

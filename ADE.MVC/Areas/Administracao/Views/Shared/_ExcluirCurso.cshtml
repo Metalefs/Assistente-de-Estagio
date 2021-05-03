@@ -1,0 +1,17 @@
+﻿@model ADE.Dominio.Models.Curso
+@using ADE.Utilidades.Extensions
+<div class="modal-body">
+    <div>
+        <h3>Você tem certeza de que deseja deletar este curso?</h3>
+        <h4>Todos os documentos vinculados a ele serão deletados!</h4>
+        <h5>Para restaurar um curso e seus documentos, acesse a lixeira através do Gerenciamento de Cursos e clique em "Restaurar" no curso desejado</h5>
+        <hr />
+    </div>
+    <dl style="text-align: left;">
+        @Model.MensagemDePropriedadesEmHTML("dl-horizontal")
+    </dl>
+</div>
+
+@Html.ActionLink("Deletar", "ExcluirCursoConfirmed", "GerenciamentoCurso", new { id = Model.Identificador }, new { Class = "btn btn-danger" })
+|
+

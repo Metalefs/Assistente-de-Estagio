@@ -1,0 +1,95 @@
+﻿@model Assistente_de_Estagio.Views.Shared.Components.FormularioRequisitosBasicosViewComponent.FormularioRequisitosBasicosVM;
+@using ADE.Dominio.Models;
+@using ADE.Dominio.Models.Enums;
+@using System.Collections.Generic;
+@using System.Linq;
+
+@{ 
+    List<Requisito> RequisitosAluno = Model.Lista.Where(x=>x.Grupo == EnumGrupoRequisito.Aluno).ToList();
+    List<Requisito> RequisitosEmpresa = Model.Lista.Where(x => x.Grupo == EnumGrupoRequisito.Empresa).ToList();
+    List<Requisito> RequisitosFaculdade = Model.Lista.Where(x=>x.Grupo == EnumGrupoRequisito.Faculdade).ToList();
+}
+    <form id="DadosAluno" class="mt-0 pt-0" style="background: #ffffff;padding: 10px;">
+
+        <div class="card width-100">
+            <div class="card-content">
+                <p>Os dados a seguir irão facilitar a geração dos contratos do seu estágio. Você pode altera-los a qualquer momento.</p>
+            </div>
+            <div class="card-tabs" onclick="FormularioDados.GetAreasForCourse()">
+                <ul class="tabs tabs-fixed-width">
+                    <li class="tab"><a href="#tab-aluno" id="ativar-tab-aluno" class="active" onclick="FormularioDados.SetActiveTab('tab-aluno')">Aluno</a></li>
+                    <li class="tab"><a href="#tab-empresa" id="ativar-tab-empresa" onclick="FormularioDados.SetActiveTab('tab-empresa')">Empresa</a></li>
+                    <li class="tab"><a href="#tab-faculdade" id="ativar-tab-faculdade" onclick="FormularioDados.SetActiveTab('tab-faculdade')">Faculdade</a></li>
+                    <li class="indicator" style="left: 187px; right: 1px;"></li>
+                </ul>
+            </div>
+            <div class="card-content grey lighten-4">
+                <div id="tab-aluno" style="display: block;" class="active">
+                    <p>
+                        <label>
+                            @if (Model.Estagiando)
+                            {
+                                <input type="checkbox" data-position="bottom" onclick="FormularioDados.SetEstagiando(this.checked)" data-tooltip="Está em estágio ativo" class="tooltipped form-control validate filled-in" checked id="Aluno_Estagiando" style=" width: auto;" required="true" />
+                            }
+                            else
+                            {
+                                <input type="checkbox" data-position="bottom" onclick="FormularioDados.SetEstagiando(this.checked)" data-tooltip="Está em estágio ativo" class="tooltipped form-control validate filled-in" id="Aluno_Estagiando" style=" width: auto;" required="true" />
+                            }
+                            <span>Está estágiando</span>
+                        </label>
+                    </p>
+                    @foreach (Requisito req in RequisitosAluno)
+                    {
+                        if (req.ElementoHTMLRequisito != EnumElementoHTMLRequisito.select)
+                        {
+                            <div class="">
+                                <vc:requisito-input requisito="req" onchange=""></vc:requisito-input>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="">
+                                <vc:requisito-select requisito="req" onchange=""></vc:requisito-select>
+                            </div>
+                        }
+                    }
+                </div>
+                <div id="tab-empresa" class="" style="display: none;">
+                    @foreach (Requisito req in RequisitosEmpresa)
+                    {
+                        if (req.ElementoHTMLRequisito != EnumElementoHTMLRequisito.select)
+                        {
+                            <div class="">
+                                <vc:requisito-input requisito="req" onchange=""></vc:requisito-input>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="">
+                                <vc:requisito-select requisito="req" onchange=""></vc:requisito-select>
+                            </div>
+                        }
+                    }
+                </div>
+                <div id="tab-faculdade" style="display: none;" class="">
+                    @foreach (Requisito req in RequisitosFaculdade)
+                    {
+                        if (req.ElementoHTMLRequisito != EnumElementoHTMLRequisito.select)
+                        {
+                            <div class="col-md-12">
+                                <vc:requisito-input requisito="req" onchange=""></vc:requisito-input>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-12">
+                                <vc:requisito-select requisito="req" onchange=""></vc:requisito-select>
+                            </div>
+                        }
+                    }
+                    <div id="area-curso-select"></div>
+                </div>
+            </div>
+        </div>
+
+    </form>

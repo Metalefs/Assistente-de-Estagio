@@ -1,0 +1,41 @@
+﻿@using Assistente_de_Estagio.Areas.Principal.Models
+@using ADE.Utilidades.Extensions;
+@using Microsoft.AspNetCore.Html;
+@model InformacaoCursoVM
+
+<div class="m-1 mt-2">
+    @if (Model.Curso.Identificador > 0 && Model.Curso.Instituicao != null)
+    {
+        string classe = Model.CursoDoUsuario ? "curso_selecionado" : string.Empty;
+        if (User.IsAdminOrCriadorConteudo())
+        {
+            <a class="fa fa-cog card-header-pills adm-color" href="/Administracao/GerenciamentoCurso/VisualizarEntidade?id=@Model.Curso.Identificador"></a>
+        }
+        <div >
+            <a href="#exp_curso-@Model.Curso.Identificador" data-toggle="modal" data-target="#exp_curso-@Model.Curso.Identificador" data-placement="bottom" data-tooltip="@Model.Curso.ToString()" class="input-group @classe tooltipped" style="height: -webkit-fill-available; border-bottom:3px solid @Model.Curso.Instituicao.Color">
+                <h5 class="">@Model.Curso.Nome()</h5>
+                <div class="">
+                    <i class="fas fa-user" title="@Model.QuantidadeAlunosCurso Alunos">@Model.QuantidadeAlunosCurso</i>
+                    <i class="fas fa-copy" title="@Model.QuantidadeDocumentosCurso Documentos">@Model.QuantidadeDocumentosCurso</i>
+                </div>
+            </a>
+
+            @if (Model.CursoDoUsuario)
+            {
+                <p class="text-default">Curso em andamento</p>
+                <a class="" href="/Principal/ListagemDocumentos/VisualizacaoDocumentosCurso">Acessar documentos</a>
+            }
+        </div>
+        
+        IHtmlContent Conteudo = await Html.PartialAsync("_ModalExibicaoCurso", Model.Curso);
+
+        Assistente_de_Estagio.Areas.Shared.ModalCardViewModel modal = new Assistente_de_Estagio.Areas.Shared.ModalCardViewModel($"exp_curso-{Model.Curso.Identificador}", Model.Curso.NomeCurso, Conteudo, ADE.Apresentacao.Models.TipoModal.Normal, "", "");
+
+        @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Views.Shared.Components.ModalCardViewComponent.ModalCardViewComponent), new { modal = modal, CanClose = false, DefaultOpen = false });
+        
+    }
+    else
+    {
+        <h5 id="titulo-selecao-curso-inicial" class="font-weight-bold text-dark">Nenhum curso foi encontrado.</h5>
+    }
+</div>

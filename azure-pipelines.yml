@@ -1,0 +1,45 @@
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+# ASP.NET Core (.NET Framework)
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    feedsToUse: 'select'
+
+- task: NuGetToolInstaller@0
+- script: dotnet restore
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+- task: FtpUpload@2
+  inputs:
+    credentialsOption: 'inputs'
+    serverUrl: 'ftp://ftp.assistentedeestagio.com.br'
+    username: 'assistentedeestagio'
+    password: 'MetaKingFTP@1245'
+    rootDirectory: 'd:\a\1\s\ADE.MVC\obj\Release\netcoreapp2.2\PubTmp\Out\'
+    filePatterns: '**'
+    remoteDirectory: '/www'
+    enableUtf8: true
+    clean: true
+    preservePaths: true
+    trustSSL: false
+
+- task: VSTest@2
+  inputs:
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'

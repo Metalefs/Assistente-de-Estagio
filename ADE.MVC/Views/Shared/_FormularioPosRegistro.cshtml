@@ -1,0 +1,61 @@
+﻿
+    <div id="multi-step-form-card" class="card rounded height-auto">
+        <div class="carousel-fixed-item center">
+
+        </div>
+
+        <div>
+            <div class="tab-multi-tab md-form " id="tab1">
+                <div class="card-body text-left">
+                    <div class="mascote"></div>
+                    <p class="text-light">
+                        O estágio assistido é uma importante etapa do seu curso,<br />por ser responsável por formalizar o seu tempo de aprendizado fora da sala de aula.
+                    </p>
+                    <p class="text-light">Muito bem, vamos começar?</p>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="tab-multi-tab md-form" id="tab2">
+                <div class="card-body text-left">
+                    <div class="mascote"></div>
+                    <p class="text-light">
+                        Trabalhamos com opções de instituição, pois a padronização dos documentos é váriavel.<br />
+                        Caso não encontre a sua, escolher FACISABH pode ser suficiente para você.
+                    </p>
+                </div>
+                <h3 class="text-white">Selecione uma instituição</h3>
+                <vc:instituicao-select></vc:instituicao-select>
+                <hr />
+                <div id="loading-animation" class="loading loadingIcon collapse"></div>
+            </div>
+        </div>
+        <div>
+            <div class="tab-multi-tab md-form" id="tab3">
+                <div class="card-body text-left">
+                    <div class="mascote"></div>
+                    <p class="text-light">
+                        Para visualizar o material do curso.<br />
+                        Caso não encontre o seu, encaminhe um e-mail para suporte@assistentedeestagio.com.
+                    </p>
+                </div>
+                <h3 class="text-white">Selecione um curso</h3>
+                <div id="loading-animation" class="loading loadingIcon collapse"></div>
+
+                <div id="curso-select" style="margin-bottom: calc(27% - 40px);"></div>
+            </div>
+        </div>
+        <div>
+            <div class="tab-multi-tab md-form " id="tab4">
+                <div class="card-body text-left">
+                    <div class="mascote"></div>
+                    <p class="text-light">
+                        Alguns recursos requerem o acordo dos termos de uso do sistema.
+                    </p>
+                    @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Views.Shared.Components.ModalTermosCompromissoViewComponent.ModalTermosCompromissoViewComponent), new { })
+                </div>
+            </div>
+        </div>
+        <div id="multi-step-control"></div>
+        <vc:form-step-circle passos="4"></vc:form-step-circle>
+    </div>

@@ -1,0 +1,31 @@
+﻿@using Assistente_de_Estagio.Areas.Shared;
+@using ADE.Dominio.Models;
+@model PaginatedList<Requisito>
+
+@{
+    ViewData["Title"] = "Gerenciamento de Requisitos";
+    ViewData["Selection"] = "Requisito";
+}
+
+<div class="fix-row" style="text-align:center">
+    <div>
+        <a href="./GerenciamentoRequisito/Criar" class="floating-button btn-large waves-effect waves-light blue right"><i class="material-icons">add</i></a>
+        <div class="RequisitoTable">
+            @await Html.PartialAsync("_RequisitoTable", Model)
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $('#log-table').DataTable({
+            fixedHeader: true,
+            info: false,
+            lengthChange:false,
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.10.20/i18n/Portuguese-Brasil.json"
+            },
+            responsive: true
+
+        }).draw(true).columns.adjust();
+    </script>
+}

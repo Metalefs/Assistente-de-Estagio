@@ -1,0 +1,20 @@
+﻿@model Assistente_de_Estagio.Areas.Principal.Models.CardApresentacaoViewmodel<Instituicao>
+@using ADE.Dominio.Models.Individuais;
+
+<div class="card">
+    @if(Model.Item.Logo != null){
+    <a data-position="bottom" data-tooltip="Visitar página da instituição" href="./Instituicao/VisualizacaoInstituicao/?idInstituicao=@Model.Item.Identificador">
+        <div class="card-body">
+            <div class="card-img">
+                <img width="130" height="130" src="data:image;base64,@Convert.ToBase64String(Model.Item.Logo)" />
+            </div>
+            <div class="card-content">
+                <p class="h3-responsive">Instituição:</p>
+                <p class="card-title" style="border-bottom:1px dashed @Model.Item.Color">
+                    @Model.Item.Nome
+                </p>
+            </div>
+        </div>
+    </a>
+    }
+</div>

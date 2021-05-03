@@ -1,0 +1,39 @@
+﻿@using ADE.Dominio.Models;
+@using ADE.Utilidades.Extensions;
+@model Assistente_de_Estagio.Areas.Principal.Shared.Components.TabelaDocumentosViewComponent.TabelaDocumentosVM
+
+<table id="doc-table" class="table table-hover table-responsive">
+    <thead>
+        <tr>
+            <th>Material</th>
+            <th>Passo</th>
+            <th>Etapa</th>
+            <th>Tipo</th>
+            <th>Estado</th>
+            <th>Data</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Documento Doc in Model.Documentos)
+        {
+            <tr>
+                <td>
+                    @{
+                        var docPreenchido = Model.HistoricoGeracao.Any(x => x.Documento == Doc.Identificador);
+                        DateTime dataPreenchimentoDoc = DateTime.MinValue;
+                        if (docPreenchido)
+                        {
+                            dataPreenchimentoDoc = Model.HistoricoGeracao.Where(x => x.Documento == Doc.Identificador).FirstOrDefault().DataHoraUltimaAlteracao;
+                        }
+                        @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Principal.Shared.Components.CartaoDocumentoViewComponent.CartaoDocumentoViewComponent), new { documento = Doc, preenchido = docPreenchido, PreenchidotoEm = dataPreenchimentoDoc });
+                    }
+                </td>
+                <td>@Doc.PosicaoDocumento</td>
+                <td>@Doc.Etapa.ObterNomeEnum()</td>
+                <td>@Doc.Tipo.ObterNomeEnum()</td>
+                <td>@Html.Raw(docPreenchido? $"Preenchido em {dataPreenchimentoDoc.ToShortDateString()}" : "Novo")</td>
+                <td>@Doc.DataHoraUltimaAlteracao</td>
+            </tr>
+        }   
+    </tbody>
+</table>

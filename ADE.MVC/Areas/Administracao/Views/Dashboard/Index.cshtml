@@ -1,0 +1,60 @@
+﻿@using Assistente_de_Estagio.Areas.Administracao.Models
+@using ADE.Utilidades.Extensions
+@model DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+<div class="">
+    <div class="row chart-container card-body" name="top-charts" id="top-charts">
+        <div class="col-md-6" id="bar-chart-div">
+            <canvas id="bar-chart-canvas"></canvas>
+            <p><span class="h3-responsive">@Model.TotalDownloads</span> Downloads totais</p>
+        </div>
+        <div class="col-md-6 card" id="pizza-chart-div">
+            <p class="h3-responsive">Usuários por curso</p>
+            <canvas id="pizza-chart-canvas"></canvas>
+        </div>
+    </div>
+    <hr />
+    <div class="row fix-row chart-container card-body" name="middle-charts" id="middle-charts">
+        <div class="col-md-8" id="line-chart-div">
+            <div id="line-chart-canvas"></div>
+            <p><span class="h3-responsive">@Model.TotalUsuarios</span> Usuarios cadastrados</p>
+            <p><span class="h3-responsive">@Model.TotalUsuariosLogados</span> Usuarios Online</p>
+        </div>
+        <div class="col-md-4">
+            <p><span class="h3-responsive">@Model.TotalCursos</span> Cursos</p>
+            <p><span class="h3-responsive">@Model.TotalDocumentos</span> Documentos</p>
+            <p><span class="h3-responsive">@Model.TotalRequisitos</span> Requisitos</p>
+            <div class="md-form">
+                <a class="btn btn-black" href="/Administracao/ControleUsuarios/AcaoDeUsuario">Ação de usuários</a>
+                <a class="btn btn-deep-orange" href="/Administracao/ControleUsuarios">Adicionar Administrador</a>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="card chart-container" name="adm-messages" id="adm-messages">
+        <div id="AdmMessageContainer" class="col-lg-12">
+            @await Html.PartialAsync("_AdmMessageTable", Model.LogAcoes)
+        </div>
+        <div id="ErrorLogContainer" class="col-lg-12">
+            @await Html.PartialAsync("_AdmSysLogTable", Model.ErrorLogs)
+        </div>
+    </div>
+</div>
+@section Scripts {
+<script type="module">
+    import { UsuarioCursoPizzaChart } from "/Scripts/ADE/Administracao/Dashboard/Pizza-chart.js";
+    import { CursoDocumentoBarChart } from "/Scripts/ADE/Administracao/Dashboard/Bar-chart.js";
+    import { TrafegoUsuarioChart } from "/Scripts/ADE/Administracao/Dashboard/Line-chart.js";
+
+    let CursoDocumentoChart = new CursoDocumentoBarChart();
+    CursoDocumentoChart.CreateStackedBarChart();
+
+    let UsuarioChart = new UsuarioCursoPizzaChart(1);
+    UsuarioChart.CreatePizzaChart();
+
+    let TrafegoChart = new TrafegoUsuarioChart();
+    TrafegoChart.CreateLineChart();
+</script>
+}

@@ -1,0 +1,53 @@
+﻿@model Assistente_de_Estagio.Areas.Shared.ModalCardViewModel
+@{string collapse = Model.DefaultOpen == true ? "" : "collapse";}
+
+<div class="modal-backdrop" id="@Model.ModalId">
+    <div id="@Model.ModalId-modal-backdrop" class="modal-backdrop-ade">
+        <div id="@Model.ModalId-modal-div" class="pop-up row ADE-BLUE-GRADIENT">
+            <div id="window-basic-control" class="window-basic-control" style="margin-left:0">
+                <h5 class="card-title">@Model.Title</h5>
+                <a  href="/Account/Logout" title="Voltar">
+                    <i class="close-button fa fa-door-open"></i>
+                </a>
+                @if (Model.CanClose)
+                {
+                <a data-toggle="collapse" href="#@Model.ModalId" title="Escolher mais tarde">
+                    <i class="close-button fas fa-window-close"></i>
+                </a>
+                }
+            </div>
+            <div class="window-body">
+                @if (Model.Action != null && Model.Action.Length > 0)
+                {
+                <form id="ModalForm" action="@Model.Action">
+                    @Model.Content
+                </form>
+                }
+                else
+                {
+                @Model.Content
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="@Model.ModalId" class="modal">
+    <div class="modal-content">
+        <h5 class="window-title">@Model.Title</h5>
+        @if (Model.Action.Length > 0)
+        {
+        <form id="ModalForm" action="">
+            @Model.Content
+        </form>
+        }
+        else
+        {
+        @Model.Content
+        }
+    </div>
+    <div class="modal-footer">
+
+    </div>
+</div>

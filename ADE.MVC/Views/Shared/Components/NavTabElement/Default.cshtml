@@ -1,0 +1,12 @@
+﻿@model ADE.Apresentacao.Models.NavItem
+@{
+    string Active = "";
+    if(ViewData["Selection"] != null)
+    {
+        string selection = ViewData["Selection"].ToString() ?? "";
+        Active = selection == Model.Nome ? "active" : "";
+    }
+ }
+<li class="nav-item">
+    <a onclick="PageHandler.switchPage('/@Model.Area/@Model.Controller/@Model.Action')" class="nav-link @Active" role="tab">@Model.Nome </a>
+</li>

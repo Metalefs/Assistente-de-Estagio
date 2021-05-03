@@ -1,0 +1,21 @@
+﻿@model AtividadeEstagio
+@using ADE.Dominio.Models.Individuais
+
+@{
+    string icon = "access_time";
+    string cardbg = "";
+    string onclick = Model.EnumEntidade == ADE.Dominio.Models.Enums.EnumEntidadesSistema.Documento ? "PreenchimentoDocumento.AbrirPaginaPrenchimento(" + Model.IdentificadorEntidadeAtividade + ")" : "PageHandler.switchPage('/Principal/MeusDados/Index')";
+    if (Model.ConclusoesAtividade != null && Model.ConclusoesAtividade.Count > 0)
+    {
+        icon = "done";
+        cardbg = "btn-outline-success";
+        Model.Descricao += $" <br>(Completo em {Model.ConclusoesAtividade.LastOrDefault().DataHoraUltimaAlteracao.ToString()})";
+    }
+}
+
+<div onclick="@onclick" class="hoverable card-panel @cardbg">
+    <a class="card-body">
+        <i class="small material-icons prefix">@icon</i>
+        <span> @Model.Titulo</span>
+    </a>
+</div>

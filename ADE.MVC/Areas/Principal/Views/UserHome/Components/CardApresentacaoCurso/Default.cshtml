@@ -1,0 +1,50 @@
+﻿@using ADE.Dominio.Models;
+@using Microsoft.AspNetCore.Html;
+@model Assistente_de_Estagio.Areas.Principal.Models.CardApresentacaoViewmodel<Curso>
+<div class="card ">
+    <div class="card-body p-0 bg-light disabled">
+        <a href="#curso-@Model.Item.Identificador" data-toggle="modal" data-target="#curso-@Model.Item.Identificador">
+            <div class="card-content p-4">
+                <p class="h5-responsive">Curso:</p>
+                <p class="card-title">
+                    @Model.Item.NomeCurso
+                </p>
+            </div>
+        </a>
+    </div>
+
+    <ul class="collapsible">
+        <li>
+            <div class="collapsible-header card-footer width-100 p-0">
+                <a href="#material-curso" id="material-hint" class="waves-effect hoverable width-100" " onclick="MateriaisController.Add()">
+                    <div class="text-center">
+                        <p class="h5-responsive orange-text"><i class="material-icons">archive</i>Documentos de estágio</p>
+                    </div>
+                </a>
+            </div>
+            @{string open = "display:block";}
+            <div class="collapsible-body p-0" style="@open">
+                <div>
+
+                </div>
+            </div>
+        </li>
+    </ul>
+
+    @{
+        IHtmlContent Conteudo = await Html.PartialAsync("_ModalExibicaoCurso", Model.Item);
+
+        Assistente_de_Estagio.Areas.Shared.ModalCardViewModel modal = new Assistente_de_Estagio.Areas.Shared.ModalCardViewModel($"curso-{Model.Item.Identificador}", Model.Item.NomeCurso, Conteudo, ADE.Apresentacao.Models.TipoModal.Normal, "", "");
+
+        @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Views.Shared.Components.ModalCardViewComponent.ModalCardViewComponent), new { modal = modal, CanClose = false, DefaultOpen = false });
+    }
+
+    <script type="module">
+        import { MateriaisComponent } from "/Scripts/ADE/Principal/ListagemDocumento/MateriaisComponent.js";
+        import { addStyleSheet } from "/Scripts/ADE/PageSetup.js";
+        addStyleSheet("/Styles/Principal/ModalPreenchimento.css", "listagem_documentos");
+        const MateriaisController = new MateriaisComponent();
+        MateriaisController.Add();
+        window.MateriaisController = MateriaisController;
+    </script>
+</div>

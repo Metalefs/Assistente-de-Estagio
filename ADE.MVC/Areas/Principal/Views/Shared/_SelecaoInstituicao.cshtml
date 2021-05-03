@@ -1,0 +1,48 @@
+﻿@using ADE.Dominio.Models.Individuais;
+@model IEnumerable<Instituicao>
+
+<fieldset class="modal-backdrop" id="instituicao-modal-backdrop-close">
+    <fieldset id="instituicao-modal-backdrop" class="modal-backdrop-ade">
+        <div id="instituicao-modal-div" class="pop-up row ADE-BLUE-GRADIENT">
+            <div id="window-basic-control" class="window-basic-control" style="margin-left:0">
+                <h5 class="window-title">Seleção de Instituição</h5>
+                <a data-toggle="collapse" href="#instituicao-modal-backdrop-close" title="Escolher mais tarde">
+                    <i class="close-button fa fa-door-open"></i>
+                </a>
+            </div>
+            <div class="window-body">
+                <div class="container">
+                    <input type="text" id="InputFiltro-instituicao" onkeydown="searchInstituicao.Search(event,this.value)" list="listainstituicoes" class="input-group" placeholder="Pesquisar instituição.." title="Para inserir, pressione a tecla 'Enter'">
+                    <a class="btn btn-blue" onclick="Search()">Pesquisar</a>
+                    <div id="search-feedback" class="text-light"></div>
+                    @if (Model.Count() >= 1)
+                    {
+
+                        <div class="md-form d-md-flex">
+                            <div id="InstituicaoOptions" style="text-align:center;">
+                                @foreach(Instituicao _instituicao in Model){
+                                    @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Principal.Shared.Components.ExibicaoInstituicaoViewComponent.ExibicaoInstituicaoViewComponent), new { instituicao = _instituicao })
+                                }   
+                            </div>
+                        </div>
+                    }
+                </div>
+                <datalist id="listainstituicoes">
+                    @foreach (var item in Model)
+                    {
+                        <option value="@item.Nome"></option>
+                    }
+                </datalist>
+            </div>
+        </div>
+    </fieldset>
+</fieldset>
+<script src="~/Scripts/ADE/Principal/Instituicao/PesquisarInstituicao.js"></script>
+<script>
+    function Search() {
+        searchInstituicao.SearchBtn();
+    }
+</script>
+
+
+

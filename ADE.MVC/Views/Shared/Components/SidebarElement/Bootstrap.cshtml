@@ -1,0 +1,46 @@
+﻿@using ADE.Apresentacao.Models
+@model ADE.Apresentacao.Models.Elemento
+
+@{
+    string linkid = $"{Model.Nome}-elmt";
+    string Open = "";
+    if (ViewData["Selection"] != null)
+    {
+        string selection = ViewData["Selection"].ToString() ?? "";
+        Open = selection == Model.Nome ? "display:block;" : "";
+    }
+}
+<div class="sidebarCollapsibleHeader" style="padding:0;overflow:hidden;">
+    <a data-target='@linkid' class="sidebar-link dropdown-trigger sidebar-link">
+        <i class="@Model.Icone"></i>
+        <span class="sidebar-item-name">@Model.Nome</span>
+    </a>
+</div>
+<ul id='@linkid' class='sidebar-dropdown dropdown-content'>
+    <li style="@Open display: block;margin: 0px 0px 1px 0px;" class="component">
+        <div class="sidebarcollpsilble" style="@Open">
+            <ul class="sidebar-list">
+                <a href="@Model.Link">
+                    <li>
+                        <span class="">@Model.Nome</span>
+                    </li>
+                </a>
+
+                @foreach (NavItem item in Model.NavItems)
+                {
+                    string Active = "";
+                    if (ViewData["ViewSelection"] != null)
+                    {
+                        string selection = ViewData["ViewSelection"].ToString() ?? "";
+                        Active = selection == item.Nome ? "active" : "";
+                    }
+                    string target = item.Nome == "Legislação" ? "_blank" : "_self";
+                    <li>
+                        <a href="@item.Link" target="@target" class="side-nav-link-nome @Active">@item.Nome</a>
+                    </li>
+                }
+
+            </ul>
+        </div>
+    </li>
+</ul>

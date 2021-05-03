@@ -1,0 +1,40 @@
+{
+  "LoadType": "Full",
+  "AreaComponente": "Usuario",
+  "ItemPrincipal": {
+    "NavItem": {
+      "Nome": "Área de Trabalho",
+      "Link": "/Principal/UserHome",
+      "Controller": "UserHome",
+      "Action": "Index",
+      "Icon": "home",
+      "Area": "Principal"
+    }
+  },
+  "NavItems": [
+    {
+      "Nome": "Atividades",
+      "Link": "/Principal/Atividades",
+      "Controller": "Atividades",
+      "Action": "Index",
+      "Icon": "beenhere",
+      "Area": "Principal"
+    },
+    {
+      "Nome": "Registro Horas",
+      "Link": "/Principal/RegistroHoras",
+      "Controller": "RegistroHoras",
+      "Action": "Index",
+      "Icon": "beenhere",
+      "Area": "Principal"
+    },
+    {
+      "Nome": "Meus Dados",
+      "Link": "/Principal/MeusDados",
+      "Controller": "MeusDados",
+      "Action": "Index",
+      "Icon": "perm_identity",
+      "Area": "Principal"
+    }
+  ]
+}

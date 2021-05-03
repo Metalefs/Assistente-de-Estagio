@@ -1,0 +1,35 @@
+﻿@model List<ListaAmigos>
+@using ADE.Dominio.Models.RelacaoEntidades
+@using Assistente_de_Estagio.Areas.Principal.Models
+@{ 
+    if (ViewData["filter"] == null)
+    {
+        ViewData["filter"] = FiltroPerfil.Curso;
+    }
+}
+<form method="get" action="/Principal/Perfis/Index">
+    <div class="row">
+        <div class="input-group-prepend">
+            <input type="text" list="listaregistros" name="email" id="InputFiltro-perfil" placeholder="Nome ou e-mail do usuário" required class="validate">
+            @Html.DropDownList("filter",
+                    new SelectList(Enum.GetNames(typeof(FiltroPerfil)), ViewData["filter"]),
+                    "Selecione a tipo de busca",
+                    new { @name = "filter"})
+            <div class="prefix">
+                <button type="submit" class="btn btn-rounded admin-add-btn">Buscar</button>
+            </div>
+        </div>
+        @if(Model != null)
+        {
+            <datalist id="listaregistros">
+                @foreach (ListaAmigos amigo in Model)
+                {
+                    if(amigo.IdUsuarioNavigation != null)
+                    {
+                        <option value="@amigo.IdUsuarioNavigation.UserName"></option>
+                    }
+                }
+            </datalist>
+        }
+    </div>
+</form>

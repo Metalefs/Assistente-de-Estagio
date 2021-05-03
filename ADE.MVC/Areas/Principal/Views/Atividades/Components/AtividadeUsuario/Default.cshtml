@@ -1,0 +1,108 @@
+﻿@model AtividadeUsuario
+@using ADE.Dominio.Models.Individuais;
+@using ADE.Dominio.Models.Enums;
+@{
+    EnumEstadoAtividade estado = Model.VerificarEstado();
+    string icon = string.Empty;
+    string verbo = string.Empty;
+    string adjetivo = string.Empty;
+    switch (estado)
+    {
+        case EnumEstadoAtividade.Aberto:
+            icon = "assignment_turned_in";
+            verbo = "Cadastrado";
+            adjetivo = "com sucesso";
+            break;
+        case EnumEstadoAtividade.Adiantado:
+            icon = "card_giftcard";
+            verbo = "Concluiu";
+            adjetivo = "com extrema eficiência!";
+            break;
+        case EnumEstadoAtividade.Atrasado:
+            icon = "assignment_late";
+            verbo = "Concluiu";
+            adjetivo = $"um pouco atrasado ({(DateTime.Today - Model.Data).TotalDays} dias atrasado)";
+            break;
+    }
+    string mensagem = $"{verbo} {adjetivo}";
+}
+
+<div class="card sticky-action">
+        <div class="card-image waves-effect waves-block waves-light">
+        
+        </div>
+        <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4 ade_flex">
+                <span id="date-au-@Model.Identificador">(@Model.Data.ToShortDateString())</span>
+                <span id="tit-au-@Model.Identificador">@Model.Titulo</span>
+                <i class="material-icons halfway-fab">more_vert</i>
+            </span>
+            <div class="row">
+                <i class="material-icons">@icon</i>
+                <p>@mensagem</p>
+            </div>
+            <form method="post" id="form_conc_@Model.Identificador" action="/Principal/Atividades/ConcluirAtividade">
+                <p>
+                    <label>
+                        @if (Model.Concluido)
+                        {
+                            <input id="au-state-@Model.Identificador" type="checkbox" name="IdAtividade" value="@Model.Identificador" class="filled-in" checked />
+                        }
+                        else
+                        {
+                            <input id="au-state-@Model.Identificador" type="checkbox" name="IdAtividade" value="@Model.Identificador" class="filled-in" />
+                        }
+                        <span>Concluido</span>
+                    </label>
+                </p>
+                <button type="submit" href="#" class="btn btn-light-green h5-responsive" id="save-au-@Model.Identificador">Salvar alterações</button>
+            </form>
+            <form method="delete" action="/Principal/Atividades/RemoverAtividadeUsuario">
+                <input type="hidden" name="IdAtividade" value="@Model.Identificador"/>
+                <button class="btn btn-default"><span class="deletebtn">x</span></button>
+            </form>
+        </div>
+        <div class="card-reveal">
+            <form method="post" id="form_@Model.Identificador" action="/Principal/Atividades/AtualizarAtividade">
+                <input type="hidden" name="Identificador" value="@Model.Identificador" />
+                <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
+                <div class="col-md-3 input-field">
+                    <label for="au-date-@Model.Identificador">Data</label>
+                    <input type="date" id="au-date-@Model.Identificador" name="Data" value="@Model.Data.ToShortDateString()">
+                </div>
+                <div class="col-md-12 input-field">
+                    <label for="data-atividade">Titulo</label>
+                    <input type="text" id="au-titl-@Model.Identificador" name="Titulo" value="@Model.Titulo" />
+                </div>
+                <div class="row">
+                    <div class="col-md-8 input-field">
+                        <label for="au-desc-@Model.Identificador">Descrição</label>
+                        <textarea id="au-desc-@Model.Identificador" name="Descricao">@Model.Descricao</textarea>
+                    </div>
+                    <div class="col-md-4 input-field">
+                        @Html.DropDownList("TipoAtividade",
+                        new SelectList(Enum.GetNames(typeof(EnumTipoAtividadeEstagio)), Model.TipoAtividade),
+                        "Selecione a tipo de atividade",
+                        new { @name = "TipoAtividade", @id = $"au-type-{Model.Identificador}" })
+                        <label for="au-type-@Model.Identificador">Tipo</label>
+                    </div>
+                </div>
+                <button onclick="$('#form_@Model.Identificador').submit()" href="#" class="btn btn-light-green h5-responsive" id="save-au-@Model.Identificador">Recarregar</button>
+            </form>
+        </div>
+</div>
+
+<script type="module">
+    (async () => {
+        const moduleSpecifier = '/Scripts/ADE/Principal/Atividades/AtividadesAluno.js';
+        const { AtividadeAluno } = await import(moduleSpecifier); 
+
+        let Atividade = new AtividadeAluno(@Model.Identificador, "@Model.Titulo", "@Model.Descricao", "@Model.Data.ToShortDateString()");
+        $("#au-titl-@Model.Identificador").focusout(() => { Atividade.setTitle(document.getElementById("au-titl-@Model.Identificador").value); });
+        $("#au-desc-@Model.Identificador").focusout(() => { Atividade.setDesc(document.getElementById("au-desc-@Model.Identificador").value); });
+        $("#au-type-@Model.Identificador").focusout(() => { Atividade.setType(document.getElementById("au-type-@Model.Identificador").value); });
+        $("#au-date-@Model.Identificador").focusout(() => { Atividade.setDate(document.getElementById("au-date-@Model.Identificador").value); });
+        $("#au-state-@Model.Identificador").focusout(() => { Atividade.ConcluirAtividade(); });
+        $("#save-au-@Model.Identificador").click(() => { Atividade.AtualizarAtividades(); });
+    })();
+</script>

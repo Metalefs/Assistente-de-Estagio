@@ -1,0 +1,19 @@
+﻿@model Assistente_de_Estagio.Areas.Principal.UserHome.Components.AnoHistoricoRegistroViewComponent.AnoHistoricoRegistroVM
+@using ADE.Utilidades.Extensions
+@using ADE.Dominio.Models
+@{ 
+    string open = Model.AnoReferencia.Year == DateTime.Today.Year ? "display:block;" : "";
+}
+<ul class="collapsible">
+    <li>
+        <div class="collapsible-header card-header h3-responsive">Registros em @Model.AnoReferencia.Year</div>
+        <div class="collapsible-body" style="@open">
+            @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Principal.UserHome.Components.MesHistoricoRegistroViewComponent.MesHistoricoRegistroViewComponent), new { registros = Model.Registros })
+            
+            @if(Model.Registros.Count == 0)
+            {
+                <p>Nenhum registro encontrado em @Model.AnoReferencia.Year</p>
+            }
+        </div>
+    </li>
+</ul>

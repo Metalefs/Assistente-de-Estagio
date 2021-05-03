@@ -1,0 +1,55 @@
+﻿@using Assistente_de_Estagio.Areas.Administracao.Models;
+@using ADE.Dominio.Models.Individuais;
+@using ADE.Dominio.Models;
+@using ADE.Utilidades.Extensions;
+@model GerenciamentoCursoViewmodel
+
+@{
+    ViewData["Title"] = "Gerenciamento de Cursos";
+    ViewData["Selection"] = "Curso";
+}
+
+@foreach (Instituicao item in Model.Instituicoes)
+{
+    <div class="row fix-row">
+        <ul class="collapsible col-md-12 fix-col">
+            <li>
+                <div class="collapsible-header dropdown-toggle">
+                    <a class="dropdown-toggle">
+                        <span id="adminSelection@(item.Identificador)Button">
+                            @item.ExibirEntidadeColorCoded()
+                        </span>
+                    </a>
+                </div>
+                <div class="collapsible-body">
+                    <div class="card-header row">
+                        <a href="./GerenciamentoCurso/Criar/?IdInstituicao=@item.Identificador" class="btn-large waves-effect waves-light blue right tooltipped" data-position="bottom" data-tooltip="Adicionar curso a instituição @item.Nome">
+                            <i class="material-icons">add</i>
+                        </a>
+                    </div>
+
+                    @foreach (Curso curso in Model.Cursos)
+                    {
+                        if (curso.Identificador != 0 && item.Identificador == curso.IdInstituicao)
+                        {
+                            @await Html.PartialAsync("_ExibicaoCurso", curso)
+                        }
+                    }
+
+                </div>
+            </li>
+        </ul>
+    </div>
+    <hr />
+}
+<div class="card-body">
+    @{
+        var prevDisabled = !Model.Cursos.HasPreviousPage ? "disabled" : "";
+        var nextDisabled = !Model.Cursos.HasNextPage ? "disabled" : "";
+
+        @Html.ActionLink("<", "Index", "GerenciamentoCurso", new { sortOrder = ViewData["CursoSortParm"], pageNumber = Model.Cursos.PageIndex - 1, currentFilter = ViewData["CurrentFilter"] }, new { @class = "btn btn-info " + prevDisabled })
+
+        @Html.ActionLink(">", "Index", "GerenciamentoCurso", new { sortOrder = ViewData["CursoSortParm"], pageNumber = Model.Cursos.PageIndex + 1, currentFilter = ViewData["CurrentFilter"] }, new { @class = "btn btn-info " + nextDisabled })
+        <p>Página @Model.Cursos.PageIndex de @Model.Cursos.TotalPages</p>
+    }
+</div>

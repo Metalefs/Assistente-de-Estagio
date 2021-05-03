@@ -1,0 +1,34 @@
+﻿@model IEnumerable<InformacaoCursoVM>
+@using Assistente_de_Estagio.Areas.Principal.Models;
+
+<div class="container">
+    <input type="text" id="InputFiltro-curso" onkeydown="searchCurso.Search(event,this.value)" list="listacursos" class="input-group" placeholder="Pesquisar curso.." title="Para inserir, pressione a tecla 'Enter'">
+    <datalist id="listacursos">
+        @foreach (var item in Model)
+        {
+            <option value="@item.Curso.NomeCurso"></option>
+        }
+    </datalist>
+    <a class="btn btn-blue" onclick="Search()">Pesquisar</a>
+    <div id="search-feedback"></div>
+    @if (Model.Count() >= 1)
+    {
+        <div class="md-form d-md-flex">
+            <div id="CursoOptions" style="text-align:center;">
+                @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Principal.Shared.Components.TabelaCursosViewComponent.TabelaCursosViewComponent), new { InfoCursos = Model })
+            </div>
+        </div>
+    }
+</div>
+
+
+<script src="~/Scripts/ADE/Principal/ListagemCurso/PesquisarCurso.js"></script>
+<script src="~/Scripts/ADE/Principal/SelecaoCurso.js"></script>
+<script>
+    function Search() {
+        searchCurso.SearchBtn();
+    }
+</script>
+
+
+

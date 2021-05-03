@@ -1,0 +1,157 @@
+﻿@media only screen and (min-width:768px) {
+    #loginContaTemporaria-modal-div {
+        width: initial;
+        margin: 0 auto;
+        position: absolute;
+    }
+}
+
+#loginContaTemporaria-modal-div {
+    width: fit-content;
+    margin: 5% 14% !important;
+    position: absolute;
+}
+
+.modal-backdrop-ade {
+    position: initial !important;
+    top: auto !important;
+}
+
+#tab4 {
+    min-height: 500px;
+}
+/* Style the form */
+#multi-step-form-card {
+    overflow-y: scroll;
+    background: #2e5caa !important;
+    margin: 0 -5px;
+    padding: 0 .5rem;
+    font-family: Roboto !important;
+}
+
+.multitab-form-btn {
+    position: relative;
+    transition: 1s;
+    line-height: initial;
+    color: white !important;
+    padding: 7px;
+}
+
+.select-wrapper input.select-dropdown {
+    font-family: Roboto !important;
+}
+
+#multi-step-form-card p, #multi-step-form-card h3, #multi-step-form-card label {
+    font-weight: bold;
+    background: #4579a554;
+}
+
+#multi-step-form-card::-webkit-scrollbar {
+    opacity: 0;
+}
+
+#FormPosLogin {
+    margin: 0 auto;
+    width: 70%;
+    min-width: 300px;
+}
+
+#multi-step-control {
+    display: inline-block;
+    transition: 1s;
+    margin: 0 10PX;
+}
+/* Style the input fields */
+input {
+    padding: 10px;
+    width: 100%;
+    font-size: 17px;
+    border: 1px solid #aaaaaa;
+}
+
+    /* Mark input boxes that gets an error on validation: */
+    input.invalid {
+        background-color: #ffdddd;
+    }
+
+/* Hide all steps by default: */
+.tab-multi-tab {
+    display: none;
+}
+
+/* Make circles that indicate the steps of the form: */
+.multi-tab-step-indicator {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background: #bbbbbb;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+    /* Mark the active step: */
+    .multi-tab-step-indicator.active {
+        opacity: 1;
+        background-color: lightgreen;
+    }
+
+    /* Mark the steps that are finished and valid: */
+    .multi-tab-step-indicator.finish {
+        background-color: #4CAF50;
+    }
+
+
+@keyframes from-left {
+    0% {
+        transform: translateX(-200px);
+        transform: rotateX(180deg);
+        transform: rotateY(180deg);
+        opacity: .1
+    }
+
+    50% {
+        transform: rotate(90);
+        transform: translateX(-50px);
+        opacity: .5
+    }
+
+    100% {
+        transform: rotate(90deg);
+        transform: translateX(0);
+        opacity: 1
+    }
+}
+
+
+@keyframes from-right {
+    0% {
+        transform: rotate(180deg);
+        opacity: .1;
+        transform: translateX(200px)
+    }
+
+    50% {
+        transform: rotate(90deg);
+        transform: translateX(50px);
+        opacity: .5
+    }
+
+    100% {
+        transform: rotate(90deg);
+        transform: translateX(0);
+        opacity: 1
+    }
+}
+
+.tab-multi-tab.active {
+    display: block;
+    animation: from-right 1s ease-out forwards;
+}
+
+.tab-multi-tab.active-reverse {
+    display: block;
+    animation: from-left 1s ease-out forwards;
+}

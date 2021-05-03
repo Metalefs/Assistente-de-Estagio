@@ -1,0 +1,35 @@
+﻿
+@using ADE.Dominio.Models.Enums
+@using Microsoft.AspNetCore.Identity
+@using ADE.Dominio.Models.Individuais;
+@inject SignInManager<UsuarioADE> SignInManager
+@inject UserManager<UsuarioADE> UserManager
+
+<div class="filtro">
+    <div class="modal-header">Filtrar documentos</div>
+    <div>
+        <form action="/Principal/ListagemDocumentos/FiltrarDocumentos" method="get">
+            <div class="row" style="margin:0 auto;width:fit-content;">
+                <div class="col-md-4">
+                    <span>Assinatura</span>
+                    @Html.DropDownList("AssinaturaDocumento",
+                       Html.GetEnumSelectList<EnumAssinaturaDocumento>(),
+                       "Selecione o tipo",new { @class = "form-control" })
+                </div>
+                <div class="col-md-4">
+                    <span>Tipo</span>
+                    @Html.DropDownList("TipoDocumento",
+                        Html.GetEnumSelectList<EnumTipoDocumento>(),
+                        "Selecione o tipo",new { @class = "form-control" })
+                </div>
+                <div class="col-md-4">
+                    <span>Etapa</span>
+                    @Html.DropDownList("Etapa",
+                        Html.GetEnumSelectList<EnumEtapaDocumento>(),
+                        "Selecione a etapa",new { @class = "form-control" })
+                </div>
+            <button class="btn filtrobtn" type="submit">Filtrar</button>
+            </div>
+        </form>
+    </div>
+</div>

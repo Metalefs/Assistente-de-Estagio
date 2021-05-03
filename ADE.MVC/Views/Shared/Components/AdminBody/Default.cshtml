@@ -1,0 +1,28 @@
+﻿@using ADE.Utilidades.Extensions;
+@using ADE.Apresentacao.Models;
+@model UserInterface
+
+<div class="ade-nav-tabs">
+    <vc:nav-tab usuario="Model.Usuario" area="Usuario"></vc:nav-tab>
+</div>
+
+@if (!ViewData.ModelState.IsValid || ViewBag.Retorno != null && ViewBag.Retorno.Length > 1)
+{
+    <div class="base-feedback">
+        <div class="rounded bg-light">
+            @Html.ValidationSummary(false, "", new { @id = "Campo-Validacao" })
+        </div>
+        <div class="rounded bg-light card notification">
+            @ViewBag.Retorno
+        </div>
+    </div>
+}
+
+<div id="main-display" class="height-100">
+    @Html.CreatePageHeaderWithBackArrow(ViewData["Title"].ToString())
+    @Model.Body
+</div>
+<vc:atividades-pendentes></vc:atividades-pendentes>
+<vc:nav-tab usuario="Model.Usuario" area="Mobile"></vc:nav-tab>
+
+

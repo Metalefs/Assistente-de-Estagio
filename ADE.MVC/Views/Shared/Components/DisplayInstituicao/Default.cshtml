@@ -1,0 +1,7 @@
+﻿@model  ADE.Dominio.Models.Individuais.Instituicao
+@using ADE.Utilidades.Extensions
+
+<div style="text-align:center;padding:10px">
+    <img class="img-thumbnail" src="data:image;base64,@Convert.ToBase64String(Model.Logo)" />
+    @Model.ExibirEntidadeColorCoded()
+</div>

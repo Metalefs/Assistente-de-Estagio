@@ -1,0 +1,17 @@
+﻿@model ADE.Dominio.Models.Requisito
+@using ADE.Utilidades.Extensions
+<div class="modal-body">
+    <div>
+        <h3>Você tem certeza de que deseja deletar este requisito?</h3>
+        <h4>Os usuarios deixarão de vê-lo</h4>
+        <h5>Para restaurar um requisito, acesse a lixeira através do Gerenciamento de Requisito e clique em "Restaurar" no requisito desejado</h5>
+        <hr />
+    </div>
+    <dl style="text-align: left;">
+        @Model.MensagemDePropriedadesEmHTML("dl-horizontal")
+    </dl>
+</div>
+
+@Html.ActionLink("Deletar", "ExcluirRequisitoConfirmed", "GerenciamentoRequisito", new { id = Model.Identificador }, new { Class = "btn btn-danger" })
+|
+

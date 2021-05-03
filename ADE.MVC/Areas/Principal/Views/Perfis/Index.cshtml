@@ -1,0 +1,45 @@
+﻿@model Assistente_de_Estagio.Models.PerfisViewModel
+@using ADE.Dominio.Models.Individuais
+@{
+    ViewData["Title"] = "Perfis";
+    ViewData["Selection"] = "Perfis";
+}
+<div class="card-body height-100">
+    @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Principal.UserHome.Components.FiltroPerfisViewComponent.FiltroPerfisViewComponent), new { amigos = Model.Amigos })
+    @foreach (UsuarioADE perfil in Model.Usuarios)
+    {
+        bool amigo = Model.Amigos.Any(x => x.IdAmigo == perfil.Id);
+        <div id="perfil_table">
+            @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Shared.Chat.Components.CardUsuarioItemComponent.CardUsuarioItemComponent), new { usuario = perfil, amigo = amigo })
+        </div>
+        <hr>
+    }
+    @{
+        if (Model.Usuarios.TotalPages > 1)
+        {
+            var prevDisabled = !Model.Usuarios.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.Usuarios.HasNextPage ? "disabled" : "";
+
+            @Html.ActionLink("<", "Index", "Perfis", new { page = Model.Usuarios.PageIndex - 1, filter = ViewData["filter"] }, new { @class = "btn btn-info " + prevDisabled })
+            @Html.ActionLink(">", "Index", "Perfis", new { page = Model.Usuarios.PageIndex + 1, filter = ViewData["filter"] }, new { @class = "btn btn-info " + nextDisabled })
+            if (ViewData["filter"].ToString() == "pontuacao")
+            {
+                <p>Página @Model.PaginaAtual de @Model.Paginas</p>
+            }
+            else
+            {
+                <p>Página @Model.Usuarios.PageIndex de @Model.Usuarios.TotalPages</p>
+            }
+        }
+    }
+</div>
+
+@section Scripts {
+    <script type="module">
+        import { PerfilComponent } from "/Scripts/ADE/Principal/Perfis/PerfilComponent.js";
+        import { FilterTableWithInput } from "/Scripts/ADE/InputEvents.js";
+        FilterTableWithInput("InputFiltro-perfil", "perfil_table");
+
+        window.PerfilComponent = new PerfilComponent();
+    </script>
+}

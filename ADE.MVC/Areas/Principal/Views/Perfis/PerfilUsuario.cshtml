@@ -1,0 +1,74 @@
+﻿@model Assistente_de_Estagio.Models.PerfilUsuarioViewModel
+@using ADE.Dominio.Models.Individuais
+@{
+    ViewData["Title"] = $"Perfil {Model.Usuario.UserName}";
+    ViewData["Selection"] = "Perfil";
+    bool amigo = Model.ListaAmigos.Any(x => x.IdAmigo == Model.Usuario.Id);
+    string action = amigo ? "RemoverRelacionamento" : "CadastrarRelacionamento";
+    string icon = amigo ? "Remover contato" : "Adicionar contato";
+    string tip = amigo ? "Remover amizade" : "Adicionar como amigo";
+}
+<div>
+    <div class="row">
+        <form method="post" action="/Amizade/@action">
+            <input type="hidden" name="idUsuario" value="@Model.Usuario.Id" />
+            <input type="hidden" name="view" value="PerfilUsuario" />
+            <div class="right">
+                <button type="submit" class="btn btn-large btn-blue center">
+                    @icon
+                </button>
+            </div>
+        </form>
+        <a href="/Principal/Perfis">Voltar ao índice</a>
+        <div class="col-md-3 mr-0 pr-0" id="carga-horaria">
+            <p class="h5-responsive container pt-3">Carga Horária:</p>
+        </div>
+        <div class="col-md-4">
+            @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Principal.Shared.Components.ContabilizacaoHorasViewComponent.ContabilizacaoHorasViewComponent), new { usuario = Model.Usuario })
+        </div>
+        <div class="col-md-4">
+            @if (Model.Usuario.Id != "N/A" && Model.Usuario.IdCursoNavigation != null && Model.Usuario.IdInstituicaoNavigation != null)
+            {
+                <input type="text" disabled value="@Model.Usuario.IdCursoNavigation.CargaHorariaMinimaEstagio horas" />
+            }
+            else
+            {
+                <input type="text" disabled value="N/A horas" />
+            }
+        </div>
+    </div>
+    <div class="row card chart-container" name="middle-charts" id="middle-charts">
+        <div class="col-md-6 card-body" id="line-chart-div">
+            @{
+                if (Model.AutorizacaoUsuario != null)
+                {
+                    string Func = "Func";
+                    Func += Model.AutorizacaoUsuario.Count > 1 ? "ões" : "ão";
+
+                    <h6 class="h6-responsive">@Html.Raw(Func): </h6>
+                    @foreach (string item in Model.AutorizacaoUsuario)
+                    {<p> @item </p>}
+                }
+            }
+            <div id="line-chart-canvas"></div>
+            <h6 class="h6-responsive">Usuario: </h6><p>@Model.Usuario.UserName</p>
+            <h6>Curso: </h6><p>@Model.CursoUsuario.NomeCurso</p>
+            <p>Usuário realizou <span class="h3-responsive">@Model.QuantidadeDocumentosGerados</span> downloads de documentos do curso atual</p>
+        </div>
+    </div>
+    <div class="col-md-6 card-body" id="pizza-chart-div">
+        <span class="h3-responsive text-muted">Porcentagem de conclusão:</span>
+        <canvas id="pizza-chart-canvas"></canvas>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/Scripts/Externo/Chartjs-min.js"></script>
+    <script type="module">
+        import { PorcentagemConlusaoPizzaChart } from '/Scripts/ADE/Principal/UsuarioHome/PorcentagemConclusaoChart.js';
+        import { AtividadesUsuarioChart } from '/Scripts/ADE/Principal/UsuarioHome/AtividadesLineChart.js';
+
+        let PorcentagemConclusaoChart = new PorcentagemConlusaoPizzaChart('@Model.Usuario.Id');
+        PorcentagemConclusaoChart.CreatePizzaChart();
+        let AtividadesChart = new AtividadesUsuarioChart("line-chart-canvas");
+    </script>
+}

@@ -1,0 +1,43 @@
+﻿@model ADE.Dominio.Models.Documento
+@using ADE.Utilidades.Extensions;
+@{string id = "deleteOverlay" + Model.Identificador; }
+
+@{string CollapseId = "curso" + Model.Identificador; }
+<ul class="collapsible">
+    <li>
+        <div class="collapsible-header dropdown-toggle" id="@CollapseId">
+
+            <div class="card-header-pills" style="margin-top:2px;">
+                <a class="btn small-btn btn-danger deletebtn tooltipped" href="#delete-@Model.Identificador" data-toggle="collapse" data-position="bottom" data-tooltip="Deletar documento @Model.TituloDocumento">
+                    <i class="fas fa-window-close" style="color:black;"></i>
+                </a>
+            </div>
+
+            <a class="col-md-11 dropdown-toggle">
+                <p class="h6">@Model.PosicaoDocumento - <span class="text-info">@Model.TituloDocumento</span></p>
+            </a>
+
+        </div>
+
+        <div class="collapsible-body">
+
+            <div data-position="bottom" data-tooltip="Última modificação: @Model.DataHoraUltimaAlteracao" class="tooltipped">
+                <a class="fa fa-info tooltipped" href="./GerenciamentoDocumento/VisualizarEntidade?id=@Model.Identificador" data-position="bottom" data-tooltip="Visualizar alterações"></a>
+
+                @Html.ActionLink("Alterar", "Editar", "GerenciamentoDocumento", new { idCurso = Model.IdCurso, idDocumento = Model.Identificador }, new { Class = "btn btn-primary admin-add-btn card-header" })
+                @Model.MensagemDePropriedadesEmHTMLOmitindoAtributos("md-form card-body")
+                <a href="#@CollapseId" class="fa fa-arrow-up  dropdown-toggle"></a>
+
+            </div>
+
+            <div class="deleteDivOverlay collapse" id="delete-@Model.Identificador">
+
+                <div class="deleteDiv">
+                    @await Html.PartialAsync("_Excluir", Model)
+                    <a class="btn btn-primary" data-toggle="collapse">Voltar</a>
+                </div>
+
+            </div>
+        </div>
+    </li>
+</ul>       

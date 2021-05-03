@@ -1,0 +1,13 @@
+﻿@model List<UsuarioADE>
+@using ADE.Dominio.Models.Individuais
+<div>
+    @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Principal.UserHome.Components.FiltroPerfisViewComponent.FiltroPerfisViewComponent), new { amigos = new List<ADE.Dominio.Models.RelacaoEntidades.ListaAmigos>()})
+    @foreach (UsuarioADE amigo in Model)
+    {
+        @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Shared.Chat.Components.CardUsuarioItemComponent.CardUsuarioItemComponent),new { usuario = amigo, amigo = true , view = "Sidebar"});
+    }
+    @if(Model.Count == 0)
+    {
+        <p>Nenhum contato encontrado</p>
+    }
+</div>

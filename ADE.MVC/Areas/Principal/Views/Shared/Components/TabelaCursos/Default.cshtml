@@ -1,0 +1,28 @@
+﻿@using Assistente_de_Estagio.Areas.Shared;
+@using Assistente_de_Estagio.Areas.Principal.Models;
+@model PaginatedList<InformacaoCursoVM>
+
+<table id="curso-table" class="table table-hover table-responsive">
+    <thead>
+        <tr>
+            <th>Curso</th>
+            <th>Alunos</th>
+            <th>Documentos</th>
+            <th>Ativo</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (InformacaoCursoVM infocurso in Model)
+    {
+        string CursoAtivo = infocurso.CursoDoUsuario == true ? "Em andamento" : "";
+        <tr>
+            <td>
+                @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Areas.Principal.Shared.Components.ExibicaoCursoViewComponent.ExibicaoCursoViewComponent), new { curso = infocurso })
+            </td>
+            <td>@infocurso.QuantidadeAlunosCurso</td>
+            <td>@infocurso.QuantidadeDocumentosCurso</td>
+            <td>@CursoAtivo</td>
+        </tr>
+    }
+    </tbody>
+</table>

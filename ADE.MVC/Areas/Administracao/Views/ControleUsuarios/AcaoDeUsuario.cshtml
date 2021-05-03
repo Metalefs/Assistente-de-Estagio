@@ -1,0 +1,91 @@
+﻿@using Assistente_de_Estagio.Areas.Administracao.Models
+@using ADE.Utilidades.Extensions;
+@model AcaoUsuarioViewModel
+@{
+    ViewData["Title"] = "Controle de usuários";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+    <div class="chart-container row" id="top-charts">
+        <div class="col-md-8 card">
+            <div class="card-body" id="">
+                <form action="./AcaoDeUsuario">
+                    <p class="h3-responsive">Encontrar logs de um usuário:</p>
+                    <div class="md-form">
+                        <label for="EmailOrId">Email ou Id do usuário</label>
+                        <input name="EmailOrId" id="EmailOrId" type="text" title="Insira o e-mail ou id do usuário">
+                    </div>
+                    <button type="submit" class="btn btn-primary waves-effect waves-light">Pesquisar</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-4" id="">
+            <div class="md-form">
+                <a class="btn btn-deep-orange waves-effect waves-light" href="./UsuariosAdministradores">Visualizar usuários administradores</a>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="card chart-container" name="middle-charts" id="middle-charts">
+        <div class="row card chart-container" id="adm-messages">
+            <div id="AdmMessageContainer" class="col-md-8">
+                @{
+                    if (Model.LogAcaoUsuario.Count > 0)
+                    {
+                        @await Html.PartialAsync("_AdmAcaoUsuarioTable", Model.LogAcaoUsuario)
+                    }
+                    else
+                    {
+                        <p class="text-danger">Não foi possivel recuperar logs do usuário</p>
+                    }
+                }
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="col-md-12 card-body" id="line-chart-div">
+            @{
+                if (Model.AutorizacaoUsuario != null)
+                {
+                    string Func = "Func";
+                    Func += Model.AutorizacaoUsuario.Count > 1 ? "ões" : "ão";
+
+                    <h6 class="h6-responsive">@Html.Raw(Func): </h6>
+                    @foreach (string item in Model.AutorizacaoUsuario)
+                    {<p> @item </p>}
+                }
+            }
+            <div class="row">
+                <div class="card-body" id="pizza-chart-div">
+                    <div class="col-md-9">
+                        <div id="line-chart-canvas"></div>    
+
+                    </div>
+                </div>
+            </div>
+            <h6 class="h6-responsive">Usuario: </h6><p>@Model.Usuario.UserName</p>
+            <h6>Curso: </h6><p>@Model.CursoUsuario.NomeCurso</p>
+            <p>Usuário realizou <span class="h3-responsive">@Model.QuantidadeDocumentosGerados</span> downloads de documentos do curso atual</p>
+            <div class="col-md-3">
+                <p class="h5-responsive text-muted">Porcentagem de conclusão:</p>
+                <canvas id="pizza-chart-canvas"></canvas>
+
+            </div>
+        </div>
+
+    </div>
+    
+</div>
+@section Scripts {
+    <script src="~/Scripts/ADE/Administracao/ControleUsuarios/LogTablejs.js"></script>
+    <script type="module">
+        import { PorcentagemConlusaoPizzaChart } from '/Scripts/ADE/Principal/UsuarioHome/PorcentagemConclusaoChart.js';
+        import { AtividadesUsuarioChart } from '/Scripts/ADE/Principal/UsuarioHome/AtividadesLineChart.js';
+
+        let PorcentagemConclusaoChart = new PorcentagemConlusaoPizzaChart('@Model.Usuario.Id');
+        PorcentagemConclusaoChart.CreatePizzaChart();
+        let AtividadesChart = new AtividadesUsuarioChart("line-chart-canvas");
+    </script>
+}
+

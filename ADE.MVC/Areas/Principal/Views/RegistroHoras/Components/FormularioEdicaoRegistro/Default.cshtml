@@ -1,0 +1,47 @@
+﻿@model ADE.Dominio.Models.RegistroDeHoras
+
+<form method="post" action="/Principal/RegistroHoras/EditarRegistroHora">
+    <input type="hidden" name="Identificador" value="@Model.Identificador" required>
+    <div class="input-field">
+        <div class="row">
+            <div class="col col-md-12">
+                <i class="material-icons prefix">mode_edit</i>
+                <label>Atividade</label>
+                <input type="text" name="Atividade" value="@Model.Atividade" required />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-md-4">
+                <label>Data</label>
+                <input type="text" class="datepicker" name="Data" value="@Model.Data.ToShortDateString()" required>
+            </div>
+            <div class="col col-md-4">
+                <label>Inicio</label>
+                <input type="text" class="timepicker" id="horainico-edit" name="HoraInicio" value="@Model.HoraInicio.ToShortTimeString()" required>
+            </div>
+            <div class="col col-md-4">
+                <label>Fim</label>
+                <input type="text" class="timepicker" id="horafim-edit" name="HoraFim" value="@Model.HoraFim.ToShortTimeString()" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-md-8">
+                <span class="calculo-carga-horaria">Carga Horária: @Model.CargaHoraria Minutos</span>
+                <input class="calculo-carga-horaria-input" type="hidden" name="CargaHoraria" value="@Model.CargaHoraria" required>
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-primary right" value="">Salvar</button>
+            </div>
+        </div>
+    </div>
+    <script type="module">
+        (async () => {
+            let calculo_horas = new Horas.CalculoHoras("calculo-carga-horaria", 1, $("#horainico-edit").val(), $("#horafim-edit").val());
+            let EditorRegistro = new Horas.EditorRegistroHoras(calculo_horas);
+            EditorRegistro.calculo_horas.setInicio("@Model.Data.ToShortDateString()");
+            EditorRegistro.calculo_horas.setFim("@Model.Data.ToShortDateString()");
+            $("#horainico-edit").change(() => { EditorRegistro.calculo_horas.setInicio(document.getElementById("horainico-edit")); });
+            $("#horafim-edit").change(() => { EditorRegistro.calculo_horas.setFim(document.getElementById("horafim-edit")); });
+        })();
+    </script>
+</form>
