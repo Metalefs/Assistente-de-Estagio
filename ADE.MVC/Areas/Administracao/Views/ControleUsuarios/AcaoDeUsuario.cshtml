@@ -65,7 +65,7 @@
                 </div>
             </div>
             <h6 class="h6-responsive">Usuario: </h6><p>@Model.Usuario.UserName</p>
-            <h6>Curso: </h6><p>@Model.CursoUsuario.NomeCurso</p>
+            <h6>Curso: </h6><p>@Model.CursoUsuario?.NomeCurso</p>
             <p>Usuário realizou <span class="h3-responsive">@Model.QuantidadeDocumentosGerados</span> downloads de documentos do curso atual</p>
             <div class="col-md-3">
                 <p class="h5-responsive text-muted">Porcentagem de conclusão:</p>

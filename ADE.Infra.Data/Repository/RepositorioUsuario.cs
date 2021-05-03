@@ -31,7 +31,7 @@ namespace ADE.Infra.Data.Repository
 
         public async Task<List<UsuarioADE>> TakeBetween(int start, int finish)
         {
-            return await _context.Users.Skip(start).Take(finish).ToListAsync();
+            return await _context.Users.OrderBy(x=>x.Id).Skip(start).Take(finish).ToListAsync();
         }
 
         public async Task<int> CountByInstituicao(int idInstituicao)

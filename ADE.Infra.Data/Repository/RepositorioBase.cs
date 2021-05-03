@@ -23,20 +23,39 @@ namespace ADE.Infra.Data.Repository
 
         public async Task Criar(T entity)
         {
-            entity.DataHoraInclusao = DateTime.Now;
-            await DbSet.AddAsync(entity);
+            try {
+                entity.DataHoraInclusao = DateTime.Now;
+                await DbSet.AddAsync(entity);
+            }
+            catch (DbUpdateConcurrencyException e)
+            {
+                Console.WriteLine(e.Message);   // Handle the exception here.
+            }
         }
 
         public void Editar(T entity)
         {
-            entity.DataHoraUltimaAlteracao = DateTime.Now;
-            DbSet.Update(entity);
+            try{
+                entity.DataHoraUltimaAlteracao = DateTime.Now;
+                DbSet.Update(entity);
+            }
+             catch (DbUpdateConcurrencyException e)
+            {
+                Console.WriteLine(e.Message);   // Handle the exception here.
+            }
         }
 
         public void Remover(T entity)
         {
-            entity.DataHoraExclusao = DateTime.Now;
-            Editar(entity);
+            try{
+
+                entity.DataHoraExclusao = DateTime.Now;
+                Editar(entity);
+            }
+             catch (DbUpdateConcurrencyException e)
+            {
+                Console.WriteLine(e.Message);   // Handle the exception here.
+            }
         }
 
         public async Task<List<T>> Filtrar(Expression<Func<T, bool>> expression)
