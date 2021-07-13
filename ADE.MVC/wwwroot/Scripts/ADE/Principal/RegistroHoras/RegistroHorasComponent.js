@@ -29,7 +29,6 @@ export class RegistroHorasComponent {
         const moduleSpecifier = '/Scripts/ADE/MaterializeDates.js';
         const module = await import(moduleSpecifier);
         (async () => {
-            //module.CreateDatePicker();
             module.CreateTimePicker();
         })();
         $("#rh1id").find("script").each(function () {

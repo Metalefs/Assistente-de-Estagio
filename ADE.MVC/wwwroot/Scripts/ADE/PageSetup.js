@@ -19,6 +19,9 @@ export async function setupUrl(url) {
         const { PorcentagemConlusaoPizzaChart } = await import('/Scripts/ADE/Principal/UsuarioHome/PorcentagemConclusaoChart.js');
         const { AtividadesUsuarioChart } = await import('/Scripts/ADE/Principal/UsuarioHome/AtividadesLineChart.js');
         try {
+            if (!location.pathname.includes('/Principal/')) {
+                location.pathname = "/Principal/UserHome";
+            }
             MateriaisController.Add();
             FilterTableWithInput("InputFiltro-doc", "doc-table");
 
@@ -37,6 +40,7 @@ export async function setupUrl(url) {
             let PorcentagemConclusaoChart = new PorcentagemConlusaoPizzaChart();
             PorcentagemConclusaoChart.CreatePizzaChart();
             let AtividadesChart = new AtividadesUsuarioChart("line-chart-canvas");
+            
         }
         catch (ex) { }
     }
@@ -63,21 +67,22 @@ export async function Atividades() {
     addStyleSheet("/Styles/Principal/ModalPreenchimento.css", "listagem_documentos");
 }
 export async function UserHome() {
-    const modulespecifier = "/scripts/ade/principal/listagemdocumento/materiaiscomponent.js";
+    const modulespecifier = "/Scripts/ADE/Principal/ListagemDocumento/MateriaisComponent.js";
     const module = await import(modulespecifier);
 
-    const { filtertablewithinput } = await import('/scripts/ade/inputevents.js');
-    const module2 = await import("/scripts/ade/principal/registrohoras/registrohorascomponent.js");
+    const { FilterTableWithInput } = await import('/Scripts/ADE/InputEvents.js');
+    const module2 = await import("/Scripts/ADE/Principal/RegistroHoras/RegistroHorasComponent.js");
 
     try {
-        filtertablewithinput("inputfiltro-doc", "doc-table");
+        FilterTableWithInput("inputfiltro-doc", "doc-table");
 
-        const materiaiscontroller = new module.materiaiscomponent();
-        window.materiaiscontroller = materiaiscontroller;
-        materiaiscontroller.add();
+        const MateriaisController = new module.MateriaisComponent();
+        window.MateriaisController = MateriaisController;
 
-        const registrohorascontroller = new module2.registrohorascomponent();
-        window.registrohorascontroller = registrohorascontroller;
+        const RegistroHorasController  = new module2.RegistroHorasComponent();
+        window.RegistroHorasController = RegistroHorasController;
+
+        MateriaisController.Add();
     }
     catch (ex) {}
 

@@ -213,7 +213,7 @@ namespace ADE.Apresentacao.Areas.Principal.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> IncluirRegistroHoraAsync(RegistroDeHoras registro)
+        public async Task<IActionResult> SPAIncluirRegistroHoraAsync(RegistroDeHoras registro)
         {
             try
             {

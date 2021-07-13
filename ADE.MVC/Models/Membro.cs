@@ -9,12 +9,14 @@ namespace ADE.Apresentacao.Models
         public string Nome { get; set; }
         public string ImgSrc { get; set; }
         public string Funcao { get; set; }
+        public string LinkedIn { get; set; }
 
-        public Membro(string nome, string imgSrc, string funcao)
+        public Membro(string nome, string imgSrc, string funcao, string linkedIn)
         {
             Nome = nome;
             ImgSrc = imgSrc;
             Funcao = funcao;
+            LinkedIn = linkedIn;
         }
     }
 }

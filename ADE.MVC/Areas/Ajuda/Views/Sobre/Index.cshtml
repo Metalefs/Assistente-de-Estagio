@@ -36,25 +36,28 @@
     <div style="padding: 4rem 2rem;">
         <h4 class="panel-title">Equipe de desenvolvimento</h4>
         <div class="row">
-        @{
-            foreach (Membro membro in Model)
-            {
-                <div class="col-sm-4">
-                    <div class="card login-card p-3">
-                        <div>
-                            <div class="view overlay">
-                                <img class="card-img-top img-rounded" width="50" src="@membro.ImgSrc" alt="Foto do @membro.Funcao">
-                                <a href="#!">
-                                    <div class="mask rgba-white-slight"></div>
+            @{
+                foreach (Membro membro in Model)
+                {
+                    <div class="col-sm-4">
+                        <div class="card login-card p-3">
+                            <div>
+                                <a href="@membro.LinkedIn" target="_blank">
+                                    <div class="view overlay">
+                                        <img class="card-img-top img-rounded" width="50" src="@membro.ImgSrc" alt="Foto do @membro.Funcao">
+                                        <a href="#!">
+                                            <div class="mask rgba-white-slight"></div>
+                                        </a>
+                                    </div>
                                 </a>
+                                <h5 class="card-title">@membro.Nome</h5>
+                                <p class="card-text">@membro.Funcao</p>
+                                <a class="card-text" href="@membro.LinkedIn" target="_blank">LinkedIn</a>
                             </div>
-                            <h5 class="card-title">@membro.Nome</h5>
-                            <p class="card-text">@membro.Funcao</p>
                         </div>
                     </div>
-                </div>
+                }
             }
-        }
-        </div>    
-    </div>        
+        </div>
+    </div>
 </div>

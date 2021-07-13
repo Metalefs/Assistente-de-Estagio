@@ -21,7 +21,7 @@ namespace ADE.Apresentacao.Areas.Principal.Controllers
             List<Membro> Equipe = new List<Membro>();
             foreach (IConfigurationSection section in Time.GetChildren())
             {
-                Equipe.Add(new Membro (section.GetValue<string>("Nome"), section.GetValue<string>("ImgSrc"), section.GetValue<string>("Funcao")));
+                Equipe.Add(new Membro (section.GetValue<string>("Nome"), section.GetValue<string>("ImgSrc"), section.GetValue<string>("Funcao"), section.GetValue<string>("LinkedIn")));
             }
             return View(Equipe);
         }

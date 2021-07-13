@@ -67,7 +67,7 @@ namespace Assistente_de_Estagio
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = false;
             });
-            
+
             services.Configure<RazorViewEngineOptions>(o =>
             {
                 o.ViewLocationFormats.Clear();
@@ -83,10 +83,10 @@ namespace Assistente_de_Estagio
             });
 
             services.AddScoped(typeof(IRepositorioBase<>), typeof(RepositorioBase<>));
-            services.AddScoped<DbContext, ApplicationDbContext>();
+            services.AddTransient<DbContext, ApplicationDbContext>();
             services.AddScoped<RoleServices>();
             services.AddScoped<AuthMessageSender>();
-            
+
             //services.AddAuthentication().AddGoogle(googleOptions =>
             //{
             //    googleOptions.ClientId = Configuration.GetSection("Secure")["Authentication:Google:ClientId"];
@@ -133,7 +133,7 @@ namespace Assistente_de_Estagio
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-           if (env.IsDevelopment())
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -146,7 +146,7 @@ namespace Assistente_de_Estagio
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSession();
-            
+
             var cultureInfo = new CultureInfo("pt-BR");
             cultureInfo.NumberFormat.CurrencySymbol = "R$";
             CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
@@ -196,7 +196,7 @@ namespace Assistente_de_Estagio
 
                 endpoints.MapRazorPages();
             });
-           
+
         }
     }
 }

@@ -59,7 +59,7 @@ export class PageHandler {
                     document.getElementById("main-display").innerHTML = this.pages[this.urls[0]];
             break;
             case "TabelaHoras":
-                html = await get(this.urls[1], { Partial: true });
+                html = await get(this.urls[1], { Partial: false });
                 this.cachePage(this.urls[1], html);
                 if (_switch)
                     document.getElementById("main-display").innerHTML = this.pages[this.urls[1]];

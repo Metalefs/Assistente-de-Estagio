@@ -29,7 +29,7 @@
                         Assistente_de_Estagio.Areas.Shared.ModalCardViewModel modal = new Assistente_de_Estagio.Areas.Shared.ModalCardViewModel($"inst-info-{instituicao.Identificador}", instituicao.Nome, Conteudo, ADE.Apresentacao.Models.TipoModal.Normal, "", "");
                         @await Component.InvokeAsync(typeof(Assistente_de_Estagio.Views.Shared.Components.ModalCardViewComponent.ModalCardViewComponent), new { modal = modal, CanClose = false, DefaultOpen = false })
                     }
-                    <a href="Administracao/GerenciamentoCurso/Criar/?IdInstituicao=@instituicao.Identificador" class="btn-large waves-effect waves-light blue right tooltipped" data-position="bottom" data-tooltip="Adicionar curso a @instituicao.Nome">
+                    <a href="/Administracao/GerenciamentoCurso/Criar/?IdInstituicao=@instituicao.Identificador" class="btn-large waves-effect waves-light blue right tooltipped" data-position="bottom" data-tooltip="Adicionar curso a @instituicao.Nome">
                         <i class="material-icons">add</i> curso
                     </a>
                 </div>

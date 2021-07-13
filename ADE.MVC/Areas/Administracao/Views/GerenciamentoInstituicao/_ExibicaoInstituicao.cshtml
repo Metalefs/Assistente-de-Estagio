@@ -22,7 +22,7 @@
             <a class="fa fa-info" href="./GerenciamentoInstituicao/VisualizarEntidade?id=@Model.Identificador" data-toggle="tooltip" data-placement="top" title="Visualizar alterações"></a>
             <div class="deleteDivOverlay collapse" id="delete-@Model.Identificador">
                 <div class="deleteDiv">
-                    @await Html.PartialAsync("_Excluir", Model)
+                    @await Html.PartialAsync("_ExcluirInstituicao", Model)
                     <a class="btn btn-primary" href="#delete-@Model.Identificador" data-toggle="collapse" aria-expanded="false">Voltar</a>
                 </div>
             </div>

@@ -10,7 +10,7 @@ export class CalculoHoras {
         this.containerId = containerId;
         this.Inicio = inicio;
         this.Fim = fim;
-        this.url = "/Principal/RegistroHoras/IncluirRegistroHoraAsync";
+        this.url = "/Principal/RegistroHoras/SPAIncluirRegistroHoraAsync";
     }
     getContainer() {
         return $("." + this.containerId)[this.index];
